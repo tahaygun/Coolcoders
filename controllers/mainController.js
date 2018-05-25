@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const path = require('path');
 const session = require("express-session");
-var multer = require('multer');
-
+const multer = require('multer');
+const { check, validationResult } = require("express-validator/check");
 const Product = require("../models/Product");
 const Wallet = require("../models/Wallet");
 const Team = require("../models/Team");

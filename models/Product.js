@@ -16,11 +16,12 @@ var Productschema = new Schema({
   },
   sold:{
     type: Number,
+    required:true,
     default:0
   },
   imgUrl:{
     type:String,
-    require:true
+    // required:true
   },
   createdAt: {
     type: Date,

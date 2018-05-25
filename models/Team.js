@@ -12,7 +12,7 @@ var Teamchema = new Schema({
   },
   imgUrl: {
     type: String,
-    require: true
+    // required: true
   },
   createdAt: {
     type: Date,
