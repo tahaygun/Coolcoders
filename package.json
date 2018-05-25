@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/tahaygun/Coolcoders/issues"
   },
-  "homepage": "https://github.com/tahaygun/Coolcoders#readme"
+  "homepage": "https://github.com/tahaygun/Coolcoders#readme",
+  "dependencies": {
+    "react-router-dom": "^4.2.2"
+  }
 }
