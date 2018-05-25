@@ -1,5 +1,19 @@
+const { check, validationResult } = require("express-validator/check");
 //To get all WALLETS
 function walletController(router) {
+  var validations = [
+    check("name")
+      .not()
+      .isEmpty()
+      .withMessage("Name is required!")
+      .isLength({ min: 2 })
+      .withMessage("Name should be at least 2 letters"),
+      check("group")
+      .not()
+      .isEmpty()
+      .withMessage("Group name is reqruired!")
+
+  ];
   router.get("/allwallets", (req, res) => {
     Wallet.find()
       .populate("group")
@@ -13,7 +27,11 @@ function walletController(router) {
   });
 
   //@To create WALLET
-  router.post("/addwallet", (req, res) => {
+  router.post("/addwallet", validations, (req, res) => {
+    var errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.send({ errors: errors.mapped() });
+    }
     var wallet = new Wallet(req.body);
     wallet
       .save()
@@ -28,7 +46,8 @@ function walletController(router) {
   router.get("/wallet/:id", (req, res) => {
     Wallet.findById(req.params.id)
       .then(wallet => {
-        Group.findById(wallet.group).populate('team')
+        Group.findById(wallet.group)
+          .populate("team")
           .then(group => {
             res.json({ wallet: wallet, group: group });
           })
@@ -38,7 +57,11 @@ function walletController(router) {
   });
 
   //@To edit WALLET
-  router.put("/editwallet/:id", (req, res) => {
+  router.put("/editwallet/:id", validations, (req, res) => {
+    var errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.send({ errors: errors.mapped() });
+    }
     wallet
       .findById(req.params.id)
       .then(Wallet => {

@@ -1,5 +1,19 @@
+const { check, validationResult } = require("express-validator/check");
 //To get all GROUPS
 function groupController(router) {
+  var validations = [
+    check("name")
+      .not()
+      .isEmpty()
+      .withMessage("Name is required!")
+      .isLength({ min: 2 })
+      .withMessage("Name should be at least 2 letters"),
+      check("team")
+      .not()
+      .isEmpty()
+      .withMessage("Please choose team!")
+
+  ];
   router.get("/allgroups", (req, res) => {
     Group.find()
       .populate("team")
@@ -12,7 +26,11 @@ function groupController(router) {
   });
 
   //@To create GROUP
-  router.post("/addgroup", (req, res) => {
+  router.post("/addgroup", validations,(req, res) => {
+    var errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.send({ errors: errors.mapped() });
+    }
     var group = new Group(req.body);
     group
       .save()
@@ -34,7 +52,11 @@ function groupController(router) {
       .catch(err => res.status(404).json(err));
   });
   //@To edit GROUP
-  router.put("/editgroup/:id", (req, res) => {
+  router.put("/editgroup/:id",validations, (req, res) => {
+    var errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.send({ errors: errors.mapped() });
+    }
     Group.findById(req.params.id)
       .then(group => {
         group.name = req.body.name;

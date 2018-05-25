@@ -1,6 +1,20 @@
 //To get all adminS
 function adminController(router) {
   router.post("/adminlogin", (req, res) => {
+    var validations = [
+      check("name")
+        .not()
+        .isEmpty()
+        .withMessage("username is required!")
+        .isLength({ min: 4 })
+        .withMessage("Username should be at least 4 letters"),
+      check("password")
+        .not()
+        .isEmpty()
+        .withMessage("Password can not be empty!")
+        .isLength({ min: 8 })
+        .withMessage("Password should be at least 8 letters")
+    ];
     Admin.findOne({
       email: req.body.email,
       password: req.body.password
@@ -21,7 +35,11 @@ function adminController(router) {
   });
 
   //@To create admin
-  router.post("/addadmin", (req, res) => {
+  router.post("/addadmin",validations, (req, res) => {
+    var errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.send({ errors: errors.mapped() });
+    }
     var admin = new Admin(req.body);
     admin
       .save()
@@ -44,9 +62,9 @@ function adminController(router) {
   });
 
   //@to logout
-  router.get('/api/logout', function (req, res) {
+  router.get("/api/logout", function(req, res) {
     req.session.destroy();
-    res.send({ message: 'session destroyed' })
+    res.send({ message: "session destroyed" });
   });
 }
 module.exports = adminController;
