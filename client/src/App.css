@@ -1,3 +1,9 @@
 nav{
 text-align: center;
 }
+.network{
+    color: #e74c3c;
+}
+.restart{
+    color: rgb(255, 255, 255);
+}

@@ -10,7 +10,7 @@ export class Home extends Component {
             <div className="row">
               <div className="col-lg-10 mx-auto">
                 <h1 className="text-uppercase">
-                  <strong>Welcome to Restart One Marketplace</strong>
+                  <strong>Welcome to <span className='restart'>Restart</span>.<span className='network' >NETWORK</span>  Marketplace</strong>
                 </h1>
                 <hr />
               </div>
