@@ -12,7 +12,7 @@ app.use(bodyparser.json());
 mongoose.connect('mongodb://admin:rootpass@ds119059.mlab.com:19059/restartproject');
 app.use(
   cors({
-    origin: ["http://localhost:3000","https://pirlantaara.firebaseapp.com","https://pirlanta.tk"],
+    origin: ["http://localhost:3000"],
     methods: ["GET", "HEAD", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"],
     credentials: true //allow setting of cookies
   })
