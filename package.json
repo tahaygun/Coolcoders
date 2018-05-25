@@ -1,0 +1,23 @@
+{
+  "name": "coolcoders",
+  "version": "1.0.0",
+  "description": "impact project",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tahaygun/Coolcoders.git"
+  },
+  "keywords": [
+    "restart",
+    "coin"
+  ],
+  "author": "CoolCoders",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tahaygun/Coolcoders/issues"
+  },
+  "homepage": "https://github.com/tahaygun/Coolcoders#readme"
+}
