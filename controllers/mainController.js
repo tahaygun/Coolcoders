@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const path = require('path');
 const session = require("express-session");
+var multer = require('multer');
+
 const Product = require("../models/Product");
 const Wallet = require("../models/Wallet");
 const Team = require("../models/Team");
@@ -31,6 +34,21 @@ var auth = (req, res, next) => {
     return res.status(401).send({ errors: "Not authorized!" });
   }
 };
+
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, path.resolve(__dirname, 'uploads'))
+//   },
+//   filename: function (req, file, cb) {
+//     const extension = mime.extension(file.mimetype);
+//     const filename = file.originalname +'-'+ Date.now().toString();
+//     cb(null, filename + '.' + extension)
+//   }
+// })
+
+// //this is for uploading photo
+// var upload = multer({ storage: storage });
+
 
 productController(router);
 teamController(router);

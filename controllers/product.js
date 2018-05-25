@@ -1,6 +1,6 @@
-function productController(productRouter) {
+function productController(router) {
   //To get all PRODUCTS
-  productRouter.get("/allproducts", (req, res) => {
+  router.get("/allproducts", (req, res) => {
     Product.find()
       .then(Products => {
         res.json(Products);
@@ -11,7 +11,7 @@ function productController(productRouter) {
   });
 
   //@to get one PRODUCT
-  productRouter.get("/product/:id", (req, res) => {
+  router.get("/product/:id", (req, res) => {
     Product.findById(req.params.id)
       .then(product => {
         res.json({ product: product });
@@ -21,7 +21,7 @@ function productController(productRouter) {
 
   //@To create PRODUCT
 
-  productRouter.post("/addproduct", (req, res) => {
+  router.post("/addproduct", (req, res) => {
     var product = new Product(req.body);
     product
       .save()
@@ -35,7 +35,7 @@ function productController(productRouter) {
 
   //@To edit PRODUCT
 
-  productRouter.put("/editproduct/:id", (req, res) => {
+  router.put("/editproduct/:id", (req, res) => {
     Product.findById(req.params.id)
       .then(product => {
         product.name = req.body.name;
@@ -56,7 +56,7 @@ function productController(productRouter) {
   });
 
   //@To delete PRODUCT
-  productRouter.delete("/deleteproduct/:id", (req, res) => {
+  router.delete("/deleteproduct/:id", (req, res) => {
     Product.findByIdAndRemove(req.params.id)
       .then(result => {
         res.send(result);

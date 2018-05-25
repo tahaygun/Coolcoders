@@ -17,6 +17,7 @@ app.use(
     credentials: true //allow setting of cookies
   })
 );
+app.use('/uploads', express.static('uploads'))
 
 app.use(session({
   secret: "supersecretstring12345!",

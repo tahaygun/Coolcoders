@@ -42,5 +42,11 @@ function adminController(router) {
       })
       .catch(err => res.send(res));
   });
+
+  //@to logout
+  router.get('/api/logout', function (req, res) {
+    req.session.destroy();
+    res.send({ message: 'session destroyed' })
+  });
 }
 module.exports = adminController;

@@ -9,11 +9,10 @@ var Walletchema = new Schema({
   group: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref: "Team"
+    ref: "Group"
   },
   coins: {
     type: Number,
-    required: true,
     default:0
   },
   createdAt: {
