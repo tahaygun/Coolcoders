@@ -1,4 +1,13 @@
+
 const { check, validationResult } = require("express-validator/check");
+
+var Team = require('../models/Team');
+
+
+
+// Team Login
+
+
 //To get all TEAMS
 function teamController(router) {
     var validations = [
