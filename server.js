@@ -9,7 +9,8 @@ var MongoStore = require('connect-mongo')(session);
 
 app.use(bodyparser.json());
 
-mongoose.connect('mongodb://admin:rootpass@ds119059.mlab.com:19059/restartproject');
+const connection= mongoose.connect('mongodb://admin:rootpass@ds119059.mlab.com:19059/restartproject');
+
 app.use(
   cors({
     origin: ["http://localhost:3000"],

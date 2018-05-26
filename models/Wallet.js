@@ -16,6 +16,11 @@ var Walletchema = new Schema({
     required:true,
     default:0
   },
+  history:{
+    type:Array,
+    required:true,
+    default:[`Wallet created at ${new Date().toJSON().slice(0,16)}`],
+  },
   createdAt: {
     type: Date,
     required: true,

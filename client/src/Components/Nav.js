@@ -24,7 +24,7 @@ export class Nav extends Component {
 
         <div className="container">
           <Link className="navbar-brand" to="/">
-            Restart Marketplace
+           <span className='network'>Restart</span> Marketplace
           </Link>
           <button
             onClick={this.changeCollapse}

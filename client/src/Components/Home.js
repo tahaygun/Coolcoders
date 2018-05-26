@@ -24,7 +24,7 @@ export class Home extends Component {
                   className="btn btn-primary btn-xl js-scroll-trigger"
                   to="/market"
                 >
-                  Find Out More
+                  Go Marketplace
                 </Link>
               </div>
             </div>

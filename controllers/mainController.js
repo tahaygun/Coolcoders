@@ -4,14 +4,16 @@ const path = require('path');
 const session = require("express-session");
 const multer = require('multer');
 const { check, validationResult } = require("express-validator/check");
-const Product = require("../models/Product");
+const Item = require("../models/Item");
 const Wallet = require("../models/Wallet");
 const Team = require("../models/Team");
 const Group = require("../models/Group");
-const productController = require('./product')
+const Request = require("../models/Request");
+const itemController = require('./item')
 const teamController = require('./team')
 const groupController = require('./group')
 const walletController = require('./wallet')
+const requestController = require('./request')
 //chechk auth
 var auth = (req, res, next) => {
   if (req.session.admin) {
@@ -50,9 +52,9 @@ var auth = (req, res, next) => {
 // var upload = multer({ storage: storage });
 
 
-productController(router);
+itemController(router);
 teamController(router);
 groupController(router);
 walletController(router);
-
+requestController(router);
 module.exports = router;

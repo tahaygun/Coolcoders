@@ -1,7 +1,7 @@
 nav{
 text-align: center;
 }
-.network{
+.network, #gomarket{
     color: #e74c3c;
 }
 .restart{
