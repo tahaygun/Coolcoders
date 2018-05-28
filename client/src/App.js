@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Nav from "./Components/Nav";
 import Footer from "./Components/Footer";
 import Home from "./Components/Home";
+import Wallets from './Components/Wallets'
 import AdminNav from "./Components/admin/AdminNav";
 import Login from "./Components/admin/Login";
 import Dashboard from "./Components/admin/Dashboard";
@@ -16,6 +17,7 @@ const DefaultRoutes = () => (
     <div>
       <Nav />
       <Route exact path="/product" component={Home} />
+      <Route exact path="/wallets" component={Wallets} />
       <Footer />
     </div>
   </div>
