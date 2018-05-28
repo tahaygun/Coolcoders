@@ -5,6 +5,11 @@ var Couponschema = new Schema({
   coupon_id: {
     type: Number,
     required: true
+  },
+  createdAt: {
+    type: Date,
+    required: true,
+    default: Date.now
   }
 
 });

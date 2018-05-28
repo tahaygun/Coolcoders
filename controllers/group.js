@@ -80,7 +80,7 @@ function groupController(router) {
       .then(result => {
         res.send(result);
       })
-      .catch(err => res.send(res));
+      .catch(err => res.send(err));
   });
 }
 module.exports = groupController;

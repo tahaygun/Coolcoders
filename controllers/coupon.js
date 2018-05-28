@@ -47,7 +47,7 @@ function couponController(router) {
     coupon
       .save()
       .then(savedcoupon => {
-        res.json(savecoupon);
+        res.json(savedcoupon);
       })
       .catch(err => {
         res.status(400).send(err);
@@ -61,7 +61,7 @@ function couponController(router) {
       .then(result => {
         res.send(result);
       })
-      .catch(err => res.send(res));
+      .catch(err => res.send(err));
   });
 
 

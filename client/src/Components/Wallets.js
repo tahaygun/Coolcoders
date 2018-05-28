@@ -13,4 +13,4 @@ export class Wallets extends Component {
   }
 }
 
-export default Wallets
+export default Wallets 
