@@ -6,6 +6,7 @@ import "./vendor/simple-line-icons/css/simple-line-icons.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Nav from "./Components/Nav";
 import Footer from "./Components/Footer";
+import Enroll from "./Components/Enroll";
 import Home from "./Components/Home";
 import Wallets from "./Components/Wallets";
 import AdminNav from "./Components/admin/AdminNav";
@@ -17,8 +18,10 @@ const DefaultRoutes = () => (
   <div>
     <div>
       <Nav />
-      <Route exact path="/product" component={Home} />
-      <Route exact path="/wallets" component={Wallets} />
+      <Route exact path="/" component={Enroll} />
+      <Route exact path="/home" component={Home} />
+      <Route exact path="/home/product" component={Home} />
+      <Route exact path="/home/wallets" component={Wallets} />
       <Footer />
     </div>
   </div>
