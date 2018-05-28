@@ -15,7 +15,6 @@ const DefaultRoutes = () => (
   <div>
     <div>
       <Nav />
-      <Route exact path="/" component={Home} />
       <Route exact path="/product" component={Home} />
       <Footer />
     </div>
@@ -36,6 +35,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route path="/admin" component={AdminRoutes} />
+            <Route exact path="/" component={Home} />
             <Route component={DefaultRoutes} />
           </Switch>
         </Router>
