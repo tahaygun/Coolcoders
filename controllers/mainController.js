@@ -10,12 +10,14 @@ const Team = require("../models/Team");
 const Group = require("../models/Group");
 const Request = require("../models/Request");
 const Admin = require("../models/Admin");
+const Coupon = require("../models/Coupon");
 const itemController = require('./item')
 const teamController = require('./team')
 const groupController = require('./group')
 const walletController = require('./wallet')
 const requestController = require('./request')
 const adminController = require('./admin')
+const couponController = require('./coupon')
 //chechk auth
 var auth = (req, res, next) => {
   if (req.session.admin) {
@@ -60,4 +62,5 @@ groupController(router);
 walletController(router);
 requestController(router);
 adminController(router);
+couponController(router);
 module.exports = router;
