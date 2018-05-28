@@ -8,19 +8,21 @@ import Nav from "./Components/Nav";
 import Footer from "./Components/Footer";
 //import Enroll from "./Components/Enroll";
 import Home from "./Components/Home";
-import Wallets from "./Components/Wallets";
+import Wallets from "./Components/admin/Wallets";
 import AdminNav from "./Components/admin/AdminNav";
 import Login from "./Components/admin/Login";
 import Items from "./Components/admin/Items";
 import Page404 from "./Components/Page404";
 import AddItem from './Components/admin/AddItem'
+import AddWallet from './Components/admin/AddWallet'
+
 const DefaultRoutes = () => (
   <div>
     <div>
       <Nav />
       
       <Route exact path="/" component={Home} />
-      <Route exact path="/wallets" component={Wallets} />
+      
       <Footer />
     </div>
   </div>
@@ -31,6 +33,8 @@ const AdminRoutes = () => (
     <AdminNav />
     <Route exact path="/admin/items" component={Items} />
     <Route exact path="/admin/items/add-item" component={AddItem} />
+    <Route exact path="/admin/wallets" component={Wallets} />
+    <Route exact path="/admin/wallets/add-wallet" component={AddWallet} />
     {/* <Route exact component={Page404} /> */}
   </div>
 );
