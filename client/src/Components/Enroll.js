@@ -43,18 +43,15 @@ export default class Enroll extends Component {
   render() {
       var changeHandler= this.changeHandler;
     return (
-      this.state.isloggedIn ? <Redirect to='/home' /> :
+      this.state.isloggedIn ? <Redirect to='/' /> :
       <div className='loginform'>
-        <h3>Coupon</h3>
+      
         {this.state.error && <p style={{color: 'red'}} >{this.state.error}</p> }
       <form onSubmit={this.submitHandler}>
-            <div className="form-group">
-                        <label htmlFor="coupon_id">Coupon</label>
+                
                         <input type="coupon_id" value={this.state.data.coupon_id} name="coupon_id" onChange={changeHandler} className="form-control" id="coupon_id" aria-describedby="coupon_id" placeholder="Enter coupon"/>
                         {this.state.errors && this.state.errors.coupon_id && <p className='text-danger' >{this.state.errors.coupon_id.msg}</p>  }
 
-            </div>
-            
             <button type="submit" className="btn btn-primary">Enter</button>
 </form>
       </div>
