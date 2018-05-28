@@ -50,6 +50,7 @@ export class Items extends Component {
                       <th style={{ width: "50%" }}>Short Description</th>
                       <th style={{ width: " 5%" }}>Price</th>
                       <th style={{ width: "8.33%" }}>Actions</th>
+                      <th style={{ width: "8.33%" }}>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -61,6 +62,9 @@ export class Items extends Component {
                           <td>{item.price}</td>
                           <td>
                             <button className="btn btn-warning">Edit</button>
+                          </td>
+                          <td>
+                            <button className="btn btn-danger">Delete</button>
                           </td>
                         </tr>
                       );
