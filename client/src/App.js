@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Nav from "./Components/Nav";
 import Footer from "./Components/Footer";
 import Home from './Components/Home'
+import Login from './Components/admin/Login'
 class App extends Component {
   render() {
     return (
@@ -17,6 +18,7 @@ class App extends Component {
             {/* <Nav /> */}
             <Switch>
               <Route exact path="/" component={Home} />
+              <Route exact path="/admin/login" component={Login} />
             </Switch>
             {/* <Footer /> */}
             <Footer />

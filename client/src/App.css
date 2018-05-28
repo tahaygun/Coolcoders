@@ -7,3 +7,6 @@ text-align: center;
 .restart{
     color: rgb(255, 255, 255);
 }
+.min-height{
+    min-height: 600px;
+}

@@ -29,7 +29,7 @@ function teamController(router) {
   router.post("/addteam",validations, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.send({ errors: errors.mapped() });
+      return res.status(500).send({ errors: errors.mapped() });
     }
     var team = new Team(req.body);
     team
@@ -46,7 +46,7 @@ function teamController(router) {
   router.put("/editteam/:id",validations, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.send({ errors: errors.mapped() });
+      return res.status(500).send({ errors: errors.mapped() });
     }
     Team.findById(req.params.id)
       .then(group => {

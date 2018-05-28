@@ -29,7 +29,7 @@ function groupController(router) {
   router.post("/addgroup", validations,(req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.send({ errors: errors.mapped() });
+      return res.status(500).send({ errors: errors.mapped() });
     }
     var group = new Group(req.body);
     group
@@ -55,7 +55,7 @@ function groupController(router) {
   router.put("/editgroup/:id",validations, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.send({ errors: errors.mapped() });
+      return res.status(500).send({ errors: errors.mapped() });
     }
     Group.findById(req.params.id)
       .then(group => {

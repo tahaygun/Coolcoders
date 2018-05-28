@@ -1,20 +1,35 @@
+const { check, validationResult } = require("express-validator/check");
 //To get all adminS
 function adminController(router) {
-  router.post("/adminlogin", (req, res) => {
-    var validations = [
-      check("name")
-        .not()
-        .isEmpty()
-        .withMessage("username is required!")
-        .isLength({ min: 4 })
-        .withMessage("Username should be at least 4 letters"),
-      check("password")
-        .not()
-        .isEmpty()
-        .withMessage("Password can not be empty!")
-        .isLength({ min: 8 })
-        .withMessage("Password should be at least 8 letters")
-    ];
+  var validation = [
+    check("username")
+      .not()
+      .isEmpty()
+      .withMessage("Username is required!")
+      .isLength({ min: 2 })
+      .withMessage("Username should be at least 4 letters"),
+    check("password")
+      .not()
+      .isEmpty()
+      .withMessage("Password can not be empty!")
+      .isLength({ min: 8 })
+      .withMessage("Password should be at least 8 letters")
+  ];
+  var logvalidation = [
+    check("username")
+      .not()
+      .isEmpty()
+      .withMessage("Username is required!"),
+    check("password")
+      .not()
+      .isEmpty()
+      .withMessage("Password can not be empty!")
+  ];
+  router.post("/adminlogin",logvalidation, (req, res) => {
+    var errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).send({ errors: errors.mapped() });
+    }
     Admin.findOne({
       email: req.body.email,
       password: req.body.password
@@ -35,10 +50,10 @@ function adminController(router) {
   });
 
   //@To create admin
-  router.post("/addadmin",validations, (req, res) => {
+  router.post("/addadmin",validation, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.send({ errors: errors.mapped() });
+      return res.status(400).send({ errors: errors.mapped() });
     }
     var admin = new Admin(req.body);
     admin
@@ -47,7 +62,7 @@ function adminController(router) {
         res.json(savedadmin);
       })
       .catch(err => {
-        res.status(404).send(err);
+        res.status(400).send(err);
       });
   });
 

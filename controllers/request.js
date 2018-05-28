@@ -39,7 +39,7 @@ function requestController(router) {
   router.post("/addrequest", validations, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.send({ errors: errors.mapped() });
+      return res.status(500).send({ errors: errors.mapped() });
     }
     var request = new Request(req.body);
     request
@@ -57,7 +57,7 @@ function requestController(router) {
   router.put("/editrequest/:id", validations, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.send({ errors: errors.mapped() });
+      return res.status(500).send({ errors: errors.mapped() });
     }
     Request.findById(req.params.id)
       .then(request => {

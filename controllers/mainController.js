@@ -9,11 +9,13 @@ const Wallet = require("../models/Wallet");
 const Team = require("../models/Team");
 const Group = require("../models/Group");
 const Request = require("../models/Request");
+const Admin = require("../models/Admin");
 const itemController = require('./item')
 const teamController = require('./team')
 const groupController = require('./group')
 const walletController = require('./wallet')
 const requestController = require('./request')
+const adminController = require('./admin')
 //chechk auth
 var auth = (req, res, next) => {
   if (req.session.admin) {
@@ -57,4 +59,5 @@ teamController(router);
 groupController(router);
 walletController(router);
 requestController(router);
+adminController(router);
 module.exports = router;

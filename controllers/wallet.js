@@ -30,7 +30,7 @@ function walletController(router) {
   router.post("/addwallet", validations, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.send({ errors: errors.mapped() });
+      return res.status(500).send({ errors: errors.mapped() });
     }
     var wallet = new Wallet(req.body);
     wallet
@@ -60,7 +60,7 @@ function walletController(router) {
   router.put("/editwallet/:id", validations, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.send({ errors: errors.mapped() });
+      return res.status(500).send({ errors: errors.mapped() });
     }
     wallet
       .findById(req.params.id)

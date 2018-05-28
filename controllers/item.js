@@ -51,7 +51,7 @@ function itemController(router) {
   router.post("/additem", validations, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.send({ errors: errors.mapped() });
+      return res.status(500).send({ errors: errors.mapped() });
     }
     var item = new Item(req.body);
     item
@@ -69,7 +69,7 @@ function itemController(router) {
   router.put("/edititem/:id", validations, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.send({ errors: errors.mapped() });
+      return res.status(500).send({ errors: errors.mapped() });
     }
     Item.findById(req.params.id)
       .then(item => {
