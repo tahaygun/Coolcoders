@@ -1,6 +1,6 @@
-nav{
+/* nav{
 text-align: center;
-}
+} */
 .network, #gomarket{
     color: #e74c3c;
 }
@@ -9,4 +9,7 @@ text-align: center;
 }
 .min-height{
     min-height: 600px;
+}
+#mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
+    height: 100vh;
 }

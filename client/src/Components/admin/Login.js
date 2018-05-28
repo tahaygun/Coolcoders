@@ -23,7 +23,7 @@ export class Login extends Component {
     axios
       .post(process.env.REACT_APP_BACKEND + "/api/adminlogin", this.state)
       .then(response => {
-        this.props.history.push('/dashboard')
+        this.props.history.push('/admin/dashboard')
       })
       .catch(err => {
         if (err) {

@@ -6,23 +6,38 @@ import "./vendor/simple-line-icons/css/simple-line-icons.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Nav from "./Components/Nav";
 import Footer from "./Components/Footer";
-import Home from './Components/Home'
-import Login from './Components/admin/Login'
+import Home from "./Components/Home";
+import AdminNav from "./Components/admin/AdminNav";
+import Login from "./Components/admin/Login";
+import Dashboard from "./Components/admin/Dashboard";
+
+const DefaultRoutes = () => (
+  <div>
+    <div>
+      <Nav />
+      <Route exact path="/" component={Home} />
+      <Route exact path="/product" component={Home} />
+      <Footer />
+    </div>
+  </div>
+);
+
+const AdminRoutes = () => (
+  <div>
+    <AdminNav />
+    <Route exact path="/admin" component={Login} />
+    <Route exact path="/admin/items" component={Dashboard} />
+  </div>
+);
 class App extends Component {
   render() {
     return (
       <div className="App">
         <Router>
-          <div>
-            <Nav />
-            {/* <Nav /> */}
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/admin/login" component={Login} />
-            </Switch>
-            {/* <Footer /> */}
-            <Footer />
-          </div>
+          <Switch>
+            <Route path="/admin" component={AdminRoutes} />
+            <Route component={DefaultRoutes} />
+          </Switch>
         </Router>
       </div>
     );
