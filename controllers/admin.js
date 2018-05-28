@@ -25,7 +25,7 @@ function adminController(router) {
       .isEmpty()
       .withMessage("Password can not be empty!")
   ];
-  router.post("/adminlogin",logvalidation, (req, res) => {
+  router.post("/adminlogin", logvalidation, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).send({ errors: errors.mapped() });
@@ -36,7 +36,11 @@ function adminController(router) {
     })
       .then(function(admin) {
         if (!admin) {
-          return res.status(401).send({ errors: "Wrong email or password!" });
+          return res.status(401).send({
+            errors: {
+              logError: "Wrong email or password!"
+            }
+          });
         } else {
           req.session.admin = admin;
           return res.send({ message: "You are signed in" });
@@ -50,7 +54,7 @@ function adminController(router) {
   });
 
   //@To create admin
-  router.post("/addadmin",validation, (req, res) => {
+  router.post("/addadmin", validation, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).send({ errors: errors.mapped() });
