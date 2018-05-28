@@ -13,3 +13,6 @@ text-align: center;
 #mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
     height: 100vh;
 }
+.content-wrapper{
+    margin-top: 80px;
+}

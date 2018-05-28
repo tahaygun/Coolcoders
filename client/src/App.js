@@ -7,11 +7,12 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Nav from "./Components/Nav";
 import Footer from "./Components/Footer";
 import Home from "./Components/Home";
-import Wallets from './Components/Wallets'
+import Wallets from "./Components/Wallets";
 import AdminNav from "./Components/admin/AdminNav";
 import Login from "./Components/admin/Login";
-import Dashboard from "./Components/admin/Dashboard";
-
+import Items from "./Components/admin/Items";
+import Page404 from "./Components/Page404";
+import AddItem from './Components/admin/AddItem'
 const DefaultRoutes = () => (
   <div>
     <div>
@@ -26,8 +27,9 @@ const DefaultRoutes = () => (
 const AdminRoutes = () => (
   <div>
     <AdminNav />
-    <Route exact path="/admin" component={Login} />
-    <Route exact path="/admin/items" component={Dashboard} />
+    <Route exact path="/admin/items" component={Items} />
+    <Route exact path="/admin/items/add-item" component={AddItem} />
+    {/* <Route exact component={Page404} /> */}
   </div>
 );
 class App extends Component {
@@ -36,8 +38,9 @@ class App extends Component {
       <div className="App">
         <Router>
           <Switch>
-            <Route path="/admin" component={AdminRoutes} />
             <Route exact path="/" component={Home} />
+            <Route exact path="/admin" component={Login} />
+            <Route path="/admin/:section" component={AdminRoutes} />
             <Route component={DefaultRoutes} />
           </Switch>
         </Router>
