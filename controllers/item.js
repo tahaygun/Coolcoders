@@ -125,6 +125,9 @@ function itemController(router, upload) {
   router.delete("/deleteitem/:id", (req, res) => {
     Item.findByIdAndRemove(req.params.id)
       .then(result => {
+        if (fs.existsSync(`./uploads/${result.imgUrl}`)) {
+          fs.unlinkSync(`./uploads/${result.imgUrl}`)
+        }
         res.send(result);
       })
       .catch(err => res.send(err));
