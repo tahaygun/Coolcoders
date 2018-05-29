@@ -23,7 +23,7 @@ export class Dashboard extends Component {
           className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
           id="mainNav"
         >
-          <a className="navbar-brand text-white" href="index.html">
+          <a className="navbar-brand text-white" href="">
             Restart.Market
           </a>
           <button
@@ -122,9 +122,9 @@ export class Dashboard extends Component {
             </ul> */}
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <a className="nav-link text-white">
-                  <i className="fa fa-fw fa-sign-out text-white" />Logout
-                </a>
+                <button className="nav-link">
+                  <i className="fa fa-fw fa-sign-out " />Logout
+                </button>
               </li>
             </ul>
           </div>

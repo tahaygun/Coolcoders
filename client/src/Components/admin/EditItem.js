@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import moment from "moment";
 export class EditItem extends Component {
   constructor(props) {
     super(props);
@@ -168,7 +167,7 @@ export class EditItem extends Component {
           <hr />
           <label htmlFor="date">Image (jpg/png)</label> <br />
           {this.state.currentPicture && (
-            <img src={this.state.currentPicture} width="100" height="100" />
+            <img src={this.state.currentPicture} alt='itemImg' width="100" height="100" />
           )}
           <br />
           <input

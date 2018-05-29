@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 var Couponschema = new Schema({
-  coupon_id: {
-    type: Number,
+  couponCode: {
+    type: String,
     required: true
   },
   createdAt: {

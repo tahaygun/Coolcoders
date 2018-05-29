@@ -43,6 +43,7 @@ function adminController(router) {
           });
         } else {
           req.session.admin = admin;
+          req.session.isLoggedIn = true;
           return res.send({ message: "You are signed in" });
         }
 
@@ -80,8 +81,17 @@ function adminController(router) {
       .catch(err => res.send(err));
   });
 
+  //@to check if user logged in or not
+  router.get('/isloggedin',(req,res)=>{
+    if (req.session.isLoggedIn) {
+      res.send({isloggedin:true})
+    }else{
+      res.status(401).send({isloggedin:false})
+    }
+  })
+
   //@to logout
-  router.get("/api/logout", function(req, res) {
+  router.get("/logout", function(req, res) {
     req.session.destroy();
     res.send({ message: "session destroyed" });
   });
