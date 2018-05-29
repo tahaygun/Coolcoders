@@ -81,7 +81,7 @@ function adminController(router) {
   });
 
   //@to logout
-  router.get("/api/logout", function(req, res) {
+  router.get("/logout", function(req, res) {
     req.session.destroy();
     res.send({ message: "session destroyed" });
   });
