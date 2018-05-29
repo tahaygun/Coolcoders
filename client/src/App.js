@@ -14,6 +14,7 @@ import Login from "./Components/admin/Login";
 import Items from "./Components/admin/Items";
 import Page404 from "./Components/Page404";
 import AddItem from './Components/admin/AddItem'
+import EditItem from './Components/admin/EditItem'
 const DefaultRoutes = () => (
   <div>
     <div>
@@ -32,6 +33,7 @@ const AdminRoutes = () => (
     <AdminNav />
     <Route exact path="/admin/items" component={Items} />
     <Route exact path="/admin/items/add-item" component={AddItem} />
+    <Route exact path="/admin/items/edit/:id" component={EditItem} />
     {/* <Route exact component={Page404} /> */}
   </div>
 );

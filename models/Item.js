@@ -25,7 +25,7 @@ var Itemschema = new Schema({
   },
   imgUrl:{
     type:String,
-    // required:true
+    required:true
   },
   createdAt: {
     type: Date,

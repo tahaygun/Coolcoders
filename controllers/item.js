@@ -1,5 +1,5 @@
 const { check, validationResult } = require("express-validator/check");
-function itemController(router) {
+function itemController(router, upload) {
   var validations = [
     check("name")
       .not()
@@ -41,54 +41,71 @@ function itemController(router) {
   router.get("/item/:id", (req, res) => {
     Item.findById(req.params.id)
       .then(item => {
-        res.json({ item: item });
+        res.json(item);
       })
       .catch(err => res.status(404).json(err));
   });
 
   //@To create item
 
-  router.post("/additem", validations, (req, res) => {
-    var errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(500).send({ errors: errors.mapped() });
+  router.post(
+    "/additem",
+    upload.fields([{ name: "imgUrl", maxCount: 1 }]),
+    validations,
+    (req, res) => {
+      var errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).send({ errors: errors.mapped() });
+      }
+      var filename = null;
+      if (req.files && req.files.imgUrl && req.files.imgUrl[0]) {
+        filename = req.files.imgUrl[0].filename;
+      }
+      var item = new Item(req.body);
+      item.imgUrl = filename;
+      item
+        .save()
+        .then(saveditem => {
+          res.json(saveditem);
+        })
+        .catch(err => {
+          res.status(404).send(err);
+        });
     }
-    var item = new Item(req.body);
-    item
-      .save()
-      .then(saveditem => {
-        res.json(saveditem);
-      })
-      .catch(err => {
-        res.status(404).send(err);
-      });
-  });
+  );
 
   //@To edit item
 
-  router.put("/edititem/:id", validations, (req, res) => {
-    var errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(500).send({ errors: errors.mapped() });
+  router.put(
+    "/edititem/:id",
+    upload.fields([{ name: "imgUrl", maxCount: 1 }]), //multer files upload
+    validations,
+    (req, res) => {
+      var errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(500).send({ errors: errors.mapped() });
+      }
+      Item.findById(req.params.id)
+        .then(item => {
+          item.name = req.body.name;
+          item.shortDesc = req.body.shortDesc;
+          item.shortDesc = req.body.shortDesc;
+          item.longDesc = req.body.longDesc;
+          item.price = req.body.price;
+          if (req.files.imgUrl) {
+            item.imgUrl = req.files.imgUrl[0].filename;
+          }
+          item
+            .save()
+            .then(result => {
+              res.send(result);
+            }).catch(err => res.send(err));
+        })
+        .catch(error => {
+          res.status(404).send(error);
+        });
     }
-    Item.findById(req.params.id)
-      .then(item => {
-        item.name = req.body.name;
-        item.details = req.body.details;
-        item.price = req.body.price;
-        item.sold = req.body.sold;
-        item.imgUrl = req.body.imgUrl;
-        item
-          .save()
-          .then(result => {
-            res.send(result);
-          })
-          .catch(err => res.send(res));
-      })
-      .catch(err => {
-        res.status(404).send(err);
-      });
-  });
+  );
 
   //@To delete item
   router.delete("/deleteitem/:id", (req, res) => {

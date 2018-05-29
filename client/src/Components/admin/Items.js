@@ -60,7 +60,7 @@ export class Items extends Component {
                           <td>{item.shortDesc} </td>
                           <td>{item.price}</td>
                           <td>
-                            <button className="btn btn-warning">Edit</button>
+                            <Link to={'/admin/items/edit/'+item._id} className="btn btn-warning">Edit</Link>
                           </td>
                         </tr>
                       );
