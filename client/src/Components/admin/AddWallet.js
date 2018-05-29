@@ -12,15 +12,6 @@ export class AddWallet extends Component {
         }
         this.formHandler = this.formHandler.bind(this);
         this.submitHandler = this.submitHandler.bind(this);
-        axios.get(process.env.REACT_APP_SECRET_CODE + "/api/allwallets").then(res=>this.setState({wallets:res.data})).catch(err=>console.log(err));
-        axios
-        .post(
-          process.env.REACT_APP_SECRET_CODE +
-            "/api/isloggedin").then(res => {
-          this.setState({ auth: true });
-        })
-        .catch(err => this.setState({ auth: false }));
-        
     }
       
       formHandler(e){
@@ -31,7 +22,7 @@ export class AddWallet extends Component {
       submitHandler(e){
           e.preventDefault();
           axios
-          .post(process.env.REACT_APP_SECRET_CODE + "/api/addwallet",this.state)
+          .post(process.env.REACT_APP_BACKEND + "/api/addwallet",this.state)
           .then(res=>{
             if (res.data.book) {
               this.setState({

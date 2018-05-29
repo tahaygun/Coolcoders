@@ -4,13 +4,12 @@ import axios from "axios";
 export class Items extends Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       items: null
     };
   }
-
-  componentDidMount() {
+  getAllItems = () => {
     axios
       .get(`${process.env.REACT_APP_BACKEND}/api/allitems`)
       .then(items => {
@@ -19,7 +18,21 @@ export class Items extends Component {
       .catch(err => {
         console.log(err);
       });
+  };
+  deleteHandler(id) {
+    axios
+    .delete(process.env.REACT_APP_BACKEND + "/api/deleteitem/" + id)
+      .then(resp => {
+        this.getAllItems();
+
+        // this.props.history.pageRefresh();
+      });
   }
+  componentDidMount() {
+    this.getAllItems();
+  }
+
+
   render() {
     return this.state.items ? (
       <div className="content-wrapper">
@@ -54,17 +67,35 @@ export class Items extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.items.map((item,key) => {
+                    {this.state.items.map((item, key) => {
                       return (
-                        <tr key={key} >
+                        <tr key={key}>
                           <td>{item.name}</td>
                           <td>{item.shortDesc} </td>
                           <td>{item.price}</td>
                           <td>
-                            <Link to={'/admin/items/edit/'+item._id} className="btn btn-warning">Edit</Link>
+                            <Link
+                              to={"/admin/items/edit/" + item._id}
+                              className="btn btn-warning"
+                            >
+                              Edit
+                            </Link>
                           </td>
                           <td>
-                            <button className="btn btn-danger">Delete</button>
+                            <button
+                              onClick={() => {
+                                if (
+                                  window.confirm(
+                                    "Are you sure you wish to delete this item?"
+                                  )
+                                ) {
+                                  this.deleteHandler(item._id);
+                                }
+                              }}
+                              className="btn btn-danger"
+                            >
+                              Delete
+                            </button>
                           </td>
                         </tr>
                       );

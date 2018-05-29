@@ -39,7 +39,7 @@ function walletController(router) {
         res.json(savedWallet);
       })
       .catch(err => {
-        res.status(404).send(err);
+        res.status(401).send(err);
       });
   });
   //@one wallet for editing

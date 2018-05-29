@@ -55,7 +55,7 @@ export class AddItem extends Component {
         }
       })
       .catch(err => {
-        this.setState({ error: "Unauthorized" });
+        this.setState({ error: "Please fill all fields!" });
       });
   };
   render() {
