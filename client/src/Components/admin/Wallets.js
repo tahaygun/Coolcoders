@@ -58,7 +58,7 @@ export class Wallets extends Component {
                       return (
                         <tr key={key} >
                           <td>{wallet.name}</td>
-                          <td>{wallet.group} </td>
+                          <td>{wallet.group.id} </td>
                           <td>{wallet.coins}</td>
                           <td>
                             <button className="btn btn-warning">Edit</button>
