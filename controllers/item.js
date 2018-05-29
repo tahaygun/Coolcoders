@@ -1,3 +1,4 @@
+const fs = require("fs");
 const { check, validationResult } = require("express-validator/check");
 function itemController(router, upload) {
   var validations = [
@@ -75,7 +76,7 @@ function itemController(router, upload) {
   );
 
   //@To edit item
-
+  var oldImg = "";
   router.put(
     "/edititem/:id",
     upload.fields([{ name: "imgUrl", maxCount: 1 }]), //multer files upload
@@ -93,13 +94,18 @@ function itemController(router, upload) {
           item.longDesc = req.body.longDesc;
           item.price = req.body.price;
           if (req.files.imgUrl) {
+            oldImg = item.imgUrl;
             item.imgUrl = req.files.imgUrl[0].filename;
           }
           item
             .save()
             .then(result => {
               res.send(result);
-            }).catch(err => res.send(err));
+              if (fs.existsSync(`./uploads/${oldImg}`)) {
+                fs.unlinkSync(`./uploads/${oldImg}`);
+              }
+            })
+            .catch(err => res.send(err));
         })
         .catch(error => {
           res.status(404).send(error);

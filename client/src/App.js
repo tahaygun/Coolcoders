@@ -15,17 +15,17 @@ import Items from "./Components/admin/Items";
 import Groups from "./Components/admin/Groups";
 import Requests from "./Components/admin/Requests";
 import Page404 from "./Components/Page404";
-import AddItem from './Components/admin/AddItem'
-import EditItem from './Components/admin/EditItem'
-import AddWallet from './Components/admin/AddWallet'
+import AddItem from "./Components/admin/AddItem";
+import EditItem from "./Components/admin/EditItem";
+import AddWallet from "./Components/admin/AddWallet";
 
 const DefaultRoutes = () => (
   <div>
     <div>
       <Nav />
-      
+
       <Route exact path="/" component={Home} />
-      
+
       <Footer />
     </div>
   </div>
@@ -34,14 +34,17 @@ const DefaultRoutes = () => (
 const AdminRoutes = () => (
   <div>
     <AdminNav />
-    <Route exact path="/admin/items" component={Items} />
-    <Route exact path="/admin/items/add-item" component={AddItem} />
-    <Route exact path="/admin/items/edit/:id" component={EditItem} />
-    <Route exact path="/admin/wallets" component={Wallets} />
-    <Route exact path="/admin/wallets/add-wallet" component={AddWallet} />
-    <Route exact path="/admin/groups" component={Groups} />
-    <Route exact path="/admin/requests" component={Requests} />
-   
+    <Switch>
+      <Route exact path="/admin/items" component={Items} />
+      <Route exact path="/admin/items/add-item" component={AddItem} />
+      <Route exact path="/admin/items/edit/:id" component={EditItem} />
+      <Route exact path="/admin/wallets" component={Wallets} />
+      <Route exact path="/admin/wallets/add-wallet" component={AddWallet} />
+      <Route exact path="/admin/groups" component={Groups} />
+      <Route exact path="/admin/requests" component={Requests} />
+      <Route component={Page404} />
+    </Switch>
+
     {/* <Route exact component={Page404} /> */}
   </div>
 );
@@ -52,8 +55,8 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/admin" component={Login} />
-            <Route path="/admin/:section" component={AdminRoutes} />
+            <Route exact path="/login" component={Login} />
+            <Route path="/admin" component={AdminRoutes} />
             <Route component={DefaultRoutes} />
           </Switch>
         </Router>
