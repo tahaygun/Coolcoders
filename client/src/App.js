@@ -27,6 +27,7 @@ import AddWallet from "./Components/admin/AddWallet";
 import Teams from "./Components/admin/Teams";
 import AddTeam from "./Components/admin/AddTeam";
 import EditTeam from "./Components/admin/EditTeam";
+import Allitems from "./Components/Allitems";
 
 const DefaultRoutes = () => (
   <div>
@@ -155,6 +156,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/market" component={Allitems} />
             <Route exact path="/login" component={Login} />
             <Route path="/admin" component={AdminRoutes} />
             <ProtectedRouteForUser component={DefaultRoutes} />
