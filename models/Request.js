@@ -10,8 +10,8 @@ var Requestschema = new Schema({
     required: true
   },
   proofImg: {
-    type: String
-    // required: true
+    type: String,
+    required: true
   },
   item: {
     type: Schema.Types.ObjectId,

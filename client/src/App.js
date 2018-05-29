@@ -28,6 +28,8 @@ import Teams from "./Components/admin/Teams";
 import AddTeam from "./Components/admin/AddTeam";
 import EditTeam from "./Components/admin/EditTeam";
 import Allitems from "./Components/Allitems";
+import OrderPage from './Components/OrderItem';
+import OneItem from './Components/OneItem'
 
 const DefaultRoutes = () => (
   <div>
@@ -36,6 +38,8 @@ const DefaultRoutes = () => (
       <Switch>
         <ProtectedRouteForUser exact path="/" component={Home} />
         <ProtectedRouteForUser exact path="/market" component={Allitems} />
+        <ProtectedRouteForUser exact path="/item/order/:id" component={OrderPage} />
+        <ProtectedRouteForUser exact path="/item/details/:id" component={OneItem} />
         <ProtectedRouteForUser component={Page404} />
       </Switch>
       <Footer />

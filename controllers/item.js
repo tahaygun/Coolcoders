@@ -46,6 +46,14 @@ function itemController(router, upload) {
       })
       .catch(err => res.status(404).json(err));
   });
+  //@to get one item
+  router.get("/itembySeqId/:id", (req, res) => {
+    Item.findOne({seqId:req.params.id})
+      .then(item => {
+        res.json(item);
+      })
+      .catch(err => res.status(404).json(err));
+  });
 
   //@To create item
 

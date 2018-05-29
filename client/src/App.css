@@ -26,3 +26,16 @@ text-align: center;
   padding: 100px;
   min-height: 85vh;
 }
+body *{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+textarea {
+  white-space: pre-line;
+}
+
+#descriptionInDetails{
+  word-wrap: break-word;
+}
+#root{
+  background-color: #ffffff0e;
+}
