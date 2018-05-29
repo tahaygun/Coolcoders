@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
-export class EditItem extends Component {
+export class EditTeam extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       data: {
         name: "",
-        shortDesc: "",
-        longDesc: "",
-        price: "",
+        details: "",
         image: null
       },
       currentPicture: null,
@@ -21,19 +19,17 @@ export class EditItem extends Component {
     axios
       .get(
         process.env.REACT_APP_BACKEND +
-          "/api/item/" +
+          "/api/team/" +
           this.props.match.params.id
       )
-      .then(item => {
+      .then(team => {
         this.setState({
           data: {
-            name: item.data.name,
-            shortDesc: item.data.shortDesc,
-            longDesc: item.data.longDesc,
-            price: item.data.price,
-            image: item.data.imgUrl
+            name: team.data.name,
+            details: team.data.details,
+            image: team.data.imgUrl
           },
-          currentPicture: `http://localhost:8000/uploads/${item.data.imgUrl}`
+          currentPicture: `http://localhost:8000/uploads/${team.data.imgUrl}`
         });
       });
   }
@@ -66,7 +62,7 @@ export class EditItem extends Component {
     axios
       .delete(
         process.env.REACT_APP_BACKEND +
-          "/api/deleteitem/" +
+          "/api/deleteteam/" +
           this.props.match.params.id
       )
       .then(resp => {
@@ -77,14 +73,12 @@ export class EditItem extends Component {
     e.preventDefault();
     let formInfo = new FormData();
     formInfo.append("name", this.state.data.name);
-    formInfo.append("shortDesc", this.state.data.shortDesc);
-    formInfo.append("longDesc", this.state.data.longDesc);
-    formInfo.append("price", this.state.data.price);
+    formInfo.append("details", this.state.data.details);
     formInfo.append("imgUrl", this.state.data.image);
     axios
       .put(
         process.env.REACT_APP_BACKEND +
-          "/api/edititem/" +
+          "/api/editteam/" +
           this.props.match.params.id,
         formInfo
       )
@@ -92,11 +86,9 @@ export class EditItem extends Component {
         if (res.status === 200) {
           this.setState({
             name: "",
-            shortDesc: "",
-            longDesc: "",
-            price: "",
+            details: "",
             image: null,
-            message: "Item updated successfully.",
+            message: "Team updated successfully.",
             error: ""
           });
         }
@@ -108,7 +100,7 @@ export class EditItem extends Component {
   render() {
     return (
       <div className="content-wrapper text-center container">
-        <h3>Edit Item</h3>
+        <h3>Edit Team</h3>
         <br />
         <p> {this.state.error}</p>
         <p className="text-danger">
@@ -128,51 +120,24 @@ export class EditItem extends Component {
             id="name"
           />
           <hr />
-          <label htmlFor="content">Short Description</label>
+          <label htmlFor="content">Details</label>
           <br />
           <textarea
             className="form-control"
             required
             id="textarea"
-            value={this.state.data.shortDesc}
+            value={this.state.data.details}
             style={{ height: 70, width: "50vmax", margin: "auto" }}
             type="text"
-            name="shortDesc"
+            name="details"
             onChange={this.formHandler}
           />
-          <hr />
-          <label htmlFor="content">Long Description</label>
-          <br />
-          <textarea
-            className="form-control"
-            required
-            id="textarea"
-            value={this.state.data.longDesc}
-            style={{ height: 150, width: "50vmax", margin: "auto" }}
-            type="text"
-            name="longDesc"
-            onChange={this.formHandler}
-          />
-          <hr />
-          <label htmlFor="date">Price</label>
-          <br />
-          <input
-            className="form-control"
-            style={{ width: "50vmax", margin: "auto" }}
-            type="number"
-            value={this.state.data.price}
-            autoComplete="off"
-            name="price"
-            onChange={this.formHandler}
-            id="price"
-          />{" "}
-          <br />
           <hr />
           <label htmlFor="date">Image (jpg/png)</label> <br />
           {this.state.currentPicture && (
             <img
               src={this.state.currentPicture}
-              alt="itemImg"
+              alt="teamImg"
               width="100"
               height="100"
             />
@@ -195,12 +160,12 @@ export class EditItem extends Component {
         <br />
         <button
           onClick={() => {
-            if (window.confirm("Are you sure you wish to delete this item?"))
+            if (window.confirm("Are you sure you wish to delete this team?"))
               this.deleteHandler();
           }}
           className="btn btn-primary"
         >
-          Delete Item
+          Delete Team
         </button>{" "}
         <br /> <br />
         <button
@@ -216,4 +181,4 @@ export class EditItem extends Component {
   }
 }
 
-export default EditItem;
+export default EditTeam;

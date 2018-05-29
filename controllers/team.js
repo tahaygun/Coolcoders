@@ -1,20 +1,21 @@
 const { check, validationResult } = require("express-validator/check");
+const fs = require("fs");
 //To get all TEAMS
-function teamController(router) {
-    var validations = [
-        check("name")
-          .not()
-          .isEmpty()
-          .withMessage("Name is required")
-          .isLength({ min: 2 })
-          .withMessage("Firstname should be at least 2 letters"),
-        check("details")
-          .not()
-          .isEmpty()
-          .withMessage("Details is required")
-          .isLength({ min: 2 })
-          .withMessage("Details should be at least 2 letters")
-      ];
+function teamController(router, upload) {
+  var validations = [
+    check("name")
+      .not()
+      .isEmpty()
+      .withMessage("Name is required")
+      .isLength({ min: 2 })
+      .withMessage("Firstname should be at least 2 letters"),
+    check("details")
+      .not()
+      .isEmpty()
+      .withMessage("Details is required")
+      .isLength({ min: 2 })
+      .withMessage("Details should be at least 2 letters")
+  ];
   router.get("/allteams", (req, res) => {
     Team.find()
       .then(teams => {
@@ -26,44 +27,74 @@ function teamController(router) {
   });
 
   //@To create TEAM
-  router.post("/addteam",validations, (req, res) => {
-    var errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(500).send({ errors: errors.mapped() });
+  router.post(
+    "/addteam",
+    upload.fields([{ name: "imgUrl", maxCount: 1 }]), //multer files uploadvalidations,
+    (req, res) => {
+      var errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(500).send({ errors: errors.mapped() });
+      }
+      var filename = null;
+      if (req.files && req.files.imgUrl && req.files.imgUrl[0]) {
+        filename = req.files.imgUrl[0].filename;
+      }
+      var team = new Team(req.body);
+      team.imgUrl = filename;
+      team
+        .save()
+        .then(savedteam => {
+          res.json(savedteam);
+        })
+        .catch(err => {
+          res.status(404).send(err);
+        });
     }
-    var team = new Team(req.body);
-    team
-      .save()
-      .then(savedteam => {
-        res.json(savedteam);
-      })
-      .catch(err => {
-        res.status(404).send(err);
-      });
-  });
+  );
+    //@to get one team
+    router.get("/team/:id", (req, res) => {
+      Team.findById(req.params.id)
+        .then(team => {
+          res.json(team);
+        })
+        .catch(err => res.status(404).json(err));
+    });
 
+  var oldImg = "";
   //@To edit TEAM
-  router.put("/editteam/:id",validations, (req, res) => {
-    var errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(500).send({ errors: errors.mapped() });
+  router.put(
+    "/editteam/:id",
+    upload.fields([{ name: "imgUrl", maxCount: 1 }]),
+    validations,
+    (req, res) => {
+      var errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(500).send({ errors: errors.mapped() });
+      }
+      Team.findById(req.params.id)
+        .then(team => {
+          team.name = req.body.name;
+          team.details = req.body.details;
+          if (req.files.imgUrl) {
+            oldImg = team.imgUrl; //we store path of old image to delete it later
+            team.imgUrl = req.files.imgUrl[0].filename;
+          }
+          team
+            .save()
+            .then(result => {
+              res.send(result);
+              //we check if it is exist or not, if it is, we delete;
+              if (fs.existsSync(`./uploads/${oldImg}`)) {
+                fs.unlinkSync(`./uploads/${oldImg}`);
+              }
+            })
+            .catch(err => res.send(res));
+        })
+        .catch(err => {
+          res.status(404).send(err);
+        });
     }
-    Team.findById(req.params.id)
-      .then(group => {
-        team.name = req.body.name;
-        team.details = req.body.details;
-        team.imgUrl = req.body.imgUrl;
-        team
-          .save()
-          .then(result => {
-            res.send(result);
-          })
-          .catch(err => res.send(res));
-      })
-      .catch(err => {
-        res.status(404).send(err);
-      });
-  });
+  );
 
   //@To delete TEAM
   router.delete("/deleteteam/:id", (req, res) => {

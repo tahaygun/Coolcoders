@@ -58,7 +58,7 @@ export class Groups extends Component {
                       return (
                         <tr key={key} >
                           <td>{group.name}</td>
-                          <td>{group.team.id} </td>
+                          <td>{group.team.name} </td>
                           
                           <td>
                             <button className="btn btn-warning">Edit</button>
