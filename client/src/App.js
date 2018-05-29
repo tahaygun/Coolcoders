@@ -38,6 +38,7 @@ const AdminRoutes = () => (
     <Route exact path="/admin/wallets" component={Wallets} />
     <Route exact path="/admin/wallets/add-wallet" component={AddWallet} />
     <Route exact path="/admin/groups" component={Groups} />
+    <Route exact path="/admin/requests" component={Requests} />
    
     {/* <Route exact component={Page404} /> */}
   </div>
