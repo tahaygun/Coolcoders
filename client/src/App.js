@@ -35,6 +35,7 @@ const DefaultRoutes = () => (
       <Nav />
       <Switch>
         <ProtectedRouteForUser exact path="/" component={Home} />
+        <ProtectedRouteForUser exact path="/market" component={Allitems} />
         <ProtectedRouteForUser component={Page404} />
       </Switch>
       <Footer />
@@ -90,7 +91,6 @@ class ProtectedRouteForUser extends Component {
     axios
       .get(process.env.REACT_APP_BACKEND + "/api/isvalidcoupon")
       .then(response => {
-        console.log(response);
         this.setState({ authenticated: true });
       })
       .catch(err => {
@@ -156,7 +156,6 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/market" component={Allitems} />
             <Route exact path="/login" component={Login} />
             <Route path="/admin" component={AdminRoutes} />
             <ProtectedRouteForUser component={DefaultRoutes} />
