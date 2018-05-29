@@ -18,6 +18,7 @@ import Page404 from "./Components/Page404";
 import AddItem from './Components/admin/AddItem'
 import EditItem from './Components/admin/EditItem'
 import AddWallet from './Components/admin/AddWallet'
+import Allitems from './Components/Allitems'
 
 const DefaultRoutes = () => (
   <div>
@@ -25,6 +26,7 @@ const DefaultRoutes = () => (
       <Nav />
       
       <Route exact path="/" component={Home} />
+      <Route exact path="/market" component={Allitems} />
       
       <Footer />
     </div>
