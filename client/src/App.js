@@ -28,10 +28,9 @@ import Teams from "./Components/admin/Teams";
 import AddTeam from "./Components/admin/AddTeam";
 import EditTeam from "./Components/admin/EditTeam";
 import Allitems from "./Components/Allitems";
-import OrderPage from './Components/OrderItem';
-import OneItem from './Components/OneItem'
+import OrderPage from "./Components/OrderItem";
+import OneItem from "./Components/OneItem";
 import UserWallet from "./Components/UserWallet";
-
 
 const DefaultRoutes = () => (
   <div>
@@ -40,8 +39,21 @@ const DefaultRoutes = () => (
       <Switch>
         <ProtectedRouteForUser exact path="/" component={Home} />
         <ProtectedRouteForUser exact path="/market" component={Allitems} />
-        <ProtectedRouteForUser exact path="/item/order/:id" component={OrderPage} />
-        <ProtectedRouteForUser exact path="/item/details/:id" component={OneItem} />
+        <ProtectedRouteForUser
+          exact
+          path="/item/order/:id"
+          component={OrderPage}
+        />
+        <ProtectedRouteForUser
+          exact
+          path="/item/details/:id"
+          component={OneItem}
+        />
+        <ProtectedRouteForUser
+          exact
+          path="/UserWallet"
+          component={UserWallet}
+        />
         <ProtectedRouteForUser component={Page404} />
       </Switch>
       <Footer />
@@ -72,8 +84,16 @@ const AdminRoutes = () => (
       />
       <ProtectedRouteForAdmin exact path="/admin/groups" component={Groups} />
       <ProtectedRouteForAdmin exact path="/admin/teams" component={Teams} />
-      <ProtectedRouteForAdmin exact path="/admin/teams/add-team" component={AddTeam} />
-      <ProtectedRouteForAdmin exact path="/admin/teams/edit-team/:id" component={EditTeam} />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/teams/add-team"
+        component={AddTeam}
+      />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/teams/edit-team/:id"
+        component={EditTeam}
+      />
       <ProtectedRouteForAdmin
         exact
         path="/admin/requests"
@@ -163,9 +183,8 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/UserWallet" component={UserWallet} />
+            <Route path="/admin" component={AdminRoutes} />
             <ProtectedRouteForUser component={DefaultRoutes} />
-
           </Switch>
         </Router>
       </div>
