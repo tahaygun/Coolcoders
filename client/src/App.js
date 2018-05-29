@@ -1,10 +1,15 @@
 import React, { Component } from "react";
-import axios from 'axios'
+import axios from "axios";
 import "./App.css";
 import "./vendor/font-awesome/css/font-awesome.min.css";
 import "./vendor/bootstrap/css/bootstrap.min.css";
 import "./vendor/simple-line-icons/css/simple-line-icons.css";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
 import Nav from "./Components/Nav";
 import Footer from "./Components/Footer";
 //import Enroll from "./Components/Enroll";
@@ -24,9 +29,10 @@ const DefaultRoutes = () => (
   <div>
     <div>
       <Nav />
-
-      <ProtectedRouteForUser exact path="/" component={Home} />
-
+      <Switch>
+        <ProtectedRouteForUser exact path="/" component={Home} />
+        <ProtectedRouteForUser component={Page404} />
+      </Switch>
       <Footer />
     </div>
   </div>
@@ -37,12 +43,28 @@ const AdminRoutes = () => (
     <AdminNav />
     <Switch>
       <ProtectedRouteForAdmin exact path="/admin/items" component={Items} />
-      <ProtectedRouteForAdmin exact path="/admin/items/add-item" component={AddItem} />
-      <ProtectedRouteForAdmin exact path="/admin/items/edit/:id" component={EditItem} />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/items/add-item"
+        component={AddItem}
+      />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/items/edit/:id"
+        component={EditItem}
+      />
       <ProtectedRouteForAdmin exact path="/admin/wallets" component={Wallets} />
-      <ProtectedRouteForAdmin exact path="/admin/wallets/add-wallet" component={AddWallet} />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/wallets/add-wallet"
+        component={AddWallet}
+      />
       <ProtectedRouteForAdmin exact path="/admin/groups" component={Groups} />
-      <ProtectedRouteForAdmin exact path="/admin/requests" component={Requests} />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/requests"
+        component={Requests}
+      />
       <ProtectedRouteForAdmin component={Page404} />
     </Switch>
 
@@ -51,74 +73,77 @@ const AdminRoutes = () => (
 );
 class ProtectedRouteForUser extends Component {
   constructor(props) {
-    super(props)
-  
+    super(props);
+
     this.state = {
-       authenticated:true
-    }
+      authenticated: true
+    };
   }
-  componentWillMount(){
+  componentWillMount() {
     axios
       .get(process.env.REACT_APP_BACKEND + "/api/isvalidcoupon")
       .then(response => {
         console.log(response);
-        this.setState({ authenticated: true});
+        this.setState({ authenticated: true });
       })
       .catch(err => {
-        this.setState({ authenticated: false});
+        this.setState({ authenticated: false });
       });
   }
   render() {
-    const { component: Component, ...props } = this.props
+    const { component: Component, ...props } = this.props;
 
     return (
-      <Route 
-        {...props} 
-        render={props => (
-          this.state.authenticated ?
-            <Component {...props} /> :
-            <Redirect to='/' />
-        )} 
+      <Route
+        {...props}
+        render={props =>
+          this.state.authenticated ? (
+            <Component {...props} />
+          ) : (
+            <Redirect to="/" />
+          )
+        }
       />
-    )
+    );
   }
 }
 class ProtectedRouteForAdmin extends Component {
   constructor(props) {
-    super(props)
-  
+    super(props);
+
     this.state = {
-       isloggedin:true
-    }
+      isloggedin: true
+    };
   }
-  componentWillMount(){
+  componentWillMount() {
     axios
       .get(process.env.REACT_APP_BACKEND + "/api/isloggedin")
       .then(response => {
         console.log(response);
-        this.setState({ isloggedin: true});
+        this.setState({ isloggedin: true });
       })
       .catch(err => {
-        this.setState({ isloggedin: false});
+        this.setState({ isloggedin: false });
       });
   }
   render() {
-    const { component: Component, ...props } = this.props
+    const { component: Component, ...props } = this.props;
 
     return (
-      <Route 
-        {...props} 
-        render={props => (
-          this.state.isloggedin ?
-            <Component {...props} /> :
-            <Redirect to='/login' />
-        )} 
+      <Route
+        {...props}
+        render={props =>
+          this.state.isloggedin ? (
+            <Component {...props} />
+          ) : (
+            <Redirect to="/login" />
+          )
+        }
       />
-    )
+    );
   }
 }
 class App extends Component {
-    
   render() {
     return (
       <div className="App">

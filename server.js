@@ -25,7 +25,7 @@ app.use(session({
   saveUninitialized: false,
   resave: false,
   cookie: { maxAge: 60000 * 30 },
-  // store: new MongoStore({ mongooseConnection: mongoose.connection }) 
+  store: new MongoStore({ mongooseConnection: mongoose.connection }) 
   //I wanted to destroy session every time when i restart server, cuz i am working with security stuffs and i should destroy it :D , so commented this one.
 }));
 
