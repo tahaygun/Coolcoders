@@ -1,38 +1,38 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-export class Wallets extends Component {
+export class Requests extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      wallets: null
+      items: null
     };
   }
 
   componentDidMount() {
     axios
-      .get(`${process.env.REACT_APP_BACKEND}/api/allwallets`)
-      .then(wallets => {
-        this.setState({ wallets: wallets.data });
+      .get(`${process.env.REACT_APP_BACKEND}/api/allrequests`)
+      .then(requests => {
+        this.setState({ requests: requests.data });
       })
       .catch(err => {
         console.log(err);
       });
   }
   render() {
-    return this.state.wallets ? (
+    return this.state.requests ? (
       <div className="content-wrapper">
         <div className="container-fluid">
           <div className="card mb-3">
             <div className="card-header">
               <div>
-                <i className="fa fa-table" /> Wallets
+                <i className="fa fa-table" /> Requests
                 <Link
-                  to="/admin/wallets/add-wallet"
+                  to="/admin/requests/add-request"
                   className="btn btn-info float-right btn-sm"
                 >
-                  Add New Wallet
+                  Add New Request
                 </Link>
               </div>
             </div>
@@ -46,20 +46,24 @@ export class Wallets extends Component {
                 >
                   <thead>
                     <tr>
-                      <th style={{ width: "30%" }}>Name</th>
-                      <th style={{ width: "50%" }}>Group</th>
-                      <th style={{ width: " 5%" }}>Coins</th>
+                      <th style={{ width: "30%" }}>Title</th>
+                      <th style={{ width: "50%" }}> Description</th>
+                      <th style={{ width: " 5%" }}>Image</th>
+                      <th style={{ width: " 10%" }}>Item</th>
+                      <th style={{ width: " 10%" }}>Status</th>
                       <th style={{ width: "8.33%" }}>Actions</th>
                       <th style={{ width: "8.33%" }}>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.wallets.map((wallet,key) => {
+                    {this.state.requests.map((request,key) => {
                       return (
                         <tr key={key} >
-                          <td>{wallet.name}</td>
-                          <td>{wallet.group.id} </td>
-                          <td>{wallet.coins}</td>
+                          <td>{request.title}</td>
+                          <td>{request.description} </td>
+                          <td>{request.proofImg}</td>
+                          <td>{request.item.id}</td>
+                          <td>{request.status}</td>
                           <td>
                             <button className="btn btn-warning">Edit</button>
                           </td>
@@ -82,4 +86,4 @@ export class Wallets extends Component {
   }
 }
 
-export default Wallets;
+export default Requests;
