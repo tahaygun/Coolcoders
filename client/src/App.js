@@ -30,6 +30,8 @@ import EditTeam from "./Components/admin/EditTeam";
 import Allitems from "./Components/Allitems";
 import OrderPage from './Components/OrderItem';
 import OneItem from './Components/OneItem'
+import UserWallet from "./Components/UserWallet";
+
 
 const DefaultRoutes = () => (
   <div>
@@ -161,8 +163,9 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
-            <Route path="/admin" component={AdminRoutes} />
+            <Route exact path="/UserWallet" component={UserWallet} />
             <ProtectedRouteForUser component={DefaultRoutes} />
+
           </Switch>
         </Router>
       </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export class Wallets extends Component {
+export class UserWallet extends Component {
   render() {
     return (
       <div className='container min-height' >
@@ -9,8 +9,9 @@ export class Wallets extends Component {
         <h1>wallets</h1>
         <h1>wallets</h1>
       </div>
+     
     )
   }
 }
 
-export default Wallets 
+export default UserWallet
