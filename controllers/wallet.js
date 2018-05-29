@@ -8,11 +8,10 @@ function walletController(router) {
       .withMessage("Name is required!")
       .isLength({ min: 2 })
       .withMessage("Name should be at least 2 letters"),
-      check("group")
+    check("group")
       .not()
       .isEmpty()
       .withMessage("Group name is reqruired!")
-
   ];
   router.get("/allwallets", (req, res) => {
     Wallet.find()
@@ -33,14 +32,18 @@ function walletController(router) {
       return res.status(500).send({ errors: errors.mapped() });
     }
     var wallet = new Wallet(req.body);
-    wallet
-      .save()
-      .then(savedWallet => {
-        res.json(savedWallet);
-      })
-      .catch(err => {
-        res.status(401).send(err);
-      });
+    Group.findById(req.body.group).then(groupOfWallet => {
+      console.log(groupOfWallet);
+      wallet.team = groupOfWallet.team;
+      wallet
+        .save()
+        .then(savedWallet => {
+          res.json(savedWallet);
+        })
+        .catch(err => {
+          res.status(401).send(err);
+        });
+    });
   });
   //@one wallet for editing
   router.get("/wallet/:id", (req, res) => {

@@ -51,14 +51,14 @@ function teamController(router, upload) {
         });
     }
   );
-    //@to get one team
-    router.get("/team/:id", (req, res) => {
-      Team.findById(req.params.id)
-        .then(team => {
-          res.json(team);
-        })
-        .catch(err => res.status(404).json(err));
-    });
+  //@to get one team
+  router.get("/team/:id", (req, res) => {
+    Team.findById(req.params.id)
+      .then(team => {
+        res.json(team);
+      })
+      .catch(err => res.status(404).json(err));
+  });
 
   var oldImg = "";
   //@To edit TEAM
@@ -100,7 +100,15 @@ function teamController(router, upload) {
   router.delete("/deleteteam/:id", (req, res) => {
     Team.findByIdAndRemove(req.params.id)
       .then(result => {
-        res.send(result);
+        Group.remove({ team: req.params.id })
+          .then(result => {
+            Wallet.remove({ team: req.params.id })
+              .then(res2 => {
+                res.send(res2);
+              })
+              .cath(err => res.send(err));
+          })
+          .cath(err => res.send(err));
       })
       .catch(err => res.send(err));
   });
