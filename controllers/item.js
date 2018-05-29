@@ -96,15 +96,14 @@ function itemController(router, upload) {
           if (req.files.imgUrl) {
             oldImg = item.imgUrl; //we store path of old image to delete it later
             item.imgUrl = req.files.imgUrl[0].filename;
+            if (fs.existsSync(`./uploads/${oldImg}`)) {
+              fs.unlinkSync(`./uploads/${oldImg}`)
+            }
           }
           item
             .save()
             .then(result => {
-              res.send(result);
-              //we check if it is exist or not, if it is, we delete;
-              if (fs.existsSync(`./uploads/${oldImg}`)) {
-                fs.unlinkSync(`./uploads/${oldImg}`);
-              }
+              res.send(result);           
             })
             .catch(err => res.send(err));
         })
