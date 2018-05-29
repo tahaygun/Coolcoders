@@ -12,10 +12,8 @@ function couponController(router) {
     if (!errors.isEmpty()) {
       return res.status(401).send({ errors: "Coupon code is required!" });
     }
-    console.log(req.body);
     Coupon.findOne({ couponCode: req.body.couponCode })
       .then(coupon => {
-        console.log(coupon);
         if (coupon) {
           req.session.couponCode = coupon.couponCode;
           res.json({ isLoggedIn: true, coupon: coupon.couponCode });
@@ -31,7 +29,6 @@ function couponController(router) {
   //@to check session for coupon
   router.get('/isvalidcoupon',(req,res)=>{
     if (req.session.couponCode) {
-      console.log(req.session.couponCode);
       res.send({isLoggedIn:true})
     }else{
       res.status(401).send({isLoggedIn:false})      
@@ -41,7 +38,6 @@ function couponController(router) {
 
   //@To create coupon
   router.post("/addcoupon", validation, (req, res) => {
-    console.log(req.body);
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.send({ errors: errors.mapped() });

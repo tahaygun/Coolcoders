@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../vendor/landingPage.css";
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -90,7 +90,7 @@ export class Home extends Component {
                         className="form-control text-center"
                         id="couponCode"
                         aria-describedby="couponCode"
-                        placeholder="Enter coupon"
+                        placeholder="Enter coupon code please.."
                       />
                       <br />
                       <button type="submit" className="btn btn-primary">

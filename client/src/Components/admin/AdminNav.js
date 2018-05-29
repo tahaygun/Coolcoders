@@ -23,7 +23,7 @@ export class Dashboard extends Component {
           className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
           id="mainNav"
         >
-          <a className="navbar-brand text-white" href="index.html">
+          <a className="navbar-brand text-white" href="">
             Restart.Market
           </a>
           <button
