@@ -50,12 +50,12 @@ export class AddWallet extends Component {
   render() {
     return (
       <div className='content-wrapper container' >
-      <h1>Bölüm ekle</h1><br/>
+      <h1>Add wallet</h1><br/>
         <p> {this.state.error}</p>
         <p className='text-danger' >{this.state.message && this.state.message}</p>
         <form onSubmit={this.submitHandler}>
           
-            <label htmlFor="name">name</label> <br/>
+            <label htmlFor="name">Name</label> <br/>
             <input className="form-control" required value={this.state.name} autoComplete="off" type="text" name="name" onChange={this.formHandler} id="name"/>
             <hr/>
             <label htmlFor="content">Group</label><br/>
