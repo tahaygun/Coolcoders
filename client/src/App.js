@@ -12,6 +12,7 @@ import Wallets from "./Components/admin/Wallets";
 import AdminNav from "./Components/admin/AdminNav";
 import Login from "./Components/admin/Login";
 import Items from "./Components/admin/Items";
+import Groups from "./Components/admin/Groups";
 import Page404 from "./Components/Page404";
 import AddItem from './Components/admin/AddItem'
 import AddWallet from './Components/admin/AddWallet'
@@ -35,6 +36,7 @@ const AdminRoutes = () => (
     <Route exact path="/admin/items/add-item" component={AddItem} />
     <Route exact path="/admin/wallets" component={Wallets} />
     <Route exact path="/admin/wallets/add-wallet" component={AddWallet} />
+    <Route exact path="/admin/groups" component={Groups} />
     {/* <Route exact component={Page404} /> */}
   </div>
 );
