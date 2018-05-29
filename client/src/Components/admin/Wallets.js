@@ -1,38 +1,38 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-export class Items extends Component {
+export class Wallets extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      items: null
+      wallets: null
     };
   }
 
   componentDidMount() {
     axios
-      .get(`${process.env.REACT_APP_BACKEND}/api/allitems`)
-      .then(items => {
-        this.setState({ items: items.data });
+      .get(`${process.env.REACT_APP_BACKEND}/api/allwallets`)
+      .then(wallets => {
+        this.setState({ wallets: wallets.data });
       })
       .catch(err => {
         console.log(err);
       });
   }
   render() {
-    return this.state.items ? (
+    return this.state.wallets ? (
       <div className="content-wrapper">
         <div className="container-fluid">
           <div className="card mb-3">
             <div className="card-header">
               <div>
-                <i className="fa fa-table" /> Items
+                <i className="fa fa-table" /> Wallets
                 <Link
-                  to="/admin/items/add-item"
+                  to="/admin/wallets/add-wallet"
                   className="btn btn-info float-right btn-sm"
                 >
-                  Add New Item
+                  Add New Wallet
                 </Link>
               </div>
             </div>
@@ -47,21 +47,21 @@ export class Items extends Component {
                   <thead>
                     <tr>
                       <th style={{ width: "30%" }}>Name</th>
-                      <th style={{ width: "50%" }}>Short Description</th>
-                      <th style={{ width: " 5%" }}>Price</th>
+                      <th style={{ width: "50%" }}>Group</th>
+                      <th style={{ width: " 5%" }}>Coins</th>
                       <th style={{ width: "8.33%" }}>Actions</th>
                       <th style={{ width: "8.33%" }}>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.items.map((item,key) => {
+                    {this.state.wallets.map((wallet,key) => {
                       return (
                         <tr key={key} >
-                          <td>{item.name}</td>
-                          <td>{item.shortDesc} </td>
-                          <td>{item.price}</td>
+                          <td>{wallet.name}</td>
+                          <td>{wallet.group.id} </td>
+                          <td>{wallet.coins}</td>
                           <td>
-                            <Link to={'/admin/items/edit/'+item._id} className="btn btn-warning">Edit</Link>
+                            <button className="btn btn-warning">Edit</button>
                           </td>
                           <td>
                             <button className="btn btn-danger">Delete</button>
@@ -82,4 +82,4 @@ export class Items extends Component {
   }
 }
 
-export default Items;
+export default Wallets;

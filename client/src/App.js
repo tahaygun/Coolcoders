@@ -6,23 +6,26 @@ import "./vendor/simple-line-icons/css/simple-line-icons.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Nav from "./Components/Nav";
 import Footer from "./Components/Footer";
-import Enroll from "./Components/Enroll";
+//import Enroll from "./Components/Enroll";
 import Home from "./Components/Home";
-import Wallets from "./Components/Wallets";
+import Wallets from "./Components/admin/Wallets";
 import AdminNav from "./Components/admin/AdminNav";
 import Login from "./Components/admin/Login";
 import Items from "./Components/admin/Items";
+import Groups from "./Components/admin/Groups";
+import Requests from "./Components/admin/Requests";
 import Page404 from "./Components/Page404";
 import AddItem from './Components/admin/AddItem'
 import EditItem from './Components/admin/EditItem'
+import AddWallet from './Components/admin/AddWallet'
+
 const DefaultRoutes = () => (
   <div>
     <div>
       <Nav />
-      <Route exact path="/" component={Enroll} />
-      <Route exact path="/home" component={Home} />
-      <Route exact path="/home/product" component={Home} />
-      <Route exact path="/home/wallets" component={Wallets} />
+      
+      <Route exact path="/" component={Home} />
+      
       <Footer />
     </div>
   </div>
@@ -34,6 +37,11 @@ const AdminRoutes = () => (
     <Route exact path="/admin/items" component={Items} />
     <Route exact path="/admin/items/add-item" component={AddItem} />
     <Route exact path="/admin/items/edit/:id" component={EditItem} />
+    <Route exact path="/admin/wallets" component={Wallets} />
+    <Route exact path="/admin/wallets/add-wallet" component={AddWallet} />
+    <Route exact path="/admin/groups" component={Groups} />
+    <Route exact path="/admin/requests" component={Requests} />
+   
     {/* <Route exact component={Page404} /> */}
   </div>
 );

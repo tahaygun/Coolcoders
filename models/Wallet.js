@@ -27,5 +27,7 @@ var Walletchema = new Schema({
     default: Date.now
   }
 });
+var connection = mongoose.createConnection("mongodb://admin:rootpass@ds119059.mlab.com:19059/restartproject");
+
 
 module.exports = Wallet = mongoose.model("Wallet", Walletchema);

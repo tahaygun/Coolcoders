@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-export class Items extends Component {
+export class Requests extends Component {
   constructor(props) {
     super(props);
 
@@ -12,27 +12,27 @@ export class Items extends Component {
 
   componentDidMount() {
     axios
-      .get(`${process.env.REACT_APP_BACKEND}/api/allitems`)
-      .then(items => {
-        this.setState({ items: items.data });
+      .get(`${process.env.REACT_APP_BACKEND}/api/allrequests`)
+      .then(requests => {
+        this.setState({ requests: requests.data });
       })
       .catch(err => {
         console.log(err);
       });
   }
   render() {
-    return this.state.items ? (
+    return this.state.requests ? (
       <div className="content-wrapper">
         <div className="container-fluid">
           <div className="card mb-3">
             <div className="card-header">
               <div>
-                <i className="fa fa-table" /> Items
+                <i className="fa fa-table" /> Requests
                 <Link
-                  to="/admin/items/add-item"
+                  to="/admin/requests/add-request"
                   className="btn btn-info float-right btn-sm"
                 >
-                  Add New Item
+                  Add New Request
                 </Link>
               </div>
             </div>
@@ -46,22 +46,26 @@ export class Items extends Component {
                 >
                   <thead>
                     <tr>
-                      <th style={{ width: "30%" }}>Name</th>
-                      <th style={{ width: "50%" }}>Short Description</th>
-                      <th style={{ width: " 5%" }}>Price</th>
+                      <th style={{ width: "30%" }}>Title</th>
+                      <th style={{ width: "50%" }}> Description</th>
+                      <th style={{ width: " 5%" }}>Image</th>
+                      <th style={{ width: " 10%" }}>Item</th>
+                      <th style={{ width: " 10%" }}>Status</th>
                       <th style={{ width: "8.33%" }}>Actions</th>
                       <th style={{ width: "8.33%" }}>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.items.map((item,key) => {
+                    {this.state.requests.map((request,key) => {
                       return (
                         <tr key={key} >
-                          <td>{item.name}</td>
-                          <td>{item.shortDesc} </td>
-                          <td>{item.price}</td>
+                          <td>{request.title}</td>
+                          <td>{request.description} </td>
+                          <td>{request.proofImg}</td>
+                          <td>{request.item.id}</td>
+                          <td>{request.status}</td>
                           <td>
-                            <Link to={'/admin/items/edit/'+item._id} className="btn btn-warning">Edit</Link>
+                            <button className="btn btn-warning">Edit</button>
                           </td>
                           <td>
                             <button className="btn btn-danger">Delete</button>
@@ -82,4 +86,4 @@ export class Items extends Component {
   }
 }
 
-export default Items;
+export default Requests;
