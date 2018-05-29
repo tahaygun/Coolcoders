@@ -33,7 +33,6 @@ function walletController(router) {
     }
     var wallet = new Wallet(req.body);
     Group.findById(req.body.group).then(groupOfWallet => {
-      console.log(groupOfWallet);
       wallet.team = groupOfWallet.team;
       wallet
         .save()

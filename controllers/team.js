@@ -102,11 +102,7 @@ function teamController(router, upload) {
       .then(result => {
         Group.remove({ team: req.params.id })
           .then(result => {
-            Wallet.remove({ team: req.params.id })
-              .then(res2 => {
-                res.send(res2);
-              })
-              .cath(err => res.send(err));
+            Wallet.remove({ team: req.params.id }).exec()
           })
           .cath(err => res.send(err));
       })

@@ -9,8 +9,16 @@ export class Teams extends Component {
       teams: null
     };
   }
+  deleteHandler(id) {
+    axios
+      .delete(process.env.REACT_APP_BACKEND + "/api/deleteteam/" + id)
+      .then(resp => {
+        this.getAllItems();
 
-  componentDidMount() {
+        // this.props.history.pageRefresh();
+      });
+  }
+  getAllItems = () => {
     axios
       .get(`${process.env.REACT_APP_BACKEND}/api/allteams`)
       .then(teams => {
@@ -19,6 +27,9 @@ export class Teams extends Component {
       .catch(err => {
         console.log(err);
       });
+  };
+  componentDidMount() {
+    this.getAllItems();
   }
   render() {
     return this.state.teams ? (
@@ -48,23 +59,41 @@ export class Teams extends Component {
                     <tr>
                       <th style={{ width: "30%" }}>Name</th>
                       <th style={{ width: "50%" }}>Description</th>
-                    
+
                       <th style={{ width: "8.33%" }}>Edit</th>
                       <th style={{ width: "8.33%" }}>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.teams.map((team,key) => {
+                    {this.state.teams.map((team, key) => {
                       return (
-                        <tr key={key} >
+                        <tr key={key}>
                           <td>{team.name}</td>
                           <td>{team.details} </td>
-                          
+
                           <td>
-                            <Link to={'/admin/teams/edit-team/'+team._id} className="btn btn-warning">Edit</Link>
+                            <Link
+                              to={"/admin/teams/edit-team/" + team._id}
+                              className="btn btn-warning"
+                            >
+                              Edit
+                            </Link>
                           </td>
                           <td>
-                            <button className="btn btn-danger">Delete</button>
+                            <button
+                              onClick={() => {
+                                if (
+                                  window.confirm(
+                                    "Are you sure you wish to delete this item?"
+                                  )
+                                ) {
+                                  this.deleteHandler(team._id);
+                                }
+                              }}
+                              className="btn btn-danger"
+                            >
+                              Delete
+                            </button>
                           </td>
                         </tr>
                       );
