@@ -8,11 +8,10 @@ function groupController(router) {
       .withMessage("Name is required!")
       .isLength({ min: 2 })
       .withMessage("Name should be at least 2 letters"),
-      check("team")
+    check("team")
       .not()
       .isEmpty()
       .withMessage("Please choose team!")
-
   ];
   router.get("/allgroups", (req, res) => {
     Group.find()
@@ -26,7 +25,7 @@ function groupController(router) {
   });
 
   //@To create GROUP
-  router.post("/addgroup", validations,(req, res) => {
+  router.post("/addgroup", validations, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(500).send({ errors: errors.mapped() });
@@ -52,7 +51,7 @@ function groupController(router) {
       .catch(err => res.status(404).json(err));
   });
   //@To edit GROUP
-  router.put("/editgroup/:id",validations, (req, res) => {
+  router.put("/editgroup/:id", validations, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(500).send({ errors: errors.mapped() });
@@ -78,7 +77,9 @@ function groupController(router) {
   router.delete("/deletegroup/:id", (req, res) => {
     Group.findByIdAndRemove(req.params.id)
       .then(result => {
-        res.send(result);
+        Wallet.remove({ group: req.params.id })
+          .then(resp => res.send(resp))
+          .catch(err => res.send(err));
       })
       .catch(err => res.send(err));
   });

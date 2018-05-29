@@ -1,19 +1,28 @@
 /* nav{
 text-align: center;
 } */
-.network, #gomarket{
-    color: #e74c3c;
+.network,
+#gomarket {
+  color: #e74c3c;
 }
-.restart{
-    color: rgb(255, 255, 255);
+.restart {
+  color: rgb(255, 255, 255);
 }
-.min-height{
-    min-height: 600px;
+.min-height {
+  min-height: 85vh;
 }
 #mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
-    height: 100vh;
+  height: 100vh;
 }
-.content-wrapper{
-    margin-top: 80px;
-    margin-bottom: 100px;
+.content-wrapper {
+  margin-top: 80px;
+  margin-bottom: 100px;
+}
+.loadingDiv * {
+  margin: auto;
+}
+.loadingDiv {
+  margin-top: 100px;
+  padding: 100px;
+  min-height: 85vh;
 }

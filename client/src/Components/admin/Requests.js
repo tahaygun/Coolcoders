@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import axios from "axios";
 export class Requests extends Component {
   constructor(props) {
@@ -28,12 +28,6 @@ export class Requests extends Component {
             <div className="card-header">
               <div>
                 <i className="fa fa-table" /> Requests
-                <Link
-                  to="/admin/requests/add-request"
-                  className="btn btn-info float-right btn-sm"
-                >
-                  Add New Request
-                </Link>
               </div>
             </div>
             <div className="card-body">

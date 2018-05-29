@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
-export class AddItem extends Component {
+export class AddTeam extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       data: {
         name: "",
-        shortDesc: "",
-        longDesc: "",
-        price: "",
+        details: "",
         image: null
       },
       message: null,
@@ -33,23 +31,19 @@ export class AddItem extends Component {
     e.preventDefault();
     let formInfo = new FormData();
     formInfo.append("name", this.state.data.name);
-    formInfo.append("shortDesc", this.state.data.shortDesc);
-    formInfo.append("longDesc", this.state.data.longDesc);
-    formInfo.append("price", this.state.data.price);
+    formInfo.append("details", this.state.data.details);
     formInfo.append("imgUrl", this.state.data.image);
     axios
-      .post(process.env.REACT_APP_BACKEND + "/api/additem", formInfo)
+      .post(process.env.REACT_APP_BACKEND + "/api/addteam", formInfo)
       .then(res => {
         if (res.status === 200) {
           this.setState({
             data: {
               name: "",
-              shortDesc: "",
-              longDesc: "",
-              price: "",
+              details: "",
               image: null
             },
-            message: "Item added successfully.",
+            message: "Team added successfully.",
             error: ""
           });
         }
@@ -61,7 +55,7 @@ export class AddItem extends Component {
   render() {
     return (
       <div className="content-wrapper text-center container">
-        <h3>Add Item</h3>
+        <h3>Add Team</h3>
         <br />
         <p> {this.state.error}</p>
         <p className="text-danger">
@@ -81,51 +75,24 @@ export class AddItem extends Component {
             id="name"
           />
           <hr />
-          <label htmlFor="content">Short Description</label>
+          <label htmlFor="content">Details</label>
           <br />
           <textarea
             className="form-control"
             required
             id="textarea"
-            value={this.state.data.shortDesc}
+            value={this.state.data.details}
             style={{ height: 70, width: "50vmax", margin: "auto" }}
             type="text"
-            name="shortDesc"
+            name="details"
             onChange={this.formHandler}
           />
-          <hr />
-          <label htmlFor="content">Long Description</label>
-          <br />
-          <textarea
-            className="form-control"
-            required
-            id="textarea"
-            value={this.state.data.longDesc}
-            style={{ height: 150, width: "50vmax", margin: "auto" }}
-            type="text"
-            name="longDesc"
-            onChange={this.formHandler}
-          />
-          <hr />
-          <label htmlFor="date">Price</label>
-          <br />
-          <input
-            style={{ width: "50vmax", margin: "auto" }}
-            className="form-control"
-            type="number"
-            value={this.state.data.price}
-            autoComplete="off"
-            name="price"
-            onChange={this.formHandler}
-            id="price"
-          />{" "}
-          <br />
           <hr />
           <label htmlFor="date">Image (jpg/png)</label>
           <br />
           <input
-            style={{ width: "20vmax", margin: "auto" }}
-            className="form-control text-center"
+            style={{ width: "20vmax", margin: "auto", textAlign:'center' }}
+            className="form-control"
             type="file"
             name="image"
             onChange={this.imageHandler}
@@ -142,4 +109,4 @@ export class AddItem extends Component {
   }
 }
 
-export default AddItem;
+export default AddTeam;

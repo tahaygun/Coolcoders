@@ -58,7 +58,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 itemController(router, upload);
-teamController(router);
+teamController(router,upload);
 groupController(router);
 walletController(router);
 requestController(router);

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../vendor/landingPage.css";
 import axios from "axios";
+import Footer from "./Footer";
 axios.defaults.withCredentials = true;
 //import { Redirect } from 'react-router-dom';
 export class Home extends Component {
@@ -53,8 +54,8 @@ export class Home extends Component {
     var changeHandler = this.changeHandler;
 
     return (
-      <div>
-        <header className="masthead text-center text-white d-flex">
+      <div className='min-height' >
+        <header className="masthead min-height text-center text-white d-flex">
           <div className="container my-auto">
             <div className="row">
               <div className="col-lg-10 mx-auto">
@@ -112,6 +113,7 @@ export class Home extends Component {
             </div>
           </div>
         </header>
+        <Footer/>
       </div>
     );
   }

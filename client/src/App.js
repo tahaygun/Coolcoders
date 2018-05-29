@@ -24,6 +24,9 @@ import Page404 from "./Components/Page404";
 import AddItem from "./Components/admin/AddItem";
 import EditItem from "./Components/admin/EditItem";
 import AddWallet from "./Components/admin/AddWallet";
+import Teams from "./Components/admin/Teams";
+import AddTeam from "./Components/admin/AddTeam";
+import EditTeam from "./Components/admin/EditTeam";
 import Allitems from "./Components/Allitems";
 import UserWallet from "./Components/UserWallet";
 
@@ -34,6 +37,7 @@ const DefaultRoutes = () => (
       <Nav />
       <Switch>
         <ProtectedRouteForUser exact path="/" component={Home} />
+        <ProtectedRouteForUser exact path="/market" component={Allitems} />
         <ProtectedRouteForUser component={Page404} />
       </Switch>
       <Footer />
@@ -63,6 +67,9 @@ const AdminRoutes = () => (
         component={AddWallet}
       />
       <ProtectedRouteForAdmin exact path="/admin/groups" component={Groups} />
+      <ProtectedRouteForAdmin exact path="/admin/teams" component={Teams} />
+      <ProtectedRouteForAdmin exact path="/admin/teams/add-team" component={AddTeam} />
+      <ProtectedRouteForAdmin exact path="/admin/teams/edit-team/:id" component={EditTeam} />
       <ProtectedRouteForAdmin
         exact
         path="/admin/requests"
@@ -86,7 +93,6 @@ class ProtectedRouteForUser extends Component {
     axios
       .get(process.env.REACT_APP_BACKEND + "/api/isvalidcoupon")
       .then(response => {
-        console.log(response);
         this.setState({ authenticated: true });
       })
       .catch(err => {
@@ -122,7 +128,6 @@ class ProtectedRouteForAdmin extends Component {
     axios
       .get(process.env.REACT_APP_BACKEND + "/api/isloggedin")
       .then(response => {
-        console.log(response);
         this.setState({ isloggedin: true });
       })
       .catch(err => {
@@ -153,7 +158,6 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/market" component={Allitems} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/UserWallet" component={UserWallet} />
             <ProtectedRouteForUser component={DefaultRoutes} />
