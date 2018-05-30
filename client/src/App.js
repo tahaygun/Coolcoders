@@ -12,13 +12,13 @@ import {
 } from "react-router-dom";
 import Nav from "./Components/Nav";
 import Footer from "./Components/Footer";
-//import Enroll from "./Components/Enroll";
 import Home from "./Components/Home";
 import Wallets from "./Components/admin/Wallets";
 import AdminNav from "./Components/admin/AdminNav";
 import Login from "./Components/admin/Login";
 import Items from "./Components/admin/Items";
 import Groups from "./Components/admin/Groups";
+import AddGroup from "./Components/admin/AddGroup";
 import Requests from "./Components/admin/Requests";
 import Page404 from "./Components/Page404";
 import AddItem from "./Components/admin/AddItem";
@@ -35,7 +35,8 @@ import OneItem from "./Components/OneItem";
 import Admins from "./Components/admin/Admins";
 import AddAdmin from "./Components/admin/AddAdmin";
 import UserWallet from "./Components/UserWallet";
-import WalletManagement from './Components/admin/WalletManagement'
+import WalletManagement from "./Components/admin/WalletManagement";
+import TextCommands from "./Components/admin/TextCommands";
 const DefaultRoutes = () => (
   <div>
     <div>
@@ -55,7 +56,7 @@ const DefaultRoutes = () => (
         />
         <ProtectedRouteForUser
           exact
-          path="/UserWallet"
+          path="/wallets"
           component={UserWallet}
         />
         <ProtectedRouteForUser component={Page404} />
@@ -69,6 +70,7 @@ const AdminRoutes = () => (
   <div>
     <AdminNav />
     <Switch>
+      <ProtectedRouteForAdmin exact path="/admin" component={Items} />
       <ProtectedRouteForAdmin exact path="/admin/items" component={Items} />
       <ProtectedRouteForAdmin
         exact
@@ -87,6 +89,11 @@ const AdminRoutes = () => (
         component={AddWallet}
       />
       <ProtectedRouteForAdmin exact path="/admin/groups" component={Groups} />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/groups/add-group"
+        component={AddGroup}
+      />
       <ProtectedRouteForAdmin exact path="/admin/teams" component={Teams} />
       <ProtectedRouteForAdmin exact path="/admin/admins" component={Admins} />
       <ProtectedRouteForAdmin
@@ -121,13 +128,16 @@ const AdminRoutes = () => (
       />
       <ProtectedRouteForAdmin
         exact
-        path="/admin/wallets-management"
+        path="/admin/wallet-management"
         component={WalletManagement}
+      />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/wallet-management/text-command"
+        component={TextCommands}
       />
       <ProtectedRouteForAdmin component={Page404} />
     </Switch>
-
-    {/* <Route exact component={Page404} /> */}
   </div>
 );
 class ProtectedRouteForUser extends Component {
@@ -170,17 +180,18 @@ class ProtectedRouteForAdmin extends Component {
     super(props);
 
     this.state = {
-      isloggedin: true
+      isloggedin: true,
+      wait: false
     };
   }
   componentWillMount() {
     axios
       .get(process.env.REACT_APP_BACKEND + "/api/isloggedin")
       .then(response => {
-        this.setState({ isloggedin: true });
+        this.setState({ isloggedin: true, wait: true });
       })
       .catch(err => {
-        this.setState({ isloggedin: false });
+        this.setState({ isloggedin: false, wait: true });
       });
   }
   render() {
@@ -190,8 +201,8 @@ class ProtectedRouteForAdmin extends Component {
       <Route
         {...props}
         render={props =>
-          this.state.isloggedin ? (
-            <Component {...props} />
+          ( this.state.isloggedin) ? (
+            this.state.wait ? <Component {...props} /> : <p>Loading</p>
           ) : (
             <Redirect to="/login" />
           )

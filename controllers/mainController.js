@@ -11,6 +11,7 @@ const Group = require("../models/Group");
 const Request = require("../models/Request");
 const Admin = require("../models/Admin");
 const Coupon = require("../models/Coupon");
+const History = require("../models/History");
 const itemController = require("./item");
 const teamController = require("./team");
 const groupController = require("./group");

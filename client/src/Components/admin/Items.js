@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Loading from "../Loading";
+
 export class Items extends Component {
   constructor(props) {
     super(props);
@@ -70,7 +72,7 @@ export class Items extends Component {
                     {this.state.items.map((item, key) => {
                       return (
                         <tr key={key}>
-                          <td>{item.name}</td>
+                          <td><Link className='text-info' to={`/item/details/${item.seqId}`} > {item.name}</Link> </td>
                           <td>{item.shortDesc} </td>
                           <td>{item.price}</td>
                           <td>
@@ -108,7 +110,7 @@ export class Items extends Component {
         </div>
       </div>
     ) : (
-      <h1>Loading</h1>
+      <Loading/>
     );
   }
 }

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
-var Walletchema = new Schema({
+const autoIncrement = require('mongoose-auto-increment');
+var Walletschema = new Schema({
   name: {
     type: String,
     required: true
@@ -18,21 +18,20 @@ var Walletchema = new Schema({
   },
   coins: {
     type: Number,
-    required:true,
     default:0
   },
   history:{
     type:Array,
     required:true,
-    default:[`Wallet created at ${new Date().toJSON().slice(0,16)}`],
+    default:[`Wallet created at ${new Date().toLocaleString()}`],
   },
   createdAt: {
     type: Date,
-    required: true,
     default: Date.now
   }
 });
 var connection = mongoose.createConnection("mongodb://admin:rootpass@ds119059.mlab.com:19059/restartproject");
+autoIncrement.initialize(connection);
+Walletschema.plugin(autoIncrement.plugin, { model: 'Wallet', field: 'seqId' });
 
-
-module.exports = Wallet = mongoose.model("Wallet", Walletchema);
+module.exports = Wallet = mongoose.model("Wallet", Walletschema);

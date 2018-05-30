@@ -1,25 +1,23 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Loading from "../Loading";
-export class AddWallet extends Component {
+export class AddGroup extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: {
         name: "",
-        group: "",
-        coins:0
+        team: ""
       },
-      groups:null,
       message: null,
       error: ""
     };
   }
   componentWillMount() {
     axios
-      .get(process.env.REACT_APP_BACKEND + "/api/allgroups")
-      .then(groups => {
-        this.setState({ groups: groups.data });
+      .get(process.env.REACT_APP_BACKEND + "/api/allteams")
+      .then(teams => {
+        this.setState({ teams: teams.data });
       })
       .catch(err => console.log(err));
   }
@@ -34,16 +32,15 @@ export class AddWallet extends Component {
   submitHandler = e => {
     e.preventDefault();
     axios
-      .post(process.env.REACT_APP_BACKEND + "/api/addwallet", this.state.data)
+      .post(process.env.REACT_APP_BACKEND + "/api/addgroup", this.state.data)
       .then(res => {
         if (res.status === 200) {
           this.setState({
             data: {
               name: "",
-              group: "",
-              coins:0
+              team: ""
             },
-            message: "Wallet added successfully.",
+            message: "Group added successfully.",
             error: ""
           });
         }
@@ -53,9 +50,9 @@ export class AddWallet extends Component {
       });
   };
   render() {
-    return this.state.groups ? (
+    return this.state.teams ? (
       <div className="content-wrapper text-center container">
-        <h3>Add Wallet</h3>
+        <h3>Add Group</h3>
         <br />
         <p className="text-danger"> {this.state.error}</p>
         <p className="text-danger">
@@ -74,30 +71,18 @@ export class AddWallet extends Component {
             onChange={this.formHandler}
             id="name"
           />
-          <br/>
-          <label htmlFor="coins">Starting Coins</label> <br />
-          <input
-            style={{ width: "50vmax", margin: "auto" }}
-            className="form-control"
-            required
-            value={this.state.data.coins}
-            autoComplete="off"
-            type="text"
-            name="coins"
-            onChange={this.formHandler}
-            id="coins"
-          /> <br/>
-          <label htmlFor="group">Group</label> <br />
+          <hr />
+          <label htmlFor="team">Team</label> <br />
           <select
             className="form-control"
             style={{ width: "50vmax", margin: "auto" }}
             onChange={this.formHandler}
-            name="group"
-            id="group"
+            name="team"
+            id="team"
           >
-          <option value=''>Select Group</option>;
-            {this.state.groups.map(group => {
-              return <option key={group._id} value={group._id}>{group.name} </option>;
+          <option value=''>Select Team</option>;
+            {this.state.teams.map(team => {
+              return <option value={team._id}>{team.name} </option>;
             })}
           </select>
           <hr />
@@ -112,4 +97,4 @@ export class AddWallet extends Component {
   }
 }
 
-export default AddWallet;
+export default AddGroup;

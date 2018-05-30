@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
+import {Link} from 'react-router-dom';
+import Loading from "../Loading";
+
 export class Requests extends Component {
   constructor(props) {
     super(props);
@@ -98,7 +101,7 @@ export class Requests extends Component {
                               />{" "}
                             </a>{" "}
                           </td>
-                          <td>{request.item.name}</td>
+                          <td><Link className='text-info' to={`/item/details/${request.item.seqId}`} > {request.item.name}</Link> </td>
                           <td>{request.status}</td>
                           {request.status === "Pending" ? (
                             <td className="actionButtonsTogether">
@@ -146,7 +149,7 @@ export class Requests extends Component {
         </div>
       </div>
     ) : (
-      <h1>Loading</h1>
+     <Loading/>
     );
   }
 }
