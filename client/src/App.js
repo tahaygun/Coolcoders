@@ -55,7 +55,7 @@ const DefaultRoutes = () => (
         />
         <ProtectedRouteForUser
           exact
-          path="/UserWallet"
+          path="/wallets"
           component={UserWallet}
         />
         <ProtectedRouteForUser component={Page404} />
