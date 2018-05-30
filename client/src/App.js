@@ -32,6 +32,7 @@ import Coupons from "./Components/admin/Coupons";
 import AddCoupon from "./Components/admin/AddCoupon"
 import OrderPage from "./Components/OrderItem";
 import OneItem from "./Components/OneItem";
+
 import UserWallet from "./Components/UserWallet";
 
 const DefaultRoutes = () => (
@@ -103,6 +104,11 @@ const AdminRoutes = () => (
       />
       <ProtectedRouteForAdmin component={Page404} />
       <ProtectedRouteForAdmin exact path="/admin/couponcodes" component={Coupons} />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/couponcodes/add-coupon"
+        component={AddCoupon}
+      />
     </Switch>
 
     {/* <Route exact component={Page404} /> */}
