@@ -80,7 +80,7 @@ export class Admins extends Component {
                                     "Are you sure you wish to delete this admin?"
                                   )
                                 ) {
-                                  this.deleteHandler.bind(null, admin._id);
+                                  this.deleteHandler( admin._id);
                                 }
                               }}
                               className="btn btn-danger"
