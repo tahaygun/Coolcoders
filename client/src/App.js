@@ -12,7 +12,6 @@ import {
 } from "react-router-dom";
 import Nav from "./Components/Nav";
 import Footer from "./Components/Footer";
-//import Enroll from "./Components/Enroll";
 import Home from "./Components/Home";
 import Wallets from "./Components/admin/Wallets";
 import AdminNav from "./Components/admin/AdminNav";
@@ -35,7 +34,8 @@ import OneItem from "./Components/OneItem";
 import Admins from "./Components/admin/Admins";
 import AddAdmin from "./Components/admin/AddAdmin";
 import UserWallet from "./Components/UserWallet";
-import WalletManagement from './Components/admin/WalletManagement'
+import WalletManagement from './Components/admin/WalletManagement';
+import TextCommands from './Components/admin/TextCommands';
 const DefaultRoutes = () => (
   <div>
     <div>
@@ -121,13 +121,16 @@ const AdminRoutes = () => (
       />
       <ProtectedRouteForAdmin
         exact
-        path="/admin/wallets-management"
+        path="/admin/wallet-management"
         component={WalletManagement}
+      />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/wallet-management/text-command"
+        component={TextCommands}
       />
       <ProtectedRouteForAdmin component={Page404} />
     </Switch>
-
-    {/* <Route exact component={Page404} /> */}
   </div>
 );
 class ProtectedRouteForUser extends Component {

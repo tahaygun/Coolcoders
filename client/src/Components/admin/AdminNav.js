@@ -84,7 +84,7 @@ export class Dashboard extends Component {
                 onClick={this.changeCollapse}
                   className="nav-link"
                   activeClassName="text-white"
-                  to="/admin/wallets-management"
+                  to="/admin/wallet-management"
                 >
                   <i className="fa fa-fw 	fa fa-cart-plus" />
                   <span className="nav-link-text"> Wallet Managements</span>
