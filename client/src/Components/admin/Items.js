@@ -70,7 +70,7 @@ export class Items extends Component {
                     {this.state.items.map((item, key) => {
                       return (
                         <tr key={key}>
-                          <td>{item.name}</td>
+                          <td><Link className='text-info' to={`/item/details/${item.seqId}`} > {item.name}</Link> </td>
                           <td>{item.shortDesc} </td>
                           <td>{item.price}</td>
                           <td>

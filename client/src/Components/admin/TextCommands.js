@@ -90,6 +90,8 @@ export class TextCommands extends Component {
         status = "SubAmount";
         return this.setState({ messages, status }, this.scrollToBottom());
       }
+      messages.push("Sorry but I didn't understand you, do you want to add or take money?");
+      return this.setState({ messages }, this.scrollToBottom());
     }
     if (status === "AddAmount") {
       if (!command.match(/\d+/)) {

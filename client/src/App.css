@@ -47,3 +47,7 @@ textarea {
   border: #d897907e 3px solid;
   box-shadow: #ffffff0e 1px solid;
 }
+.historyModal{
+  max-height: 300px;
+  overflow: auto;
+}
