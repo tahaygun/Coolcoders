@@ -54,6 +54,8 @@ function adminController(router) {
       });
   });
 
+
+
   //@To create admin
   router.post("/addadmin", validation, (req, res) => {
     var errors = validationResult(req);
@@ -71,6 +73,16 @@ function adminController(router) {
       });
   });
 
+//to get all adminss 
+router.get("/alladmins", (req, res) => {
+  Admin.find()
+    .then(admins => {
+      res.json(admins);
+    })
+    .catch(err => {
+      res.status(404).json(err);
+    });
+});
   //@To delete adminS
   router.delete("/deleteadmin/:id", (req, res) => {
     admin

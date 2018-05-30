@@ -26,6 +26,18 @@ function couponController(router) {
       });
   });
 
+
+//get all coupons 
+router.get("/allcoupons", (req, res) => {
+  Coupon.find()
+  .then(coupons => {
+    res.json(coupons);
+  })
+  .catch(err => {
+    res.status(404).json(err);
+  });
+});
+
   //@to check session for coupon
   router.get('/isvalidcoupon',(req,res)=>{
     if (req.session.couponCode) {
