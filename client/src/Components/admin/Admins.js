@@ -62,7 +62,7 @@ export class Admins extends Component {
                       <th style={{ width: "50%" }}>Password</th>
                      
                       <th style={{ width: "8.33%" }}>Actions</th>
-                      <th style={{ width: "8.33%" }}>Actions</th>
+                      
                     </tr>
                   </thead>
                   <tbody>
