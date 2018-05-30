@@ -18,6 +18,7 @@ import AdminNav from "./Components/admin/AdminNav";
 import Login from "./Components/admin/Login";
 import Items from "./Components/admin/Items";
 import Groups from "./Components/admin/Groups";
+import AddGroup from "./Components/admin/AddGroup";
 import Requests from "./Components/admin/Requests";
 import Page404 from "./Components/Page404";
 import AddItem from "./Components/admin/AddItem";
@@ -87,6 +88,7 @@ const AdminRoutes = () => (
         component={AddWallet}
       />
       <ProtectedRouteForAdmin exact path="/admin/groups" component={Groups} />
+      <ProtectedRouteForAdmin exact path="/admin/groups/add-group" component={AddGroup} />
       <ProtectedRouteForAdmin exact path="/admin/teams" component={Teams} />
       <ProtectedRouteForAdmin exact path="/admin/admins" component={Admins} />
       <ProtectedRouteForAdmin
