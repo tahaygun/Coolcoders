@@ -109,13 +109,13 @@ const AdminRoutes = () => (
         path="/admin/requests"
         component={Requests}
       />
-      <ProtectedRouteForAdmin component={Page404} />
       <ProtectedRouteForAdmin exact path="/admin/couponcodes" component={Coupons} />
       <ProtectedRouteForAdmin
         exact
         path="/admin/couponcodes/add-coupon"
         component={AddCoupon}
       />
+      <ProtectedRouteForAdmin component={Page404} />
     </Switch>
 
     {/* <Route exact component={Page404} /> */}

@@ -51,9 +51,9 @@ export class Coupons extends Component {
                 >
                   <thead>
                     <tr>
-                      <th style={{ width: "60%" }}>Coupon Code</th>
+                      <th style={{ width: "80%" }}>Coupon Code</th>
                     
-                      <th style={{ width: "8.33%" }}>Actions</th>
+                      <th style={{ width: "20%" }}>Actions</th>
                     
                     </tr>
                   </thead>
@@ -65,9 +65,6 @@ export class Coupons extends Component {
                           
                           <td>
                             <button className="btn btn-warning">Edit</button>
-                          </td>
-                          <td>
-                            
                           </td>
                         </tr>
                       );
