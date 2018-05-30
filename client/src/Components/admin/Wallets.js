@@ -1,15 +1,29 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Modal from "react-responsive-modal";
+import Loading from "../Loading";
 export class Wallets extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      wallets: null
+      wallets: null,
+      open: false,
+      wallet: null
     };
   }
+  onOpenModal = id => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND}/api/wallet/${id}`)
+      .then(wallet => {
+        this.setState({ wallet: wallet.data.wallet, open: true });
+      });
+  };
 
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
   componentDidMount() {
     axios
       .get(`${process.env.REACT_APP_BACKEND}/api/allwallets`)
@@ -21,6 +35,7 @@ export class Wallets extends Component {
       });
   }
   render() {
+    const { open, wallet } = this.state;
     return this.state.wallets ? (
       <div className="content-wrapper">
         <div className="container-fluid">
@@ -36,6 +51,24 @@ export class Wallets extends Component {
                 </Link>
               </div>
             </div>
+            <Modal open={open} onClose={this.onCloseModal} center>
+              {wallet ? (
+                <div className='container mt-2 mr-2 historyModal'>
+                  <h6>History</h6>
+                  <ul>
+                    {wallet.history.reverse().map((event, key) => {
+                      if (event.includes("subtract")) {
+                        return <li className="text-danger">{event}</li>;
+                      } else {
+                        return <li className="text-success">{event}</li>;
+                      }
+                    })}
+                  </ul>
+                </div>
+              ) : (
+                <p>Loading</p>
+              )}
+            </Modal>
             <div className="card-body">
               <div className="table-responsive">
                 <table
@@ -47,24 +80,37 @@ export class Wallets extends Component {
                   <thead>
                     <tr>
                       <th style={{ width: "30%" }}>Name</th>
-                      <th style={{ width: "50%" }}>Group</th>
+                      <th style={{ width: "30%" }}>Group</th>
                       <th style={{ width: " 5%" }}>Coins</th>
+                      <th style={{ width: "8.33%" }}>Actions</th>
                       <th style={{ width: "8.33%" }}>Actions</th>
                       <th style={{ width: "8.33%" }}>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.wallets.map((wallet,key) => {
+                    {this.state.wallets.map((wallet, key) => {
                       return (
-                        <tr key={key} >
+                        <tr key={key}>
                           <td>{wallet.name}</td>
-                          <td>{wallet.group.id} </td>
+                          <td>{wallet.group.name} </td>
                           <td>{wallet.coins}</td>
                           <td>
-                            <button className="btn btn-warning">Edit</button>
+                            <button
+                              onClick={this.onOpenModal.bind(null, wallet._id)}
+                              className="btn btn-sm btn-success"
+                            >
+                              History
+                            </button>
                           </td>
                           <td>
-                            <button className="btn btn-danger">Delete</button>
+                            <button className="btn btn-sm btn-warning">
+                              Edit
+                            </button>
+                          </td>
+                          <td>
+                            <button className="btn btn-sm btn-danger">
+                              Delete
+                            </button>
                           </td>
                         </tr>
                       );
@@ -77,7 +123,7 @@ export class Wallets extends Component {
         </div>
       </div>
     ) : (
-      <h1>Loading</h1>
+      <Loading />
     );
   }
 }

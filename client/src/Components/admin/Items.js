@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Loading from "../Loading";
+
 export class Items extends Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       items: null
     };
@@ -21,15 +23,17 @@ export class Items extends Component {
   };
   deleteHandler(id) {
     axios
-      .delete(process.env.REACT_APP_BACKEND + "/api/deleteitem/" + id)
+    .delete(process.env.REACT_APP_BACKEND + "/api/deleteitem/" + id)
       .then(resp => {
         this.getAllItems();
-      })
-      .catch(err => console.log(err));
+
+        // this.props.history.pageRefresh();
+      });
   }
   componentDidMount() {
     this.getAllItems();
   }
+
 
   render() {
     return this.state.items ? (
@@ -68,7 +72,7 @@ export class Items extends Component {
                     {this.state.items.map((item, key) => {
                       return (
                         <tr key={key}>
-                          <td>{item.name}</td>
+                          <td><Link className='text-info' to={`/item/details/${item.seqId}`} > {item.name}</Link> </td>
                           <td>{item.shortDesc} </td>
                           <td>{item.price}</td>
                           <td>
@@ -87,7 +91,7 @@ export class Items extends Component {
                                     "Are you sure you wish to delete this item?"
                                   )
                                 ) {
-                                  this.deleteHandler.bind(null, item._id);
+                                  this.deleteHandler(item._id);
                                 }
                               }}
                               className="btn btn-danger"
@@ -106,7 +110,7 @@ export class Items extends Component {
         </div>
       </div>
     ) : (
-      <h1>Loading</h1>
+      <Loading/>
     );
   }
 }

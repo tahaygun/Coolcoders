@@ -2,6 +2,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Loading from "../Loading";
+
 export class Coupons extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +21,16 @@ export class Coupons extends Component {
       })
       .catch(err => {
         console.log(err);
+      });
+  };
+
+  deleteHandler(id) {
+    axios
+    .delete(process.env.REACT_APP_BACKEND + "/api/deletecoupon/" + id)
+      .then(resp => {
+        this.getAllCoupons();
+
+        // this.props.history.pageRefresh();
       });
   }
   componentDidMount() {
@@ -52,7 +64,6 @@ export class Coupons extends Component {
                   <thead>
                     <tr>
                       <th style={{ width: "80%" }}>Coupon Code</th>
-                    
                       <th style={{ width: "20%" }}>Actions</th>
                     
                     </tr>
@@ -63,7 +74,20 @@ export class Coupons extends Component {
                         <tr key={key} >
                           <td>{coupon.couponCode}</td> 
                           <td>
-                            <button className="btn btn-warning">Edit</button>
+                          <button
+                              onClick={() => {
+                                if (
+                                  window.confirm(
+                                    "Are you sure you wish to delete this coupon?"
+                                  )
+                                ) {
+                                  this.deleteHandler(coupon._id);
+                                }
+                              }}
+                              className="btn btn-danger"
+                            >
+                              Delete
+                            </button>
                           </td>
                         </tr>
                       );
@@ -76,7 +100,7 @@ export class Coupons extends Component {
         </div>
       </div>
     ) : (
-      <h1>Loading</h1>
+      <Loading/>
     );
   }
 }

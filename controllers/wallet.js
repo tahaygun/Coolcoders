@@ -24,6 +24,16 @@ function walletController(router) {
         res.status(404).json(err);
       });
   });
+  router.get("/walletHistory", (req, res) => {
+    History.find()
+      .sort([["createdAt", "descending"]])
+      .then(history => {
+        res.json(history);
+      })
+      // .catch(err => {
+      //   res.status(404).json(err);
+      // });
+  });
 
   //@To create WALLET
   router.post("/addwallet", validations, (req, res) => {
@@ -44,16 +54,83 @@ function walletController(router) {
         });
     });
   });
+  //@To add money to WALLET
+  router.post("/wallet/addOneCoin/:id", (req, res) => {
+    Wallet.findByIdAndUpdate(req.params.id).then(wallet => {
+      wallet.coins = Number(wallet.coins) + Number(req.body.amount);
+      var message = `${
+        req.body.amount
+      } OneCoin added at ${new Date().toLocaleString()}`;
+      wallet.history.push(message);
+      wallet
+        .save()
+        .then(savedWallet => {
+          const history = new History({
+            event: message + " to " + savedWallet.name
+          });
+          history
+            .save()
+            .then(answ => null)
+            .catch(err => console.log(err));
+          res.json(savedWallet);
+        })
+        .catch(err => {
+          res.status(401).send(err);
+        });
+    });
+  });
+  //@To take money to WALLET
+  router.post("/wallet/takeOneCoin/:id", (req, res) => {
+    Wallet.findByIdAndUpdate(req.params.id).then(wallet => {
+      wallet.coins = Number(wallet.coins) - Number(req.body.amount);
+      var message = `${
+        req.body.amount
+      } OneCoin subtracted at ${new Date().toLocaleString()}`;
+      wallet.history.push(message);
+      wallet
+        .save()
+        .then(savedWallet => {
+          const history = new History({
+            event: message + " from " + savedWallet.name
+          });
+          history
+            .save()
+            .then(answ => null)
+            .catch(err => console.log(err));
+          res.json(savedWallet);
+        })
+        .catch(err => {
+          res.status(401).send(err);
+        });
+    });
+  });
   //@one wallet for editing
   router.get("/wallet/:id", (req, res) => {
     Wallet.findById(req.params.id)
       .then(wallet => {
         Group.findById(wallet.group)
-          .populate("team")
+          .populate("group")
           .then(group => {
             res.json({ wallet: wallet, group: group });
           })
           .catch(err => res.status(404).json(err));
+      })
+      .catch(err => res.status(404).json(err));
+  });
+  //@one wallet by seqId
+  router.get("/walletBySeqId/:id", (req, res) => {
+    Wallet.findOne({ seqId: req.params.id })
+      .then(wallet => {
+        if (wallet) {
+          Group.findById(wallet.group)
+            .populate("team")
+            .then(group => {
+              res.json({ wallet: wallet, group: group });
+            })
+            .catch(err => res.status(404).json(err));
+        } else {
+          res.status(401).send({ error: "Wrong id, can you check it again?" });
+        }
       })
       .catch(err => res.status(404).json(err));
   });

@@ -39,3 +39,15 @@ textarea {
 #root{
   background-color: #ffffff0e;
 }
+.chatbox{
+  height: 500px;
+  overflow: auto;
+  display: block;
+  word-wrap: break-word;
+  border: #d897907e 3px solid;
+  box-shadow: #ffffff0e 1px solid;
+}
+.historyModal{
+  max-height: 500px;
+  overflow: auto;
+}

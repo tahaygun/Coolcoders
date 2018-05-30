@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Loading from "../Loading";
+
 export class Admins extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +21,14 @@ export class Admins extends Component {
         console.log(err);
       });
   };
- 
+  deleteHandler(id) {
+    axios
+      .delete(process.env.REACT_APP_BACKEND + "/api/deleteadmin/" + id)
+      .then(resp => {
+        this.getAllAdmins();
+      })
+      .catch(err => console.log(err));
+  }
   componentDidMount() {
     this.getAllAdmins();
   }
@@ -55,7 +64,7 @@ export class Admins extends Component {
                       <th style={{ width: "50%" }}>Password</th>
                      
                       <th style={{ width: "8.33%" }}>Actions</th>
-                      <th style={{ width: "8.33%" }}>Actions</th>
+                      
                     </tr>
                   </thead>
                   <tbody>
@@ -66,15 +75,20 @@ export class Admins extends Component {
                           <td>{admin.password} </td>
                          
                           <td>
-                            <Link
-                              to={"/admin/admins/edit/" + admin._id}
-                              className="btn btn-warning"
+                            <button
+                              onClick={() => {
+                                if (
+                                  window.confirm(
+                                    "Are you sure you wish to delete this admin?"
+                                  )
+                                ) {
+                                  this.deleteHandler( admin._id);
+                                }
+                              }}
+                              className="btn btn-danger"
                             >
-                              Edit
-                            </Link>
-                          </td>
-                          <td>
-                            
+                              Delete
+                            </button>
                           </td>
                         </tr>
                       );
@@ -87,7 +101,7 @@ export class Admins extends Component {
         </div>
       </div>
     ) : (
-      <h1>Loading</h1>
+      <Loading/>
     );
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Loading from "../Loading";
 export class WalletManagement extends Component {
   constructor(props) {
     super(props);
@@ -12,16 +13,16 @@ export class WalletManagement extends Component {
 
   componentDidMount() {
     axios
-      .get(`${process.env.REACT_APP_BACKEND}/api/allwallets`)
-      .then(wallets => {
-        this.setState({ wallets: wallets.data });
+      .get(`${process.env.REACT_APP_BACKEND}/api/walletHistory`)
+      .then(history => {
+        this.setState({ history: history.data });
       })
       .catch(err => {
         console.log(err);
       });
   }
   render() {
-    return this.state.wallets ? (
+    return this.state.history ? (
       <div className="content-wrapper">
         <div className="container-fluid">
           <div className="card mb-3">
@@ -29,7 +30,7 @@ export class WalletManagement extends Component {
               <div>
                 <i className="fa fa-table" /> Cash History
                 <Link
-                  to="/admin/wallets/text-commands"
+                  to="/admin/wallet-management/text-command"
                   className="btn btn-info ml-1 float-right btn-sm"
                 >
                   Text commands
@@ -52,28 +53,24 @@ export class WalletManagement extends Component {
                 >
                   <thead>
                     <tr>
-                      <th style={{ width: "30%" }}>Name</th>
-                      <th style={{ width: "50%" }}>Group</th>
-                      <th style={{ width: " 5%" }}>Coins</th>
-                      <th style={{ width: "8.33%" }}>Actions</th>
-                      <th style={{ width: "8.33%" }}>Actions</th>
+                      <th style={{ width: "100%" }}>Event</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.wallets.map((wallet,key) => {
+                    {this.state.history.map((history, key) => {
+                      if (history.event.includes('added')) {
                       return (
-                        <tr key={key} >
-                          <td>{wallet.name}</td>
-                          <td>{wallet.group.id} </td>
-                          <td>{wallet.coins}</td>
-                          <td>
-                            <button className="btn btn-warning">Edit</button>
-                          </td>
-                          <td>
-                            <button className="btn btn-danger">Delete</button>
-                          </td>
+                        <tr key={key}>
+                          <td className='text-success' >{history.event}</td>
                         </tr>
                       );
+                      }else{
+                        return (
+                        <tr key={key}>
+                          <td className='text-danger' >{history.event}</td>
+                        </tr>
+                      );
+                      }
                     })}
                   </tbody>
                 </table>
@@ -83,7 +80,7 @@ export class WalletManagement extends Component {
         </div>
       </div>
     ) : (
-      <h1>Loading</h1>
+      <Loading />
     );
   }
 }
