@@ -33,7 +33,7 @@ import AddCoupon from "./Components/admin/AddCoupon"
 import OrderPage from "./Components/OrderItem";
 import OneItem from "./Components/OneItem";
 import Admins from "./Components/admin/Admins";
-
+import AddAdmin from "./Components/admin/AddAdmin";
 import UserWallet from "./Components/UserWallet";
 
 const DefaultRoutes = () => (
@@ -89,6 +89,11 @@ const AdminRoutes = () => (
       <ProtectedRouteForAdmin exact path="/admin/groups" component={Groups} />
       <ProtectedRouteForAdmin exact path="/admin/teams" component={Teams} />
       <ProtectedRouteForAdmin exact path="/admin/admins" component={Admins} />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/admins/add-admin"
+        component={AddAdmin}
+      />
       <ProtectedRouteForAdmin
         exact
         path="/admin/teams/add-team"
