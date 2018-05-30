@@ -1,5 +1,6 @@
 const { check, validationResult } = require("express-validator/check");
-function requestController(router) {
+const fs = require("fs");
+function requestController(router, upload) {
   var validations = [
     check("title")
       .not()
@@ -36,47 +37,31 @@ function requestController(router) {
 
   //@To create request
 
-  router.post("/addrequest", validations, (req, res) => {
-    var errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(500).send({ errors: errors.mapped() });
+  router.post(
+    "/addrequest",
+    upload.fields([{ name: "proofImg", maxCount: 1 }]),
+    validations,
+    (req, res) => {
+      var errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(500).send({ errors: errors.mapped() });
+      }
+      var filename = null;
+      if (req.files && req.files.proofImg && req.files.proofImg[0]) {
+        filename = req.files.proofImg[0].filename;
+      }
+      var request = new Request(req.body);
+      request.proofImg = filename;
+      request
+        .save()
+        .then(savedrequest => {
+          res.json(savedrequest);
+        })
+        .catch(err => {
+          res.status(404).send(err);
+        });
     }
-    var request = new Request(req.body);
-    request
-      .save()
-      .then(savedrequest => {
-        res.json(savedrequest);
-      })
-      .catch(err => {
-        res.status(404).send(err);
-      });
-  });
-
-  //@To edit request
-
-  router.put("/editrequest/:id", validations, (req, res) => {
-    var errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(500).send({ errors: errors.mapped() });
-    }
-    Request.findById(req.params.id)
-      .then(request => {
-        request.name = req.body.name;
-        request.details = req.body.details;
-        request.price = req.body.price;
-        request.sold = req.body.sold;
-        request.imgUrl = req.body.imgUrl;
-        request
-          .save()
-          .then(result => {
-            res.send(result);
-          })
-          .catch(err => res.send(res));
-      })
-      .catch(err => {
-        res.status(404).send(err);
-      });
-  });
+  );
 
   //@To delete request
   router.delete("/deleterequest/:id", (req, res) => {

@@ -78,15 +78,14 @@ function teamController(router, upload) {
           if (req.files.imgUrl) {
             oldImg = team.imgUrl; //we store path of old image to delete it later
             team.imgUrl = req.files.imgUrl[0].filename;
+            if (fs.existsSync(`./uploads/${oldImg}`)) {
+              fs.unlinkSync(`./uploads/${oldImg}`)
+            }
           }
           team
             .save()
             .then(result => {
               res.send(result);
-              //we check if it is exist or not, if it is, we delete;
-              if (fs.existsSync(`./uploads/${oldImg}`)) {
-                fs.unlinkSync(`./uploads/${oldImg}`);
-              }
             })
             .catch(err => res.send(res));
         })

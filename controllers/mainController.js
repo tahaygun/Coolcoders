@@ -61,7 +61,7 @@ itemController(router, upload);
 teamController(router,upload);
 groupController(router);
 walletController(router);
-requestController(router);
+requestController(router,upload);
 adminController(router);
 couponController(router);
 module.exports = router;
