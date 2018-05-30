@@ -67,8 +67,8 @@ router.get("/allcoupons", (req, res) => {
 
   //@To delete coupon
   router.delete("/deletecoupon/:id", (req, res) => {
-    id
-      .findByIdAndRemove(req.params.couponCode)
+    Coupon
+      .findByIdAndRemove(req.params.id)
       .then(result => {
         res.send(result);
       })
