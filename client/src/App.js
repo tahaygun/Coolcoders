@@ -28,6 +28,8 @@ import Teams from "./Components/admin/Teams";
 import AddTeam from "./Components/admin/AddTeam";
 import EditTeam from "./Components/admin/EditTeam";
 import Allitems from "./Components/Allitems";
+import Coupons from "./Components/admin/Coupons";
+import AddCoupon from "./Components/admin/AddCoupon"
 
 const DefaultRoutes = () => (
   <div>
@@ -74,6 +76,7 @@ const AdminRoutes = () => (
         component={Requests}
       />
       <ProtectedRouteForAdmin component={Page404} />
+      <ProtectedRouteForAdmin exact path="/admin/couponcodes" component={Coupons} />
     </Switch>
 
     {/* <Route exact component={Page404} /> */}
