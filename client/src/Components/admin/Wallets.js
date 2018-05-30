@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Modal from "react-responsive-modal";
+import Loading from "../Loading";
 export class Wallets extends Component {
   constructor(props) {
     super(props);
@@ -52,9 +53,10 @@ export class Wallets extends Component {
             </div>
             <Modal open={open} onClose={this.onCloseModal} center>
               {wallet ? (
-                <div className='container historyModal'>
+                <div className='container mt-2 mr-2 historyModal'>
+                  <h6>History</h6>
                   <ul>
-                    {wallet.history.map((event, key) => {
+                    {wallet.history.reverse().map((event, key) => {
                       if (event.includes("subtract")) {
                         return <li className="text-danger">{event}</li>;
                       } else {
@@ -121,7 +123,7 @@ export class Wallets extends Component {
         </div>
       </div>
     ) : (
-      <h1>Loading</h1>
+      <Loading />
     );
   }
 }

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import {Link} from 'react-router-dom';
+import Loading from "../Loading";
+
 export class Requests extends Component {
   constructor(props) {
     super(props);
@@ -147,7 +149,7 @@ export class Requests extends Component {
         </div>
       </div>
     ) : (
-      <h1>Loading</h1>
+     <Loading/>
     );
   }
 }

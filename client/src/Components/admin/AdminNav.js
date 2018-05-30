@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
-export class Dashboard extends Component {
+import axios from "axios";
+import { NavLink, withRouter } from "react-router-dom";
+export class AdminNav extends Component {
   constructor(props) {
     super(props);
 
@@ -9,6 +10,11 @@ export class Dashboard extends Component {
     };
     this.changeCollapse = this.changeCollapse.bind(this);
   }
+  logoutHandler = () => {
+    axios.get(`${process.env.REACT_APP_BACKEND}/api/logout`).then(res => {
+      this.props.history.push("/");
+    });
+  };
   changeCollapse() {
     if (this.state.collapse === "collapse navbar-collapse") {
       return this.setState({ collapse: "collapse navbar-collapse show" });
@@ -48,7 +54,7 @@ export class Dashboard extends Component {
               </li>
               <li className="nav-item">
                 <NavLink
-                onClick={this.changeCollapse}
+                  onClick={this.changeCollapse}
                   className="nav-link"
                   activeClassName="text-white"
                   to="/admin/teams"
@@ -59,7 +65,7 @@ export class Dashboard extends Component {
               </li>
               <li className="nav-item">
                 <NavLink
-                onClick={this.changeCollapse}
+                  onClick={this.changeCollapse}
                   className="nav-link"
                   activeClassName="text-white"
                   to="/admin/groups"
@@ -70,7 +76,7 @@ export class Dashboard extends Component {
               </li>
               <li className="nav-item">
                 <NavLink
-                onClick={this.changeCollapse}
+                  onClick={this.changeCollapse}
                   className="nav-link"
                   activeClassName="text-white"
                   to="/admin/wallets"
@@ -81,7 +87,7 @@ export class Dashboard extends Component {
               </li>
               <li className="nav-item">
                 <NavLink
-                onClick={this.changeCollapse}
+                  onClick={this.changeCollapse}
                   className="nav-link"
                   activeClassName="text-white"
                   to="/admin/wallet-management"
@@ -92,7 +98,7 @@ export class Dashboard extends Component {
               </li>
               <li className="nav-item" title="Example Pages">
                 <NavLink
-                onClick={this.changeCollapse}
+                  onClick={this.changeCollapse}
                   className="nav-link"
                   activeClassName="text-white"
                   to="/admin/requests"
@@ -103,7 +109,7 @@ export class Dashboard extends Component {
               </li>
               <li className="nav-item" title="Link">
                 <NavLink
-                onClick={this.changeCollapse}
+                  onClick={this.changeCollapse}
                   className="nav-link"
                   activeClassName="text-white"
                   to="/admin/couponcodes"
@@ -114,7 +120,7 @@ export class Dashboard extends Component {
               </li>
               <li className="nav-item" title="Link">
                 <NavLink
-                onClick={this.changeCollapse}
+                  onClick={this.changeCollapse}
                   className="nav-link"
                   activeClassName="text-white"
                   to="/admin/admins"
@@ -124,16 +130,12 @@ export class Dashboard extends Component {
                 </NavLink>
               </li>
             </ul>
-            {/* <ul className="navbar-nav sidenav-toggler">
-              <li className="nav-item">
-                <a className="nav-link text-center" id="sidenavToggler">
-                  <i className="fa fa-fw fa-angle-left" />
-                </a>
-              </li>
-            </ul> */}
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <button className="nav-link">
+                <button
+                  onClick={this.logoutHandler}
+                  className="btn btn-success"
+                >
                   <i className="fa fa-fw fa-sign-out " />Logout
                 </button>
               </li>
@@ -145,4 +147,4 @@ export class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default withRouter(AdminNav);

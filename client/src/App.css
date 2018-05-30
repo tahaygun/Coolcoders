@@ -40,7 +40,7 @@ textarea {
   background-color: #ffffff0e;
 }
 .chatbox{
-  height: 300px;
+  height: 500px;
   overflow: auto;
   display: block;
   word-wrap: break-word;
@@ -48,6 +48,6 @@ textarea {
   box-shadow: #ffffff0e 1px solid;
 }
 .historyModal{
-  max-height: 300px;
+  max-height: 500px;
   overflow: auto;
 }

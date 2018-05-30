@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Loading from "../Loading";
+
 export class Admins extends Component {
   constructor(props) {
     super(props);
@@ -99,7 +101,7 @@ export class Admins extends Component {
         </div>
       </div>
     ) : (
-      <h1>Loading</h1>
+      <Loading/>
     );
   }
 }

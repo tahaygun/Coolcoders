@@ -35,8 +35,8 @@ import OneItem from "./Components/OneItem";
 import Admins from "./Components/admin/Admins";
 import AddAdmin from "./Components/admin/AddAdmin";
 import UserWallet from "./Components/UserWallet";
-import WalletManagement from './Components/admin/WalletManagement';
-import TextCommands from './Components/admin/TextCommands';
+import WalletManagement from "./Components/admin/WalletManagement";
+import TextCommands from "./Components/admin/TextCommands";
 const DefaultRoutes = () => (
   <div>
     <div>
@@ -70,6 +70,7 @@ const AdminRoutes = () => (
   <div>
     <AdminNav />
     <Switch>
+      <ProtectedRouteForAdmin exact path="/admin" component={Items} />
       <ProtectedRouteForAdmin exact path="/admin/items" component={Items} />
       <ProtectedRouteForAdmin
         exact
@@ -88,7 +89,11 @@ const AdminRoutes = () => (
         component={AddWallet}
       />
       <ProtectedRouteForAdmin exact path="/admin/groups" component={Groups} />
-      <ProtectedRouteForAdmin exact path="/admin/groups/add-group" component={AddGroup} />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/groups/add-group"
+        component={AddGroup}
+      />
       <ProtectedRouteForAdmin exact path="/admin/teams" component={Teams} />
       <ProtectedRouteForAdmin exact path="/admin/admins" component={Admins} />
       <ProtectedRouteForAdmin
@@ -175,17 +180,18 @@ class ProtectedRouteForAdmin extends Component {
     super(props);
 
     this.state = {
-      isloggedin: true
+      isloggedin: true,
+      wait: false
     };
   }
   componentWillMount() {
     axios
       .get(process.env.REACT_APP_BACKEND + "/api/isloggedin")
       .then(response => {
-        this.setState({ isloggedin: true });
+        this.setState({ isloggedin: true, wait: true });
       })
       .catch(err => {
-        this.setState({ isloggedin: false });
+        this.setState({ isloggedin: false, wait: true });
       });
   }
   render() {
@@ -195,8 +201,8 @@ class ProtectedRouteForAdmin extends Component {
       <Route
         {...props}
         render={props =>
-          this.state.isloggedin ? (
-            <Component {...props} />
+          ( this.state.isloggedin) ? (
+            this.state.wait ? <Component {...props} /> : <p>Loading</p>
           ) : (
             <Redirect to="/login" />
           )
