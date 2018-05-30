@@ -52,7 +52,7 @@ router.get("/allcoupons", (req, res) => {
   router.post("/addcoupon", validation, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.send({ errors: errors.mapped() });
+      return res.status(401).send({ errors: errors.mapped() });
     }
     var coupon = new Coupon(req.body);
     coupon

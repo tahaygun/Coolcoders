@@ -7,7 +7,7 @@ export class AddCoupon extends Component {
   
       this.state = {
         data: {
-          coupon_id: "",
+          couponCode: "",
           
         },
         message: null,
@@ -22,23 +22,16 @@ export class AddCoupon extends Component {
         data: formData
       });
     };
-    imageHandler = event => {
-      var formData = this.state.data;
-      formData[event.target.name] = event.target.files[0];
-      this.setState({ data: formData });
-    };
+
     submitHandler = e => {
-      e.preventDefault();
-      let formInfo = new FormData();
-      formInfo.append("coupon_id", this.state.data.coupon_id);
-   
+      e.preventDefault();   
       axios
-        .post(process.env.REACT_APP_BACKEND + "/api/addcoupon", formInfo)
+        .post(process.env.REACT_APP_BACKEND + "/api/addcoupon", this.state.data)
         .then(res => {
           if (res.status === 200) {
             this.setState({
               data: {
-                coupon_id: "",
+                couponCode: "",
                 
               },
               message: "Coupon added successfully.",
@@ -60,22 +53,20 @@ export class AddCoupon extends Component {
             {this.state.message && this.state.message}
           </p>
           <form onSubmit={this.submitHandler}>
-            <label htmlFor="coupon_id">Coupon</label> <br />
+            <label htmlFor="couponCode">Coupon Code</label> <br />
             <input
               style={{ width: "50vmax", margin: "auto" }}
               className="form-control"
               required
               value={this.state.data.name}
               autoComplete="off"
-              type="number"
-              name="coupon_id"
+              type="text"
+              name="couponCode"
               onChange={this.formHandler}
-              id="coupon_id"
+              id="couponCode"
             />
-            <hr />
-            
+            <br/>            
             <br />
-            <hr />
             <button className="btn btn-primary" type="submit">
               Add
             </button>

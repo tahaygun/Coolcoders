@@ -1,43 +1,44 @@
-
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-export class Coupons extends Component {
+export class WalletManagement extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      coupons: null
+      wallets: null
     };
   }
 
-  getAllCoupons = () => {
+  componentDidMount() {
     axios
-      .get(`${process.env.REACT_APP_BACKEND}/api/allcoupons`)
-      .then(coupons => {
-        this.setState({ coupons: coupons.data });
+      .get(`${process.env.REACT_APP_BACKEND}/api/allwallets`)
+      .then(wallets => {
+        this.setState({ wallets: wallets.data });
       })
       .catch(err => {
         console.log(err);
       });
   }
-  componentDidMount() {
-    this.getAllCoupons();
-  }
-
   render() {
-    return this.state.coupons ? (
+    return this.state.wallets ? (
       <div className="content-wrapper">
         <div className="container-fluid">
           <div className="card mb-3">
             <div className="card-header">
               <div>
-                <i className="fa fa-table" /> Coupon Codes
+                <i className="fa fa-table" /> Cash History
                 <Link
-                  to="/admin/couponcodes/add-coupon"
+                  to="/admin/wallets/text-commands"
+                  className="btn btn-info ml-1 float-right btn-sm"
+                >
+                  Text commands
+                </Link>
+                <Link
+                  to="/admin/wallets/add-wallet"
                   className="btn btn-info float-right btn-sm"
                 >
-                  Add New Coupon
+                  Voice Commands
                 </Link>
               </div>
             </div>
@@ -51,19 +52,25 @@ export class Coupons extends Component {
                 >
                   <thead>
                     <tr>
-                      <th style={{ width: "80%" }}>Coupon Code</th>
-                    
-                      <th style={{ width: "20%" }}>Actions</th>
-                    
+                      <th style={{ width: "30%" }}>Name</th>
+                      <th style={{ width: "50%" }}>Group</th>
+                      <th style={{ width: " 5%" }}>Coins</th>
+                      <th style={{ width: "8.33%" }}>Actions</th>
+                      <th style={{ width: "8.33%" }}>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.coupons.map((coupon,key) => {
+                    {this.state.wallets.map((wallet,key) => {
                       return (
                         <tr key={key} >
-                          <td>{coupon.couponCode}</td> 
+                          <td>{wallet.name}</td>
+                          <td>{wallet.group.id} </td>
+                          <td>{wallet.coins}</td>
                           <td>
                             <button className="btn btn-warning">Edit</button>
+                          </td>
+                          <td>
+                            <button className="btn btn-danger">Delete</button>
                           </td>
                         </tr>
                       );
@@ -81,4 +88,4 @@ export class Coupons extends Component {
   }
 }
 
-export default Coupons;
+export default WalletManagement;

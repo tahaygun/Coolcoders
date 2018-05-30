@@ -29,13 +29,13 @@ import AddTeam from "./Components/admin/AddTeam";
 import EditTeam from "./Components/admin/EditTeam";
 import Allitems from "./Components/Allitems";
 import Coupons from "./Components/admin/Coupons";
-import AddCoupon from "./Components/admin/AddCoupon"
+import AddCoupon from "./Components/admin/AddCoupon";
 import OrderPage from "./Components/OrderItem";
 import OneItem from "./Components/OneItem";
 import Admins from "./Components/admin/Admins";
 import AddAdmin from "./Components/admin/AddAdmin";
 import UserWallet from "./Components/UserWallet";
-
+import WalletManagement from './Components/admin/WalletManagement'
 const DefaultRoutes = () => (
   <div>
     <div>
@@ -109,11 +109,20 @@ const AdminRoutes = () => (
         path="/admin/requests"
         component={Requests}
       />
-      <ProtectedRouteForAdmin exact path="/admin/couponcodes" component={Coupons} />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/couponcodes"
+        component={Coupons}
+      />
       <ProtectedRouteForAdmin
         exact
         path="/admin/couponcodes/add-coupon"
         component={AddCoupon}
+      />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/wallets-management"
+        component={WalletManagement}
       />
       <ProtectedRouteForAdmin component={Page404} />
     </Switch>
