@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
 import axios from "axios";
 export class Requests extends Component {
   constructor(props) {
@@ -9,8 +8,28 @@ export class Requests extends Component {
       items: null
     };
   }
-
-  componentDidMount() {
+  acceptHandler = id => {
+    axios
+      .put(`${process.env.REACT_APP_BACKEND}/api/acceptRequest/${id}`)
+      .then(answer => {
+        this.getRequests();
+      });
+  };
+  rejectHandler = id => {
+    axios
+      .put(`${process.env.REACT_APP_BACKEND}/api/rejectRequest/${id}`)
+      .then(answer => {
+        this.getRequests();
+      });
+  };
+  deleteHandler = id => {
+    axios
+      .delete(`${process.env.REACT_APP_BACKEND}/api/deleteRequest/${id}`)
+      .then(answer => {
+        this.getRequests();
+      });
+  };
+  getRequests = () => {
     axios
       .get(`${process.env.REACT_APP_BACKEND}/api/allrequests`)
       .then(requests => {
@@ -19,6 +38,9 @@ export class Requests extends Component {
       .catch(err => {
         console.log(err);
       });
+  };
+  componentDidMount() {
+    this.getRequests();
   }
   render() {
     return this.state.requests ? (
@@ -41,29 +63,78 @@ export class Requests extends Component {
                   <thead>
                     <tr>
                       <th style={{ width: "30%" }}>Title</th>
-                      <th style={{ width: "50%" }}> Description</th>
-                      <th style={{ width: " 5%" }}>Image</th>
+                      <th style={{ width: "40%" }}> Description</th>
+                      <th style={{ width: " 5%" }}>Proof</th>
                       <th style={{ width: " 10%" }}>Item</th>
-                      <th style={{ width: " 10%" }}>Status</th>
-                      <th style={{ width: "8.33%" }}>Actions</th>
-                      <th style={{ width: "8.33%" }}>Actions</th>
+                      <th style={{ width: " 5%" }}>Status</th>
+                      <th style={{ width: "26.66%" }}>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.requests.map((request,key) => {
+                    {this.state.requests.map((request, key) => {
                       return (
-                        <tr key={key} >
+                        <tr key={key}>
                           <td>{request.title}</td>
                           <td>{request.description} </td>
-                          <td>{request.proofImg}</td>
-                          <td>{request.item.id}</td>
+                          <td>
+                            {" "}
+                            <a
+                              target="_blank"
+                              href={
+                                process.env.REACT_APP_BACKEND +
+                                "/uploads/" +
+                                request.proofImg
+                              }
+                            >
+                              {" "}
+                              <img
+                                width="70"
+                                src={
+                                  process.env.REACT_APP_BACKEND +
+                                  "/uploads/" +
+                                  request.proofImg
+                                }
+                                alt="proofPicture"
+                              />{" "}
+                            </a>{" "}
+                          </td>
+                          <td>{request.item.name}</td>
                           <td>{request.status}</td>
-                          <td>
-                            <button className="btn btn-warning">Edit</button>
-                          </td>
-                          <td>
-                            <button className="btn btn-danger">Delete</button>
-                          </td>
+                          {request.status === "Pending" ? (
+                            <td className="actionButtonsTogether">
+                              <button
+                                onClick={() => {
+                                  if (window.confirm("Are you sure you wish to accept this request?")) {this.acceptHandler(request._id)}}}
+                                className="btn btn-warning"
+                              >
+                                Accept
+                              </button>{" "}
+                              <br /> <br />
+                              <button
+                                onClick={() => {
+                                  if (window.confirm("Are you sure you wish to reject this request?")) {
+                                    this.rejectHandler(request._id);
+                                  }
+                                }}
+                                className="btn btn-danger"
+                              >
+                                Reject
+                              </button>
+                            </td>
+                          ) : (
+                            <td className="actionButtonsTogether">
+                              <button
+                                onClick={() => {
+                                  if (window.confirm("Are you sure you wish to delete this item?")) {
+                                    this.deleteHandler(request._id);
+                                  }
+                                }}
+                                className="btn btn-danger"
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          )}
                         </tr>
                       );
                     })}

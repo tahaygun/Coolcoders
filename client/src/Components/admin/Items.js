@@ -4,7 +4,7 @@ import axios from "axios";
 export class Items extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       items: null
     };
@@ -21,17 +21,15 @@ export class Items extends Component {
   };
   deleteHandler(id) {
     axios
-    .delete(process.env.REACT_APP_BACKEND + "/api/deleteitem/" + id)
+      .delete(process.env.REACT_APP_BACKEND + "/api/deleteitem/" + id)
       .then(resp => {
         this.getAllItems();
-
-        // this.props.history.pageRefresh();
-      });
+      })
+      .catch(err => console.log(err));
   }
   componentDidMount() {
     this.getAllItems();
   }
-
 
   render() {
     return this.state.items ? (
@@ -89,7 +87,7 @@ export class Items extends Component {
                                     "Are you sure you wish to delete this item?"
                                   )
                                 ) {
-                                  this.deleteHandler(item._id);
+                                  this.deleteHandler.bind(null, item._id);
                                 }
                               }}
                               className="btn btn-danger"

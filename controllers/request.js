@@ -18,6 +18,7 @@ function requestController(router, upload) {
   //To get all requestS
   router.get("/allrequests", (req, res) => {
     Request.find()
+      .populate("item")
       .then(requests => {
         res.json(requests);
       })
@@ -31,6 +32,40 @@ function requestController(router, upload) {
     Request.findById(req.params.id)
       .then(request => {
         res.json({ request: request });
+      })
+      .catch(err => res.status(404).json(err));
+  });
+  //@to accept request
+  router.put("/acceptRequest/:id", (req, res) => {
+    Request.findByIdAndUpdate(req.params.id)
+      .then(request => {
+        request.status = "Accepted";
+        request
+          .save()
+          .then(answ => {
+            Item.findByIdAndUpdate(answ.item).then(item => {
+              item.sold = item.sold + 1;
+              item.save().then(itemsaved => {
+                res.send(answ);
+              });
+            });
+          })
+          .catch(err => res.send(err));
+      })
+      .catch(err => res.status(404).json(err));
+  });
+
+  //@to reject request;
+  router.put("/rejectRequest/:id", (req, res) => {
+    Request.findByIdAndUpdate(req.params.id)
+      .then(request => {
+        request.status = "Rejected";
+        request
+          .save()
+          .then(answ => {
+            res.send(answ);
+          })
+          .catch(err => res.send(err));
       })
       .catch(err => res.status(404).json(err));
   });
@@ -64,9 +99,12 @@ function requestController(router, upload) {
   );
 
   //@To delete request
-  router.delete("/deleterequest/:id", (req, res) => {
+  router.delete("/deleteRequest/:id", (req, res) => {
     Request.findByIdAndRemove(req.params.id)
       .then(result => {
+        if (fs.existsSync(`./uploads/${result.proofImg}`)) {
+          fs.unlinkSync(`./uploads/${result.proofImg}`)
+        }
         res.send(result);
       })
       .catch(err => res.send(err));
