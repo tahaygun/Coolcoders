@@ -106,7 +106,7 @@ export class Dashboard extends Component {
                 onClick={this.changeCollapse}
                   className="nav-link"
                   activeClassName="text-white"
-                  to="/admin/options"
+                  to="/admin/admins"
                 >
                   <i className="fa fa-fw fa-cog" />
                   <span className="nav-link-text"> Options</span>
