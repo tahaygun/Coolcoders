@@ -6,46 +6,38 @@ export class Admins extends Component {
     super(props);
     
     this.state = {
-      items: null
+      admins: null
     };
   }
-  getAllItems = () => {
+  getAllAdmins = () => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND}/api/allitems`)
-      .then(items => {
-        this.setState({ items: items.data });
+      .get(`${process.env.REACT_APP_BACKEND}/api/alladmins`)
+      .then(admins => {
+        this.setState({ admins: admins.data });
       })
       .catch(err => {
         console.log(err);
       });
   };
-  deleteHandler(id) {
-    axios
-    .delete(process.env.REACT_APP_BACKEND + "/api/deleteitem/" + id)
-      .then(resp => {
-        this.getAllItems();
-
-        // this.props.history.pageRefresh();
-      });
-  }
+ 
   componentDidMount() {
-    this.getAllItems();
+    this.getAllAdmins();
   }
 
 
   render() {
-    return this.state.items ? (
+    return this.state.admins ? (
       <div className="content-wrapper">
         <div className="container-fluid">
           <div className="card mb-3">
             <div className="card-header">
               <div>
-                <i className="fa fa-table" /> Items
+                <i className="fa fa-table" />Admins
                 <Link
-                  to="/admin/items/add-item"
+                  to="/admin/admins/add-admin"
                   className="btn btn-info float-right btn-sm"
                 >
-                  Add New Item
+                  Add New Admin
                 </Link>
               </div>
             </div>
@@ -59,43 +51,30 @@ export class Admins extends Component {
                 >
                   <thead>
                     <tr>
-                      <th style={{ width: "30%" }}>Name</th>
-                      <th style={{ width: "50%" }}>Short Description</th>
-                      <th style={{ width: " 5%" }}>Price</th>
+                      <th style={{ width: "30%" }}>Username</th>
+                      <th style={{ width: "50%" }}>Password</th>
+                     
                       <th style={{ width: "8.33%" }}>Actions</th>
                       <th style={{ width: "8.33%" }}>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.items.map((item, key) => {
+                    {this.state.admins.map((admin, key) => {
                       return (
                         <tr key={key}>
-                          <td>{item.name}</td>
-                          <td>{item.shortDesc} </td>
-                          <td>{item.price}</td>
+                          <td>{admin.username}</td>
+                          <td>{admin.password} </td>
+                         
                           <td>
                             <Link
-                              to={"/admin/items/edit/" + item._id}
+                              to={"/admin/admins/edit/" + admin._id}
                               className="btn btn-warning"
                             >
                               Edit
                             </Link>
                           </td>
                           <td>
-                            <button
-                              onClick={() => {
-                                if (
-                                  window.confirm(
-                                    "Are you sure you wish to delete this item?"
-                                  )
-                                ) {
-                                  this.deleteHandler(item._id);
-                                }
-                              }}
-                              className="btn btn-danger"
-                            >
-                              Delete
-                            </button>
+                            
                           </td>
                         </tr>
                       );
