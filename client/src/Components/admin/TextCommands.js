@@ -33,7 +33,7 @@ export class TextCommands extends Component {
   };
   componentDidMount() {
     this.getAllWallets();
-    let { messages, wallets } = this.state;
+    let { messages } = this.state;
     let msg =
       "Hi, Could you give me ID of wallet that you want to work? Here is the list:";
     messages.push(msg);
@@ -43,7 +43,7 @@ export class TextCommands extends Component {
     let { messages, wallets } = this.state;
     wallets.map(wallet => {
       messages.push(wallet.name + ". Coins: "+wallet.coins+ ". Wallet ID : " + wallet.seqId);
-      this.setState({ messages });
+      return this.setState({ messages });
     });
   };
   answerToCommand = command => {
@@ -100,14 +100,14 @@ export class TextCommands extends Component {
       axios
         .post(
           `${process.env.REACT_APP_BACKEND}/api/wallet/addOneCoin/${
-            this.state.walletToWork.wallet._id
+            walletToWork.wallet._id
           }`,
           { amount }
         )
         .then(result => {
           messages.push(
             `I added ${amount} OneCoin to ${
-              this.state.walletToWork.wallet.name
+              walletToWork.wallet.name
             } successfully. And if you want to do something more, here is the wallets:`
           );
           status = "findwallet";
@@ -122,18 +122,18 @@ export class TextCommands extends Component {
         });
     }
     if (status === "SubAmount") {
-      var amount = command.match(/\d+/gi)[0];
+      amount = command.match(/\d+/gi)[0];
       axios
         .post(
           `${process.env.REACT_APP_BACKEND}/api/wallet/takeOneCoin/${
-            this.state.walletToWork.wallet._id
+            walletToWork.wallet._id
           }`,
           { amount }
         )
         .then(result => {
           messages.push(
             `I subtracted ${amount} OneCoin from ${
-              this.state.walletToWork.wallet.name
+              walletToWork.wallet.name
             } successfully. And if you want to do something more, here is the wallets:`
           );
           status = "findwallet";
