@@ -85,7 +85,7 @@ router.get("/alladmins", (req, res) => {
 });
   //@To delete adminS
   router.delete("/deleteadmin/:id", (req, res) => {
-    admin
+    Admin
       .findByIdAndRemove(req.params.id)
       .then(result => {
         res.send(result);
