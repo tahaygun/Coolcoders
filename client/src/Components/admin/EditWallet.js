@@ -7,11 +7,9 @@ export class EditTeam extends Component {
     this.state = {
       data: {
         name: "",
-        group: "",
-        team: "",
         coins: ""
       },
-      
+ 
       message: null,
       error: ""
     };
@@ -27,8 +25,6 @@ export class EditTeam extends Component {
         this.setState({
           data: {
             name: wallet.data.name,
-            group: wallet.data.group,
-            team: wallet.data.team,
             coins: wallet.data.coins
           },
           
@@ -58,8 +54,6 @@ export class EditTeam extends Component {
     e.preventDefault();
     let formInfo = new FormData();
     formInfo.append("name", this.state.data.name);
-    formInfo.append("group", this.state.data.group);
-    formInfo.append("team", this.state.data.team);
     formInfo.append("coins", this.state.data.coins);
     
     axios
@@ -73,8 +67,6 @@ export class EditTeam extends Component {
         if (res.status === 200) {
           this.setState({
             name: "",
-            group: "",
-            team: "",
             coins: "",
             message: "Wallet updated successfully.",
             error: ""
@@ -107,33 +99,6 @@ export class EditTeam extends Component {
             onChange={this.formHandler}
             id="name"
           />
-          <hr />
-          <label htmlFor="content">Group</label>
-          <br />
-          <textarea
-            className="form-control"
-            required
-            id="textarea"
-            value={this.state.data.group}
-            style={{ height: 70, width: "50vmax", margin: "auto" }}
-            type="text"
-            name="details"
-            onChange={this.formHandler}
-          />
-          <hr />
-          <label htmlFor="content">Team</label>
-          <br />
-          <textarea
-            className="form-control"
-            required
-            id="textarea"
-            value={this.state.data.team}
-            style={{ height: 70, width: "50vmax", margin: "auto" }}
-            type="text"
-            name="team"
-            onChange={this.formHandler}
-          />
-          <hr />
 
            <label htmlFor="content">Coins</label>
           <br />
@@ -164,7 +129,7 @@ export class EditTeam extends Component {
           }}
           className="btn btn-primary"
         >
-          Delete Team
+          Delete Wallet
         </button>{" "}
         <br /> <br />
         <button

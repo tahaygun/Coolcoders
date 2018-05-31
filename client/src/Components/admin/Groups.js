@@ -12,6 +12,16 @@ export class Groups extends Component {
     };
   }
 
+  deleteHandler(id) {
+    axios
+    .delete(process.env.REACT_APP_BACKEND + "/api/deletegroup/" + id)
+      .then(resp => {
+        this.getAllGroups();
+
+        // this.props.history.pageRefresh();
+      });
+  }
+
   componentDidMount() {
     axios
       .get(`${process.env.REACT_APP_BACKEND}/api/allgroups`)
@@ -66,7 +76,20 @@ export class Groups extends Component {
                             <Link to={`/admin/groups/edit-group/${group._id}`} className="btn btn-warning">Edit</Link>
                           </td>
                           <td>
-                            <button className="btn btn-danger">Delete</button>
+                          <button
+                              onClick={() => {
+                                if (
+                                  window.confirm(
+                                    "Are you sure you wish to delete this coupon?"
+                                  )
+                                ) {
+                                  this.deleteHandler(group._id);
+                                }
+                              }}
+                              className="btn btn-danger"
+                            >
+                              Delete
+                            </button>
                           </td>
                         </tr>
                       );
