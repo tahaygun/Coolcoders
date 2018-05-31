@@ -41,7 +41,7 @@ export class Admins extends Component {
           <div className="card mb-3">
             <div className="card-header">
               <div>
-                <i className="fa fa-table" />Admins
+                <i className="fa fa-table" /> Admins
                 <Link
                   to="/admin/admins/add-admin"
                   className="btn btn-info float-right btn-sm"
@@ -60,9 +60,7 @@ export class Admins extends Component {
                 >
                   <thead>
                     <tr>
-                      <th style={{ width: "30%" }}>Username</th>
-                      <th style={{ width: "50%" }}>Password</th>
-                     
+                      <th style={{ width: "70%" }}>Username</th>                     
                       <th style={{ width: "8.33%" }}>Actions</th>
                       
                     </tr>
@@ -71,9 +69,7 @@ export class Admins extends Component {
                     {this.state.admins.map((admin, key) => {
                       return (
                         <tr key={key}>
-                          <td>{admin.username}</td>
-                          <td>{admin.password} </td>
-                         
+                          <td>{admin.username}</td>                         
                           <td>
                             <button
                               onClick={() => {
