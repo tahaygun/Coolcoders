@@ -7,7 +7,6 @@ export class EditGroup extends Component {
     this.state = {
       data: {
         name: "",
-        team: ""
       },
       
       message: null,
@@ -24,9 +23,7 @@ export class EditGroup extends Component {
       .then(group => {
         this.setState({
           data: {
-            name: group.data.name,
-            team: group.data.team,
-            
+            name: group.data.name,            
           },
          
         });
@@ -42,24 +39,19 @@ export class EditGroup extends Component {
  
 
   submitHandler = e => {
-    e.preventDefault();
-    let formInfo = new FormData();
-    formInfo.append("name", this.state.data.name);
-    formInfo.append("team", this.state.data.team);
-    
+    e.preventDefault();   
     axios
       .put(
         process.env.REACT_APP_BACKEND +
           "/api/editgroup/" +
           this.props.match.params.id,
-        formInfo
+        this.state.data
       )
       .then(res => {
         if (res.status === 200) {
           this.setState({
             name: "",
-            team: "",
-            message: "group updated successfully.",
+            message: "Group updated successfully.",
             error: ""
           });
         }

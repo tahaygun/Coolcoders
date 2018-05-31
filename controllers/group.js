@@ -51,16 +51,10 @@ function groupController(router) {
       .catch(err => res.status(404).json(err));
   });
   //@To edit GROUP
-  router.put("/editgroup/:id", validations, (req, res) => {
-    var errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(500).send({ errors: errors.mapped() });
-    }
-    Group.findById(req.params.id)
+  router.put("/editgroup/:id", (req, res) => {
+    Group.findByIdAndUpdate(req.params.id)
       .then(group => {
         group.name = req.body.name;
-        group.details = req.body.details;
-        group.team = req.body.team;
         group
           .save()
           .then(result => {
