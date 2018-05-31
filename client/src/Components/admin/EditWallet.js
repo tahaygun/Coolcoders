@@ -39,17 +39,7 @@ export class EditTeam extends Component {
     });
   };
  
-  deleteHandler() {
-    axios
-      .delete(
-        process.env.REACT_APP_BACKEND +
-          "/api/deletewallet/" +
-          this.props.match.params.id
-      )
-      .then(resp => {
-        this.props.history.goBack();
-      });
-  }
+
   submitHandler = e => {
     e.preventDefault();
     let formInfo = new FormData();
@@ -122,15 +112,7 @@ export class EditTeam extends Component {
           </button>
         </form>{" "}
         <br />
-        <button
-          onClick={() => {
-            if (window.confirm("Are you sure you wish to delete this team?"))
-              this.deleteHandler();
-          }}
-          className="btn btn-primary"
-        >
-          Delete Wallet
-        </button>{" "}
+       
         <br /> <br />
         <button
           onClick={() => {
