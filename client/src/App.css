@@ -3,7 +3,7 @@ text-align: center;
 } */
 .network,
 #gomarket {
-  color: #e74c3c;
+  color: #E44235;
 }
 .restart {
   color: rgb(255, 255, 255);
@@ -50,4 +50,9 @@ textarea {
 .historyModal{
   max-height: 500px;
   overflow: auto;
+}
+@media (max-width: 768px) {
+  #mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
+    height: unset;
+  }
 }

@@ -50,7 +50,14 @@ var storage = multer.diskStorage({
   },
   filename: function(req, file, cb) {
     const extension = mime.extension(file.mimetype);
-    const filename = file.originalname + "-" + Date.now().toString();
+    let filename='';
+    if (req.body.title) {
+       filename = req.body.title + "-" + Date.now().toString();
+    }else if (req.body.name) {
+       filename = req.body.name + "-" + Date.now().toString();
+    }else{
+       filename = file.originalname + "-" + Date.now().toString();      
+    }
     cb(null, filename + "." + extension);
   }
 });

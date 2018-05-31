@@ -80,7 +80,7 @@ export class AddGroup extends Component {
             name="team"
             id="team"
           >
-          <option value=''>Select Team</option>;
+            <option value="">Select Team</option>;
             {this.state.teams.map(team => {
               return <option value={team._id}>{team.name} </option>;
             })}
@@ -90,6 +90,15 @@ export class AddGroup extends Component {
             Add
           </button>
         </form>
+        <br />
+        <button
+          onClick={() => {
+            this.props.history.goBack();
+          }}
+          className="btn btn-info"
+        >
+          Go Back
+        </button>
       </div>
     ) : (
       <Loading />

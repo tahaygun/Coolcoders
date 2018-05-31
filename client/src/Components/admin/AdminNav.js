@@ -29,9 +29,9 @@ export class AdminNav extends Component {
           className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
           id="mainNav"
         >
-          <a className="navbar-brand text-white" href="">
+          <NavLink className="navbar-brand text-white" to="/admin/items">
             Restart.Market
-          </a>
+          </NavLink>
           <button
             onClick={this.changeCollapse}
             className="navbar-toggler navbar-toggler-right"

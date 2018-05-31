@@ -55,18 +55,17 @@ const DefaultRoutes = () => (
           path="/item/details/:id"
           component={OneItem}
         />
-        <ProtectedRouteForUser
-          exact
-          path="/wallets"
-          component={UserWallet}
-        />
+        <ProtectedRouteForUser exact path="/wallets" component={UserWallet} />
         <ProtectedRouteForUser component={Page404} />
       </Switch>
       <Footer />
     </div>
   </div>
 );
-
+const ScrollToTop = () => {
+  window.scrollTo(0, 0);
+  return null;
+};
 const AdminRoutes = () => (
   <div>
     <AdminNav />
@@ -207,8 +206,12 @@ class ProtectedRouteForAdmin extends Component {
       <Route
         {...props}
         render={props =>
-          ( this.state.isloggedin) ? (
-            this.state.wait ? <Component {...props} /> : <p>Loading</p>
+          this.state.isloggedin ? (
+            this.state.wait ? (
+              <Component {...props} />
+            ) : (
+              <p>Loading</p>
+            )
           ) : (
             <Redirect to="/login" />
           )
@@ -222,12 +225,15 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route path="/admin" component={AdminRoutes} />
-            <ProtectedRouteForUser component={DefaultRoutes} />
-          </Switch>
+          <div>
+            <Route component={ScrollToTop} />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/login" component={Login} />
+              <Route path="/admin" component={AdminRoutes} />
+              <ProtectedRouteForUser component={DefaultRoutes} />
+            </Switch>
+          </div>
         </Router>
       </div>
     );

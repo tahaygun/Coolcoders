@@ -137,6 +137,15 @@ export class AddItem extends Component {
             Add
           </button>
         </form>
+        <br />
+        <button
+          onClick={() => {
+            this.props.history.goBack();
+          }}
+          className="btn btn-info"
+        >
+          Go Back
+        </button>
       </div>
     );
   }
