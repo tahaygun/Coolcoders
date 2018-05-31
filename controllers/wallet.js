@@ -69,13 +69,20 @@ function walletController(router) {
       wallet.coins = Number(wallet.coins) + Number(req.body.amount);
       var message = `${
         req.body.amount
-      } OneCoin added at ${new Date().toLocaleString()}`;
+      } OneCoin added at ${new Date().toLocaleString()} because ${
+        req.body.reason
+      }`;
       wallet.history.push(message);
       wallet
         .save()
         .then(savedWallet => {
           const history = new History({
-            event: message + " to " + savedWallet.name
+            event: `${
+              req.body.amount
+            } OneCoin added at ${new Date().toLocaleString()} to ${
+              savedWallet.name
+            }`,
+            reason: `${req.body.reason}`
           });
           history
             .save()
@@ -94,13 +101,20 @@ function walletController(router) {
       wallet.coins = Number(wallet.coins) - Number(req.body.amount);
       var message = `${
         req.body.amount
-      } OneCoin subtracted at ${new Date().toLocaleString()}`;
+      } OneCoin subtracted at ${new Date().toLocaleString()} because ${
+        req.body.reason
+      }`;
       wallet.history.push(message);
       wallet
         .save()
         .then(savedWallet => {
           const history = new History({
-            event: message + " from " + savedWallet.name
+            event: `${
+              req.body.amount
+            } OneCoin subtracted at ${new Date().toLocaleString()} from ${
+              savedWallet.name
+            }`,
+            reason: `${req.body.reason}`
           });
           history
             .save()

@@ -6,6 +6,9 @@ var Historyschema = new Schema({
     type: String,
     required: true,
   },
+  reason: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     default: Date.now
