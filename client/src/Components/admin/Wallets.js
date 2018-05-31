@@ -34,6 +34,16 @@ export class Wallets extends Component {
         console.log(err);
       });
   }
+
+  deleteHandler(id) {
+    axios
+    .delete(process.env.REACT_APP_BACKEND + "/api/deletewallet/" + id)
+      .then(resp => {
+        this.getAllWallets();
+
+        // this.props.history.pageRefresh();
+      });
+  }
   render() {
     const { open, wallet } = this.state;
     return this.state.wallets ? (
@@ -108,7 +118,18 @@ export class Wallets extends Component {
                             </Link>
                           </td>
                           <td>
-                            <button className="btn btn-sm btn-danger">
+                          <button
+                              onClick={() => {
+                                if (
+                                  window.confirm(
+                                    "Are you sure you wish to delete this coupon?"
+                                  )
+                                ) {
+                                  this.deleteHandler(wallet._id);
+                                }
+                              }}
+                              className="btn btn-danger"
+                            >
                               Delete
                             </button>
                           </td>

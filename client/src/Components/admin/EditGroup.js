@@ -40,17 +40,7 @@ export class EditGroup extends Component {
     });
   };
  
-  deleteHandler() {
-    axios
-      .delete(
-        process.env.REACT_APP_BACKEND +
-          "/api/deletegroup/" +
-          this.props.match.params.id
-      )
-      .then(resp => {
-        this.props.history.goBack();
-      });
-  }
+
   submitHandler = e => {
     e.preventDefault();
     let formInfo = new FormData();
@@ -100,22 +90,9 @@ export class EditGroup extends Component {
             onChange={this.formHandler}
             id="name"
           />
-          <hr />
-          <label htmlFor="content">Team</label>
-          <br />
-          <textarea
-            className="form-control"
-            required
-            id="textarea"
-            value={this.state.data.team}
-            style={{ height: 70, width: "50vmax", margin: "auto" }}
-            type="text"
-            name="team"
-            onChange={this.formHandler}
-          />
-          <hr />
+        
           
-          />
+          
           <br />
           <hr />
           <button className="btn btn-warning" type="submit">
@@ -123,15 +100,7 @@ export class EditGroup extends Component {
           </button>
         </form>{" "}
         <br />
-        <button
-          onClick={() => {
-            if (window.confirm("Are you sure you wish to delete this group?"))
-              this.deleteHandler();
-          }}
-          className="btn btn-primary"
-        >
-          Delete 
-        </button>{" "}
+        
         <br /> <br />
         <button
           onClick={() => {
