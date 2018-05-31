@@ -51,3 +51,8 @@ textarea {
   max-height: 500px;
   overflow: auto;
 }
+@media (max-width: 768px) {
+  #mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
+    height: unset;
+  }
+}
