@@ -54,7 +54,8 @@ export class EditGroup extends Component {
   submitHandler = e => {
     e.preventDefault();
     let formInfo = new FormData();
-    
+    formInfo.append("name", this.state.data.name);
+    formInfo.append("team", this.state.data.team);
     
     axios
       .put(
