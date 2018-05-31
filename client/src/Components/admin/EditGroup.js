@@ -34,7 +34,7 @@ export class EditGroup extends Component {
   }
   formHandler = e => {
     var formData = this.state.data;
-
+    formData[e.target.name] = e.target.value;
     this.setState({
       data: formData
     });
