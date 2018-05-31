@@ -44,6 +44,7 @@ function adminController(router) {
         } else {
           req.session.admin = admin;
           req.session.isLoggedIn = true;
+          req.session.couponCode = true;
           return res.send({ message: "You are signed in" });
         }
 

@@ -60,7 +60,7 @@ export class Wallets extends Component {
                       if (event.includes("subtract")) {
                         return <li className="text-danger">{event}</li>;
                       } else {
-                        return <li className="text-success">{event}</li>;
+                        return <li className="text-primary">{event}</li>;
                       }
                     })}
                   </ul>

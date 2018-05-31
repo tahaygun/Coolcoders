@@ -23,7 +23,6 @@ export class Home extends Component {
     axios
       .get(process.env.REACT_APP_BACKEND + "/api/isvalidcoupon")
       .then(response => {
-        console.log(response);
         this.setState({ isloggedIn: true , wait:true });
       })
       .catch(err => {
@@ -67,13 +66,12 @@ export class Home extends Component {
                     Marketplace
                   </strong>
                 </h1>
-                <hr />
+                <hr className='landing-hr' />
               </div>
               <div className="col-lg-8 mx-auto">
                 <p className="text-faded mb-5">
-                  Start Bootstrap can help you build better websites using the
-                  Bootstrap CSS framework! Just download your template and start
-                  going, no strings attached!
+                  Restart Marketplace is a market for RestartONE students which they can buy Restart.Network products by Restart.Network's own crypto currency OneCoin. <br/>
+                  
                 </p>
                 {!this.state.isloggedIn && this.state.wait&& (
                   <div className="loginform">

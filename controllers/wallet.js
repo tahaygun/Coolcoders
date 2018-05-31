@@ -16,8 +16,8 @@ function walletController(router) {
   router.get("/allwallets", (req, res) => {
     Wallet.find()
       .populate("group")
+      .populate("team")
       .then(wallets => {
-        Group.findById(wallets);
         res.json(wallets);
       })
       .catch(err => {
@@ -29,10 +29,10 @@ function walletController(router) {
       .sort([["createdAt", "descending"]])
       .then(history => {
         res.json(history);
-      })
-      // .catch(err => {
-      //   res.status(404).json(err);
-      // });
+      });
+    // .catch(err => {
+    //   res.status(404).json(err);
+    // });
   });
 
   //@To create WALLET
@@ -47,6 +47,15 @@ function walletController(router) {
       wallet
         .save()
         .then(savedWallet => {
+          const history = new History({
+            event: `${savedWallet.name} created with ${
+              savedWallet.coins
+            } OneCoin(s) at ${new Date().toLocaleString()}`
+          });
+          history
+            .save()
+            .then(answ => null)
+            .catch(err => console.log(err));
           res.json(savedWallet);
         })
         .catch(err => {

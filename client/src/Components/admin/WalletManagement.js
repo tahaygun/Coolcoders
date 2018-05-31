@@ -58,18 +58,24 @@ export class WalletManagement extends Component {
                   </thead>
                   <tbody>
                     {this.state.history.map((history, key) => {
-                      if (history.event.includes('added')) {
-                      return (
-                        <tr key={key}>
-                          <td className='text-success' >{history.event}</td>
-                        </tr>
-                      );
-                      }else{
+                      if (history.event.includes("added")) {
                         return (
-                        <tr key={key}>
-                          <td className='text-danger' >{history.event}</td>
-                        </tr>
-                      );
+                          <tr key={key}>
+                            <td className="text-primary">{history.event}</td>
+                          </tr>
+                        );
+                      } else if (history.event.includes("subtract")) {
+                        return (
+                          <tr key={key}>
+                            <td className="text-danger">{history.event}</td>
+                          </tr>
+                        );
+                      } else {
+                        return (
+                          <tr key={key}>
+                            <td className="text-success">{history.event}</td>
+                          </tr>
+                        );
                       }
                     })}
                   </tbody>

@@ -24,8 +24,8 @@ export class OneItem extends Component {
   render() {
     const { item } = this.state;
     return this.state.item ? (
-      <div class="container min-height mt-5 p-4">
-        <h1 class="my-4">
+      <div className="container min-height mt-5 p-4">
+        <h1 className="my-4">
           {item.name}
           <small style={{ fontSize: 20, fontWeight: "500" }}>
             {" "}
@@ -34,17 +34,17 @@ export class OneItem extends Component {
           </small>
         </h1>
 
-        <div class="row">
-          <div class="col-md-8">
+        <div className="row">
+          <div className="col-md-8">
             <img
-              class="img-fluid"
+              className="img-fluid"
               src={`${process.env.REACT_APP_BACKEND}/uploads/${item.imgUrl}`}
               alt=""
             />
           </div>
 
-          <div class="col-md-4">
-            <h3 style={{ fontWeight: "bold" }} class="my-4">
+          <div className="col-md-4">
+            <h3 style={{ fontWeight: "bold" }} className="my-4">
               {item.price} <span className="network">One</span>Coin
             </h3>
             <p id='descriptionInDetails' className="text-justify">
