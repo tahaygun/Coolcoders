@@ -37,6 +37,7 @@ import AddAdmin from "./Components/admin/AddAdmin";
 import UserWallet from "./Components/UserWallet";
 import WalletManagement from "./Components/admin/WalletManagement";
 import TextCommands from "./Components/admin/TextCommands";
+import EditGroup from "./Components/admin/EditGroup";
 const DefaultRoutes = () => (
   <div>
     <div>
@@ -110,6 +111,11 @@ const AdminRoutes = () => (
         exact
         path="/admin/teams/edit-team/:id"
         component={EditTeam}
+      />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/groups/edit-group/:id"
+        component={EditGroup}
       />
       <ProtectedRouteForAdmin
         exact

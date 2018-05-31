@@ -36,7 +36,7 @@ export class AddCoupon extends Component {
                 password: ""
                 
               },
-              message: "Coupon added successfully.",
+              message: "Admin added successfully.",
               error: ""
             });
           }
@@ -48,7 +48,7 @@ export class AddCoupon extends Component {
     render() {
       return (
         <div className="content-wrapper text-center container">
-          <h3>Add Coupon</h3>
+          <h3>Add Admin</h3>
           <br />
           <p> {this.state.error}</p>
           <p className="text-danger">
