@@ -14,15 +14,14 @@ export class Groups extends Component {
 
   deleteHandler(id) {
     axios
-    .delete(process.env.REACT_APP_BACKEND + "/api/deletegroup/" + id)
+      .delete(process.env.REACT_APP_BACKEND + "/api/deletegroup/" + id)
       .then(resp => {
         this.getAllGroups();
 
         // this.props.history.pageRefresh();
       });
   }
-
-  componentDidMount() {
+  getAllGroups = () => {
     axios
       .get(`${process.env.REACT_APP_BACKEND}/api/allgroups`)
       .then(groups => {
@@ -31,6 +30,9 @@ export class Groups extends Component {
       .catch(err => {
         console.log(err);
       });
+  };
+  componentDidMount() {
+    this.getAllGroups();
   }
   render() {
     return this.state.groups ? (
@@ -60,23 +62,28 @@ export class Groups extends Component {
                     <tr>
                       <th style={{ width: "30%" }}>Name</th>
                       <th style={{ width: "50%" }}>Team</th>
-                    
+
                       <th style={{ width: "8.33%" }}>Actions</th>
                       <th style={{ width: "8.33%" }}>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.groups.map((group,key) => {
+                    {this.state.groups.map((group, key) => {
                       return (
-                        <tr key={key} >
+                        <tr key={key}>
                           <td>{group.name}</td>
                           <td>{group.team.name} </td>
-                          
+
                           <td>
-                            <Link to={`/admin/groups/edit-group/${group._id}`} className="btn btn-warning">Edit</Link>
+                            <Link
+                              to={`/admin/groups/edit-group/${group._id}`}
+                              className="btn btn-warning"
+                            >
+                              Edit
+                            </Link>
                           </td>
                           <td>
-                          <button
+                            <button
                               onClick={() => {
                                 if (
                                   window.confirm(
@@ -102,7 +109,7 @@ export class Groups extends Component {
         </div>
       </div>
     ) : (
-      <Loading/>
+      <Loading />
     );
   }
 }

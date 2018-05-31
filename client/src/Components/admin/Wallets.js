@@ -25,6 +25,9 @@ export class Wallets extends Component {
     this.setState({ open: false });
   };
   componentDidMount() {
+    this.getAllWallets();
+  }
+  getAllWallets = () => {
     axios
       .get(`${process.env.REACT_APP_BACKEND}/api/allwallets`)
       .then(wallets => {
@@ -33,11 +36,10 @@ export class Wallets extends Component {
       .catch(err => {
         console.log(err);
       });
-  }
-
+  };
   deleteHandler(id) {
     axios
-    .delete(process.env.REACT_APP_BACKEND + "/api/deletewallet/" + id)
+      .delete(process.env.REACT_APP_BACKEND + "/api/deletewallet/" + id)
       .then(resp => {
         this.getAllWallets();
 
@@ -63,14 +65,22 @@ export class Wallets extends Component {
             </div>
             <Modal open={open} onClose={this.onCloseModal} center>
               {wallet ? (
-                <div className='container mt-2 mr-2 historyModal'>
+                <div className="container mt-2 mr-2 historyModal">
                   <h6>History</h6>
                   <ul>
                     {wallet.history.reverse().map((event, key) => {
                       if (event.includes("subtract")) {
-                        return <li key={key} className="text-danger">{event}</li>;
+                        return (
+                          <li key={key} className="text-danger">
+                            {event}
+                          </li>
+                        );
                       } else {
-                        return <li key={key} className="text-primary">{event}</li>;
+                        return (
+                          <li key={key} className="text-primary">
+                            {event}
+                          </li>
+                        );
                       }
                     })}
                   </ul>
@@ -113,12 +123,15 @@ export class Wallets extends Component {
                             </button>
                           </td>
                           <td>
-                            <Link to={`/admin/wallets/edit-wallet/${wallet._id}`} className="btn btn-sm btn-warning">
+                            <Link
+                              to={`/admin/wallets/edit-wallet/${wallet._id}`}
+                              className="btn btn-sm btn-warning"
+                            >
                               Edit
                             </Link>
                           </td>
                           <td>
-                          <button
+                            <button
                               onClick={() => {
                                 if (
                                   window.confirm(

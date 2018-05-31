@@ -81,8 +81,8 @@ export class AddGroup extends Component {
             id="team"
           >
             <option value="">Select Team</option>;
-            {this.state.teams.map(team => {
-              return <option value={team._id}>{team.name} </option>;
+            {this.state.teams.map((team,key) => {
+              return <option key={key} value={team._id}>{team.name} </option>;
             })}
           </select>
           <hr />

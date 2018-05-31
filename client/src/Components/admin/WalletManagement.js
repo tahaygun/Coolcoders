@@ -41,13 +41,13 @@ export class WalletManagement extends Component {
               <div>
                 <i className="fa fa-table" /> Cash History
                 <Link
-                  to="/admin/wallet-management/text-command"
+                  to="/admin/wallet-management/text-commands"
                   className="btn btn-info m-1 float-right btn-sm"
                 >
                   Text commands
                 </Link>
                 <Link
-                  to="/admin/wallets/add-wallet"
+                  to="/admin/wallet-management/voice-commands"
                   className="btn btn-info float-right m-1 btn-sm"
                 >
                   Voice Commands

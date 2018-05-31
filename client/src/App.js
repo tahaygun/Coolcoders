@@ -37,6 +37,7 @@ import AddAdmin from "./Components/admin/AddAdmin";
 import UserWallet from "./Components/UserWallet";
 import WalletManagement from "./Components/admin/WalletManagement";
 import TextCommands from "./Components/admin/TextCommands";
+import VoiceCommands from "./Components/admin/VoiceCommands";
 import EditGroup from "./Components/admin/EditGroup";
 import EditWallet from "./Components/admin/EditWallet";
 const DefaultRoutes = () => (
@@ -149,8 +150,13 @@ const AdminRoutes = () => (
       />
       <ProtectedRouteForAdmin
         exact
-        path="/admin/wallet-management/text-command"
+        path="/admin/wallet-management/text-commands"
         component={TextCommands}
+      />
+      <ProtectedRouteForAdmin
+        exact
+        path="/admin/wallet-management/voice-commands"
+        component={VoiceCommands}
       />
       <ProtectedRouteForAdmin component={Page404} />
     </Switch>

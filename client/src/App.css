@@ -113,3 +113,8 @@ textarea {
     display: unset;
   }
 }
+
+#listenButton {
+  width: 100px;
+  margin: auto;
+}

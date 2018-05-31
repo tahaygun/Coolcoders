@@ -6,9 +6,9 @@ export class EditGroup extends Component {
 
     this.state = {
       data: {
-        name: "",
+        name: ""
       },
-      
+
       message: null,
       error: ""
     };
@@ -23,9 +23,8 @@ export class EditGroup extends Component {
       .then(group => {
         this.setState({
           data: {
-            name: group.data.name,            
-          },
-         
+            name: group.data.name
+          }
         });
       });
   }
@@ -36,10 +35,9 @@ export class EditGroup extends Component {
       data: formData
     });
   };
- 
 
   submitHandler = e => {
-    e.preventDefault();   
+    e.preventDefault();
     axios
       .put(
         process.env.REACT_APP_BACKEND +
@@ -82,18 +80,12 @@ export class EditGroup extends Component {
             onChange={this.formHandler}
             id="name"
           />
-        
-          
-          
-          <br />
           <hr />
           <button className="btn btn-warning" type="submit">
             Update
           </button>
         </form>{" "}
         <br />
-        
-        <br /> <br />
         <button
           onClick={() => {
             this.props.history.goBack();
