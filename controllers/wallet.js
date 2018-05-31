@@ -159,16 +159,15 @@ function walletController(router) {
   });
 
   //@To edit WALLET
-  router.put("/editwallet/:id", validations, (req, res) => {
+  router.put("/editwallet/:id", (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(500).send({ errors: errors.mapped() });
     }
-    wallet
+    Wallet
       .findById(req.params.id)
-      .then(Wallet => {
+      .then(wallet => {
         wallet.name = req.body.name;
-        wallet.group = req.body.group;
         wallet.coins = req.body.coins;
         wallet
           .save()

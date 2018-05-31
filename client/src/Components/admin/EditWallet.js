@@ -9,12 +9,12 @@ export class EditTeam extends Component {
         name: "",
         coins: ""
       },
- 
+
       message: null,
       error: ""
     };
   }
-  componentWillMount() {
+  componentDidMount() {
     axios
       .get(
         process.env.REACT_APP_BACKEND +
@@ -24,10 +24,9 @@ export class EditTeam extends Component {
       .then(wallet => {
         this.setState({
           data: {
-            name: wallet.data.name,
-            coins: wallet.data.coins
-          },
-          
+            name: wallet.data.wallet.name,
+            coins: wallet.data.wallet.coins
+          }
         });
       });
   }
@@ -38,20 +37,15 @@ export class EditTeam extends Component {
       data: formData
     });
   };
- 
 
   submitHandler = e => {
     e.preventDefault();
-    let formInfo = new FormData();
-    formInfo.append("name", this.state.data.name);
-    formInfo.append("coins", this.state.data.coins);
-    
     axios
       .put(
         process.env.REACT_APP_BACKEND +
           "/api/editwallet/" +
           this.props.match.params.id,
-        formInfo
+        this.state.data
       )
       .then(res => {
         if (res.status === 200) {
@@ -89,30 +83,27 @@ export class EditTeam extends Component {
             onChange={this.formHandler}
             id="name"
           />
-
-           <label htmlFor="content">Coins</label>
           <br />
-          <textarea
+          <label htmlFor="name">Coins</label> <br />
+          <input
             className="form-control"
             required
-            id="textarea"
+            style={{ width: "50vmax", margin: "auto" }}
             value={this.state.data.coins}
-            style={{ height: 70, width: "50vmax", margin: "auto" }}
-            type="text"
+            autoComplete="off"
+            type="number"
             name="coins"
             onChange={this.formHandler}
+            id="coins"
           />
-          <hr />
-          
+          <br />
          
-
-
+          <hr />
           <button className="btn btn-warning" type="submit">
             Update
           </button>
         </form>{" "}
         <br />
-       
         <br /> <br />
         <button
           onClick={() => {
