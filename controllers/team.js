@@ -99,6 +99,9 @@ function teamController(router, upload) {
   router.delete("/deleteteam/:id", (req, res) => {
     Team.findByIdAndRemove(req.params.id)
       .then(result => {
+        if (fs.existsSync(`./uploads/${result.imgUrl}`)) {
+          fs.unlinkSync(`./uploads/${result.imgUrl}`)
+        }
         Group.remove({ team: req.params.id })
           .then(result => {
             Wallet.remove({ team: req.params.id }).exec()
