@@ -13,7 +13,7 @@ const connection= mongoose.connect('mongodb://admin:rootpass@ds119059.mlab.com:1
 
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000","http://188.166.96.8:3000"],
     methods: ["GET", "HEAD", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"],
     credentials: true //allow setting of cookies
   })
