@@ -6,7 +6,7 @@ import Loading from "../Loading";
 export class Items extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       items: null
     };
@@ -23,17 +23,14 @@ export class Items extends Component {
   };
   deleteHandler(id) {
     axios
-    .delete(process.env.REACT_APP_BACKEND + "/api/deleteitem/" + id)
+      .delete(process.env.REACT_APP_BACKEND + "/api/deleteitem/" + id)
       .then(resp => {
         this.getAllItems();
-
-        // this.props.history.pageRefresh();
       });
   }
   componentDidMount() {
     this.getAllItems();
   }
-
 
   render() {
     return this.state.items ? (
@@ -72,7 +69,15 @@ export class Items extends Component {
                     {this.state.items.map((item, key) => {
                       return (
                         <tr key={key}>
-                          <td><Link className='text-info' to={`/item/details/${item.seqId}`} > {item.name}</Link> </td>
+                          <td>
+                            <Link
+                              className="text-info"
+                              to={`/item/details/${item.seqId}`}
+                            >
+                              {" "}
+                              {item.name}
+                            </Link>{" "}
+                          </td>
                           <td>{item.shortDesc} </td>
                           <td>{item.price}</td>
                           <td>
@@ -110,7 +115,7 @@ export class Items extends Component {
         </div>
       </div>
     ) : (
-      <Loading/>
+      <Loading />
     );
   }
 }

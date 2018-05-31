@@ -103,9 +103,9 @@ export class Wallets extends Component {
                             </button>
                           </td>
                           <td>
-                            <button className="btn btn-sm btn-warning">
+                            <Link to={`/admin/wallets/edit-wallet/${wallet._id}`} className="btn btn-sm btn-warning">
                               Edit
-                            </button>
+                            </Link>
                           </td>
                           <td>
                             <button className="btn btn-sm btn-danger">

@@ -40,7 +40,7 @@ textarea {
   background-color: #ffffff0e;
 }
 .chatbox{
-  height: 500px;
+  height: 400px;
   overflow: auto;
   display: block;
   word-wrap: break-word;

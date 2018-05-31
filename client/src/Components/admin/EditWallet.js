@@ -26,10 +26,10 @@ export class EditTeam extends Component {
       .then(wallet => {
         this.setState({
           data: {
-            name: team.data.name,
-            group: team.data.group,
-            team: team.data.team,
-            coins: team.data.coins
+            name: wallet.data.name,
+            group: wallet.data.group,
+            team: wallet.data.team,
+            coins: wallet.data.coins
           },
           
         });

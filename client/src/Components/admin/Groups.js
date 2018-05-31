@@ -63,7 +63,7 @@ export class Groups extends Component {
                           <td>{group.team.name} </td>
                           
                           <td>
-                            <button className="btn btn-warning">Edit</button>
+                            <Link to={`/admin/groups/edit-group/${group._id}`} className="btn btn-warning">Edit</Link>
                           </td>
                           <td>
                             <button className="btn btn-danger">Delete</button>
