@@ -3,7 +3,7 @@ text-align: center;
 } */
 .network,
 #gomarket {
-  color: #E44235;
+  color: #e44235;
 }
 .restart {
   color: rgb(255, 255, 255);
@@ -26,20 +26,20 @@ text-align: center;
   padding: 100px;
   min-height: 85vh;
 }
-body *{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+body * {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 textarea {
   white-space: pre-line;
 }
 
-#descriptionInDetails{
+#descriptionInDetails {
   word-wrap: break-word;
 }
-#root{
+#root {
   background-color: #ffffff0e;
 }
-.chatbox{
+.chatbox {
   height: 400px;
   overflow: auto;
   display: block;
@@ -47,12 +47,69 @@ textarea {
   border: #d897907e 3px solid;
   box-shadow: #ffffff0e 1px solid;
 }
-.historyModal{
+.historyModal {
   max-height: 500px;
   overflow: auto;
+}
+.headersOnUI {
+  border-radius: 20px !important;
+  background-color: rgba(228, 65, 53, 0.829);
+}
+.pagination li {
+  position: relative;
+  display: block;
+  padding: 3px;
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  cursor: pointer;
+}
+.pagination .active {
+  color: #ffffff;
+  background-color: #007bff;
+}
+.pagination .disabled {
+  cursor: not-allowed;
+  color: #959595;
+}
+.pagination li a {
+  padding: 0.75rem;
+}
+.pagination {
+  margin: 10px;
+}
+.pagination li:hover:not(.active) {
+  background-color: #ddd;
 }
 @media (max-width: 768px) {
   #mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
     height: unset;
+  }
+  .headersOnUI {
+    font-size: 30px !important;
+    font-weight: 400 !important;
+  }
+  .pagination li {
+    padding: 2px;
+    margin: 4px;
+    display: none;
+  }
+  .pagination .next {
+    display: unset;
+  }
+  .pagination .previous {
+    display: unset;
+  }
+  .pagination .active {
+    display: unset;
+    background-color: white;
+    color: #222;
+    cursor: auto;
+  }
+  .pagination .first {
+    display: unset;
+  }
+  .pagination .last {
+    display: unset;
   }
 }

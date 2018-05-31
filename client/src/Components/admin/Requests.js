@@ -2,15 +2,21 @@ import React, { Component } from "react";
 import axios from "axios";
 import {Link} from 'react-router-dom';
 import Loading from "../Loading";
+import JwPagination from "jw-react-pagination";
 
 export class Requests extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      items: null
+      requests: null,
+      pageOfItems: []
     };
   }
+  onChangePage = pageOfItems => {
+    window.scrollTo(0, 0);
+    this.setState({ pageOfItems });
+  };
   acceptHandler = id => {
     axios
       .put(`${process.env.REACT_APP_BACKEND}/api/acceptRequest/${id}`)
@@ -46,6 +52,12 @@ export class Requests extends Component {
     this.getRequests();
   }
   render() {
+    const customLabels = {
+      first: "<<",
+      last: ">>",
+      previous: "<",
+      next: ">"
+    };
     return this.state.requests ? (
       <div className="content-wrapper">
         <div className="container-fluid">
@@ -74,7 +86,7 @@ export class Requests extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.requests.map((request, key) => {
+                    {this.state.pageOfItems.map((request, key) => {
                       return (
                         <tr key={key}>
                           <td>{request.title}</td>
@@ -145,6 +157,17 @@ export class Requests extends Component {
                 </table>
               </div>
             </div>
+            <div className="pagination justify-content-center mb-4">
+                {this.state.requests.length && (
+                  <JwPagination
+                    items={this.state.requests}
+                    onChangePage={this.onChangePage}
+                    disableDefaultStyles={true}
+                    labels={customLabels}
+                    pageSize={8}
+                  />
+                )}
+              </div>
           </div>
         </div>
       </div>

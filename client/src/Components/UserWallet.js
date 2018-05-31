@@ -53,9 +53,9 @@ class UserWallet extends Component {
       <div className="container p-5 mt-5 min-height">
         <div className="row">
           <div className="col-lg-12">
-            <h2 className="display-4 shadow p-3 mb-5 bg-primary rounded">
+            <p className="display-4 headersOnUI shadow p-3 mb-5">
               Wallets
-            </h2>
+            </p>
           </div>
           {this.state.wallets.map((wallet, key) => {
             return (

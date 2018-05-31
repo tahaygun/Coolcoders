@@ -1,16 +1,21 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import JwPagination from "jw-react-pagination";
 import Loading from "../Loading";
 export class WalletManagement extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      wallets: null
+      history: null,
+      pageOfItems: []
     };
   }
-
+  onChangePage = pageOfItems => {
+    window.scrollTo(0, 0);
+    this.setState({ pageOfItems });
+  };
   componentDidMount() {
     axios
       .get(`${process.env.REACT_APP_BACKEND}/api/walletHistory`)
@@ -22,6 +27,12 @@ export class WalletManagement extends Component {
       });
   }
   render() {
+    const customLabels = {
+      first: "<<",
+      last: ">>",
+      previous: "<",
+      next: ">"
+    };
     return this.state.history ? (
       <div className="content-wrapper">
         <div className="container-fluid">
@@ -53,33 +64,48 @@ export class WalletManagement extends Component {
                 >
                   <thead>
                     <tr>
-                      <th style={{ width: "100%" }}>Event</th>
+                      <th style={{ width: "50%" }}>Event</th>
+                      <th style={{ width: "50%" }}>Reason</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.history.map((history, key) => {
+                    {this.state.pageOfItems.map((history, key) => {
                       if (history.event.includes("added")) {
                         return (
                           <tr key={key}>
                             <td className="text-primary">{history.event}</td>
+                            <td className="text-primary">{history.reason && history.reason}</td>
                           </tr>
                         );
                       } else if (history.event.includes("subtract")) {
                         return (
                           <tr key={key}>
                             <td className="text-danger">{history.event}</td>
+                            <td className="text-danger">{history.reason &&history.reason}</td>
                           </tr>
                         );
                       } else {
                         return (
                           <tr key={key}>
                             <td className="text-success">{history.event}</td>
+                            <td className="text-success">{history.reason &&history.reason}</td>
                           </tr>
                         );
                       }
                     })}
                   </tbody>
                 </table>
+              </div>
+              <div className="pagination justify-content-center mb-4">
+                {this.state.history.length && (
+                  <JwPagination
+                    items={this.state.history}
+                    onChangePage={this.onChangePage}
+                    disableDefaultStyles={true}
+                    labels={customLabels}
+                    pageSize={12}
+                  />
+                )}
               </div>
             </div>
           </div>

@@ -25,6 +25,7 @@ export class TextCommands extends Component {
         this.setState({ wallets: wallets.data });
         setTimeout(() => {
           this.showWallets();
+          this.scrollToBottom();
         }, 1000);
       })
       .catch(err => {
@@ -81,12 +82,12 @@ export class TextCommands extends Component {
     }
     if (status === "waitForCommand") {
       if (command.includes("add") || command.includes("give")) {
-        messages.push(" How many OneCoin do you want to add?");
+        messages.push("Can you give me amount (as integer) and reason by starting 'because'?");
         status = "AddAmount";
         return this.setState({ messages, status }, this.scrollToBottom());
       }
       if (command.includes("subtract") || command.includes("take")) {
-        messages.push(" How many OneCoin do you want to subtract?");
+        messages.push("Can you give me amount (as integer) and reason by starting 'because'?");
         status = "SubAmount";
         return this.setState({ messages, status }, this.scrollToBottom());
       }
@@ -95,16 +96,17 @@ export class TextCommands extends Component {
     }
     if (status === "AddAmount") {
       if (!command.match(/\d+/)) {
-        messages.push("Please write an integer..");
+        messages.push("Please write the number as integer..");
         return this.setState({ messages });
       }
       var amount = command.match(/\d+/gi)[0];
+      var reason= command.match(/because\s+(.*)$/)[1];
       axios
         .post(
           `${process.env.REACT_APP_BACKEND}/api/wallet/addOneCoin/${
             walletToWork.wallet._id
           }`,
-          { amount }
+          { amount, reason }
         )
         .then(result => {
           messages.push(
@@ -116,7 +118,7 @@ export class TextCommands extends Component {
           return this.setState(
             { messages, status },
             this.scrollToBottom(),
-            this.showWallets()
+            this.getAllWallets()
           );
         })
         .catch(err => {
@@ -124,13 +126,18 @@ export class TextCommands extends Component {
         });
     }
     if (status === "SubAmount") {
+      if (!command.match(/\d+/)) {
+        messages.push("Please write the number as integer..");
+        return this.setState({ messages });
+      }
       amount = command.match(/\d+/gi)[0];
+      reason= command.match(/because\s+(.*)$/)[1];
       axios
         .post(
           `${process.env.REACT_APP_BACKEND}/api/wallet/takeOneCoin/${
             walletToWork.wallet._id
           }`,
-          { amount }
+          { amount, reason }
         )
         .then(result => {
           messages.push(
@@ -142,7 +149,7 @@ export class TextCommands extends Component {
           return this.setState(
             { messages, status },
             this.scrollToBottom(),
-            this.showWallets()
+            this.getAllWallets()
           );
         })
         .catch(err => {

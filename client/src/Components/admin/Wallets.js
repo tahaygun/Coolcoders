@@ -58,9 +58,9 @@ export class Wallets extends Component {
                   <ul>
                     {wallet.history.reverse().map((event, key) => {
                       if (event.includes("subtract")) {
-                        return <li className="text-danger">{event}</li>;
+                        return <li key={key} className="text-danger">{event}</li>;
                       } else {
-                        return <li className="text-primary">{event}</li>;
+                        return <li key={key} className="text-primary">{event}</li>;
                       }
                     })}
                   </ul>

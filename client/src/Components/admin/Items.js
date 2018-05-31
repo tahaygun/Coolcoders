@@ -2,15 +2,20 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Loading from "../Loading";
-
+import JwPagination from "jw-react-pagination";
 export class Items extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      items: null
+      items: null,
+      pageOfItems: []
     };
   }
+  onChangePage = pageOfItems => {
+    this.setState({ pageOfItems });
+    window.scrollTo(0, 0);
+  };
   getAllItems = () => {
     axios
       .get(`${process.env.REACT_APP_BACKEND}/api/allitems`)
@@ -33,6 +38,12 @@ export class Items extends Component {
   }
 
   render() {
+    const customLabels = {
+      first: "<<",
+      last: ">>",
+      previous: "<",
+      next: ">"
+    };
     return this.state.items ? (
       <div className="content-wrapper">
         <div className="container-fluid">
@@ -66,7 +77,7 @@ export class Items extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.items.map((item, key) => {
+                    {this.state.pageOfItems.map((item, key) => {
                       return (
                         <tr key={key}>
                           <td>
@@ -110,6 +121,17 @@ export class Items extends Component {
                   </tbody>
                 </table>
               </div>
+            </div>
+            <div className="pagination justify-content-center mb-4">
+              {this.state.items.length && (
+                <JwPagination
+                  items={this.state.items}
+                  onChangePage={this.onChangePage}
+                  disableDefaultStyles={true}
+                  labels={customLabels}
+                  pageSize={10}
+                />
+              )}
             </div>
           </div>
         </div>

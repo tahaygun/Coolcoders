@@ -135,7 +135,7 @@ img::-moz-selection {
   background-color: transparent;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 2px) {
   #mainNav {
     border-color: transparent;
     background-color: #ffffff;
@@ -207,7 +207,7 @@ header.masthead p {
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 922px) {
   header.masthead {
     height: 100vh;
     min-height: 650px;
@@ -224,11 +224,6 @@ header.masthead p {
     font-size: 4rem;
   }
 }
-
-/* 
-.text-primary {
-  color: var(--main-red) !important
-} */
 
 .btn {
   font-weight: 700;
