@@ -47,12 +47,12 @@ export class OneItem extends Component {
             <h3 style={{ fontWeight: "bold" }} className="my-4">
               {item.price} <span className="network">One</span>Coin
             </h3>
-            <p id='descriptionInDetails' className="text-justify">
+            <p id="descriptionInDetails" className="text-justify">
               {item.longDesc.split("\n").map((item, key) => {
                 return (
                   <span key={key}>
-                   {item}
-                   <br/>
+                    {item}
+                    <br />
                   </span>
                 );
               })}
@@ -60,20 +60,24 @@ export class OneItem extends Component {
             <ul>
               <li>{item.sold} times sold.</li>
             </ul>
-            <br/><br/>
-            <Link className="btn btn-warning" to={"/item/order/"+item.seqId}>
-              Order
-            </Link>{" "}
             <br />
             <br />
-            <button
-              onClick={() => {
-                this.props.history.goBack();
-              }}
-              className="btn btn-info"
-            >
-              Go Back
-            </button>
+            <div className='buttonsInDetails' >
+              <Link
+                className="btn btn-warning m-1"
+                to={"/item/order/" + item.seqId}
+              >
+                Order
+              </Link>{" "}
+              <button
+                onClick={() => {
+                  this.props.history.goBack();
+                }}
+                className="btn m-1 btn-info"
+              >
+                Go Back
+              </button>
+            </div>
           </div>
         </div>
       </div>

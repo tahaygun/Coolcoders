@@ -49,21 +49,26 @@ class Allitems extends Component {
             return (
               <div key={key} className="col-lg-4 col-sm-6 text-center mb-4">
                 <div style={{ minHeight: 150 }}>
-                  <img
-                    className="rounded-circle shadow img-fluid d-block mx-auto"
-                    min-width="150px"
-                    min-height="150px"
-                    width="150px"
-                    src={`${process.env.REACT_APP_BACKEND}/uploads/${
-                      item.imgUrl
-                    }`}
-                    alt="itempic"
-                  />
+                  <Link
+                   
+                    to={"/item/details/" + item.seqId}
+                  >
+                    <img
+                      className="rounded-circle shadow img-fluid d-block mx-auto"
+                      min-width="150px"
+                      min-height="150px"
+                      width="150px"
+                      src={`${process.env.REACT_APP_BACKEND}/uploads/${
+                        item.imgUrl
+                      }`}
+                      alt="itempic"
+                    />
+                  </Link>
                 </div>
-                <h3>
+                <h3 className="m-1">
                   {item.name} <br />
                   <small style={{ fontSize: "12px", fontWeight: "bold" }}>
-                    {item.price} OneCoin
+                    {item.price} <span className="network"> OneCoin</span>
                   </small>
                 </h3>
                 <p>{item.shortDesc}</p>

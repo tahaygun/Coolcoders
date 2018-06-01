@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, NavLink } from "react-router-dom";
-
+import logo from '../vendor/img/restart.png'
 export class Nav extends Component {
   constructor(props) {
     super(props);
@@ -23,8 +23,8 @@ export class Nav extends Component {
           <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
 
         <div className="container">
-          <Link className="navbar-brand" to="/">
-           <span className='network'>Restart</span> Marketplace
+          <Link className="navbar-brand" to="/market">
+          <img src={logo} id='navbarBrand' className="d-inline-block align-top" alt=""/>
           </Link>
           <button
             onClick={this.changeCollapse}

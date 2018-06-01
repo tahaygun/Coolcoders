@@ -257,10 +257,9 @@ export class VoiceCommands extends Component {
       return this.setState({ messages }, this.scrollToBottom());
     }
     if (status === "AddAmount") {
-      if (!command.match(/\d+/) && command.match(/because/)) {
+      if (!command.match(/\d+/) || !command.match(/because/)) {
         let message =
           "Please write the number as integer and tell me the reason..";
-        messages.push(message);
         messages.push(message);
         this.speaker.text = message;
         speechSynthesis.speak(this.speaker);
@@ -268,6 +267,7 @@ export class VoiceCommands extends Component {
       }
       var amount = command.match(/\d+/gi);
       var reason = command.match(/because\s+(.*)$/)[1];
+      console.log(reason);
       axios
         .post(
           `${process.env.REACT_APP_BACKEND}/api/wallet/addOneCoin/${
@@ -294,7 +294,7 @@ export class VoiceCommands extends Component {
         });
     }
     if (status === "SubAmount") {
-      if (!command.match(/^\d+/ && command.match(/because/))) {
+      if (!command.match(/\d+/ || !command.match(/because/))) {
         let message =
           "Please write the number as integer and tell me the reason..";
         messages.push(message);

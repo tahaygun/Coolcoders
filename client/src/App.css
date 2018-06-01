@@ -1,9 +1,8 @@
-/* nav{
-text-align: center;
-} */
 .network,
 #gomarket {
   color: #e44235;
+  font-family:  'Montserrat', sans-serif;
+
 }
 .restart {
   color: rgb(255, 255, 255);
@@ -11,6 +10,7 @@ text-align: center;
 .min-height {
   min-height: 85vh;
 }
+
 #mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
   height: 100vh;
 }
@@ -27,7 +27,7 @@ text-align: center;
   min-height: 85vh;
 }
 body * {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family:  'Montserrat', sans-serif;
 }
 textarea {
   white-space: pre-line;
@@ -53,7 +53,7 @@ textarea {
 }
 .headersOnUI {
   border-radius: 20px !important;
-  background-color: rgba(228, 65, 53, 0.829);
+  background-color: rgba(228, 65, 53, 0.932);
 }
 .pagination li {
   position: relative;
@@ -112,9 +112,22 @@ textarea {
   .pagination .last {
     display: unset;
   }
+  #navbarBrand{
+    height: 30px;
+  }
 }
-
+nav *{
+  font-weight: bold !important;
+}
 #listenButton {
   width: 100px;
+  margin: auto;
+}
+
+#navbarBrand{
+  height: 60px;
+}
+.buttonsInDetails{
+  text-align: center;
   margin: auto;
 }
