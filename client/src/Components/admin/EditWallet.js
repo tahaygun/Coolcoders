@@ -104,7 +104,6 @@ export class EditTeam extends Component {
           </button>
         </form>{" "}
         <br />
-        <br /> <br />
         <button
           onClick={() => {
             this.props.history.goBack();

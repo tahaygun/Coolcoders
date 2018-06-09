@@ -18,6 +18,7 @@ export class OneItem extends Component {
           this.props.match.params.id
       )
       .then(item => {
+        document.title = `${item.data.name} • Restart Marketplace`;
         this.setState({ item: item.data });
       });
   }
@@ -62,7 +63,7 @@ export class OneItem extends Component {
             </ul>
             <br />
             <br />
-            <div className='buttonsInDetails' >
+            <div className="buttonsInDetails">
               <Link
                 className="btn btn-warning m-1"
                 to={"/item/order/" + item.seqId}

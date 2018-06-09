@@ -27,12 +27,10 @@ var auth = (req, res, next) => {
     Admin.findOne({
       email: req.session.admin.email,
       password: req.session.admin.password
-    })
-      .then(function(admin) {
+    }).then(function(admin) {
         if (!admin) {
-          return res.status(401).json();
+          return res.status(401).json({ errors: "Not authorized!" });
         } else {
-          req.session.admin = admin;
           return next();
         }
       })
@@ -65,11 +63,11 @@ var storage = multer.diskStorage({
 //this is for uploading photo
 var upload = multer({ storage: storage });
 
-itemController(router, upload);
-teamController(router,upload);
-groupController(router);
-walletController(router);
-requestController(router,upload);
-adminController(router);
-couponController(router);
-module.exports = router;
+itemController(router, upload,auth);
+teamController(router,upload,auth);
+groupController(router,auth);
+walletController(router,auth);
+requestController(router,upload,auth);
+adminController(router,auth);
+couponController(router,auth);
+module.exports = router,auth;

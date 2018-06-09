@@ -185,7 +185,7 @@ export class VoiceCommands extends Component {
     let { status, messages, walletToWork } = this.state;
     if (command.includes("exit") || command.includes("cancel")) {
       let message =
-        "Process cancelled, let's start again. Here is the Wallets:";
+        "Process cancelled, let's start again. Here are the Wallets:";
       messages.push(message);
       status = "findwallet";
       this.speaker.text = message;
@@ -278,7 +278,7 @@ export class VoiceCommands extends Component {
         .then(result => {
           let message = `I added ${amount} OneCoin to ${
             walletToWork.wallet.name
-          } successfully. And if you want to do something more, here is the wallets:`;
+          } successfully. And if you want to do something more, here are the wallets:`;
           messages.push(message);
           this.speaker.text = message;
           speechSynthesis.speak(this.speaker);
@@ -315,7 +315,7 @@ export class VoiceCommands extends Component {
         .then(result => {
           let message = `I subtracted ${amount} OneCoin from ${
             walletToWork.wallet.name
-          } successfully. And if you want to do something more, here is the wallets:`;
+          } successfully. And if you want to do something more, here are the wallets:`;
           messages.push(message);
           this.speaker.text = message;
           speechSynthesis.speak(this.speaker);

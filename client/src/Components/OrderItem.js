@@ -67,7 +67,7 @@ export class OrderItem extends Component {
   };
   render() {
     return this.state.item ? (
-      <div className="content-wrapper text-center container">
+      <div className="text-center mt-5 min-height container">
         <h3>Order {this.state.item.name} </h3>
         <img
           className="rounded-circle img-fluid d-block mx-auto"
@@ -109,7 +109,8 @@ export class OrderItem extends Component {
             onChange={this.formHandler}
           />
           <br /> <br />
-          <label htmlFor="date">Proof Image</label>
+          <div className="upload-btn-wrapper">
+          <button className="btn-sss">Upload a file</button>
           <input
             style={{ width: "235px", margin: "auto", textAlign: "center" }}
             className="shadow rounded form-control"
@@ -117,16 +118,18 @@ export class OrderItem extends Component {
             name="image"
             onChange={this.imageHandler}
             id="price"
-          />{" "}
+          />
+          </div>
+          <br/>
           <br />
-          <button className="btn btn-primary" type="submit">
+          <button className="btn m-2 btn-primary" type="submit">
             Order
-          </button> <br/><br/>
+          </button>
           <button
           onClick={() => {
             this.props.history.goBack();
           }}
-          className="btn btn-info"
+          className="btn m-2 btn-info"
         >
           Go Back
         </button>

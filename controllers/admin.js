@@ -1,6 +1,6 @@
 const { check, validationResult } = require("express-validator/check");
 //To get all adminS
-function adminController(router) {
+function adminController(router,auth) {
   var validation = [
     check("username")
       .not()
@@ -58,7 +58,7 @@ function adminController(router) {
 
 
   //@To create admin
-  router.post("/addadmin", validation, (req, res) => {
+  router.post("/addadmin",auth, validation, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).send({ errors: errors.mapped() });
@@ -75,7 +75,7 @@ function adminController(router) {
   });
 
 //to get all adminss 
-router.get("/alladmins", (req, res) => {
+router.get("/alladmins",auth, (req, res) => {
   Admin.find()
     .then(admins => {
       res.json(admins);
@@ -85,7 +85,7 @@ router.get("/alladmins", (req, res) => {
     });
 });
   //@To delete adminS
-  router.delete("/deleteadmin/:id", (req, res) => {
+  router.delete("/deleteadmin/:id",auth, (req, res) => {
     Admin
       .findByIdAndRemove(req.params.id)
       .then(result => {
@@ -95,7 +95,7 @@ router.get("/alladmins", (req, res) => {
   });
 
   //@to check if user logged in or not
-  router.get('/isloggedin',(req,res)=>{
+  router.get('/isloggedin',auth,(req,res)=>{
     if (req.session.isLoggedIn) {
       res.send({isloggedin:true})
     }else{

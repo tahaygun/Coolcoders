@@ -13,7 +13,7 @@ const connection= mongoose.connect('mongodb://admin:rootpass@ds119059.mlab.com:1
 
 app.use(
   cors({
-    origin: ["http://localhost:3000","http://188.166.96.8:3000"],
+    origin: ["http://localhost:3000","http://188.166.96.8:3000","https://restart-market.firebaseapp.com"],
     methods: ["GET", "HEAD", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"],
     credentials: true //allow setting of cookies
   })
@@ -28,7 +28,6 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection }) 
   //I wanted to destroy session every time when i restart server, cuz i am working with security stuffs and i should destroy it :D , so commented this one.
 }));
-
 
 
 app.use("/api", controller);

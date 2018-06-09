@@ -10,6 +10,7 @@ class Allitems extends Component {
       items: null,
       pageOfItems: []
     };
+    document.title="Products • Restart Marketplace";
   }
   onChangePage = pageOfItems => {
     this.setState({ pageOfItems });
@@ -51,7 +52,7 @@ class Allitems extends Component {
                 <div style={{ minHeight: 150 }}>
                   <Link
                    
-                    to={"/item/details/" + item.seqId}
+                    to={"/item/details/" + item.seqId+'/'+ item.name.toLowerCase().replace(/\s/,'-')}
                   >
                     <img
                       className="rounded-circle shadow img-fluid d-block mx-auto"
@@ -73,8 +74,8 @@ class Allitems extends Component {
                 </h3>
                 <p>{item.shortDesc}</p>
                 <Link
-                  className="btn btn-sm btn-info"
-                  to={"/item/details/" + item.seqId}
+                  className="btn btn-sm btn-info details-btn"
+                  to={"/item/details/" + item.seqId+ '/'+ item.name.toLowerCase().replace(/\s/,'-')}
                 >
                   Details
                 </Link>

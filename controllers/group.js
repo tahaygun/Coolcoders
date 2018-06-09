@@ -1,6 +1,6 @@
 const { check, validationResult } = require("express-validator/check");
 //To get all GROUPS
-function groupController(router) {
+function groupController(router,auth) {
   var validations = [
     check("name")
       .not()
@@ -25,7 +25,7 @@ function groupController(router) {
   });
 
   //@To create GROUP
-  router.post("/addgroup", validations, (req, res) => {
+  router.post("/addgroup",auth, validations, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(500).send({ errors: errors.mapped() });
@@ -51,7 +51,7 @@ function groupController(router) {
       .catch(err => res.status(404).json(err));
   });
   //@To edit GROUP
-  router.put("/editgroup/:id", (req, res) => {
+  router.put("/editgroup/:id",auth, (req, res) => {
     Group.findByIdAndUpdate(req.params.id)
       .then(group => {
         group.name = req.body.name;
@@ -68,7 +68,7 @@ function groupController(router) {
   });
 
   //@To delete GROUP
-  router.delete("/deletegroup/:id", (req, res) => {
+  router.delete("/deletegroup/:id",auth, (req, res) => {
     Group.findByIdAndRemove(req.params.id)
       .then(result => {
         Wallet.remove({ group: req.params.id })

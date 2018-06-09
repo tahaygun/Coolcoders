@@ -1,8 +1,7 @@
 .network,
 #gomarket {
   color: #e44235;
-  font-family:  'Montserrat', sans-serif;
-
+  font-family: "Montserrat", sans-serif;
 }
 .restart {
   color: rgb(255, 255, 255);
@@ -27,7 +26,7 @@
   min-height: 85vh;
 }
 body * {
-  font-family:  'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 textarea {
   white-space: pre-line;
@@ -58,19 +57,22 @@ textarea {
 .pagination li {
   position: relative;
   display: block;
-  padding: 3px;
-  color: #007bff;
+  padding: 2px;
+  font-weight: bold;
+  color: #e44235;
   background-color: #fff;
   border: 1px solid #dee2e6;
   cursor: pointer;
+  border-radius: 30px;
+  
 }
 .pagination .active {
   color: #ffffff;
-  background-color: #007bff;
+  background-color: #e44235;
 }
 .pagination .disabled {
   cursor: not-allowed;
-  color: #959595;
+  color: #95959573;
 }
 .pagination li a {
   padding: 0.75rem;
@@ -112,11 +114,11 @@ textarea {
   .pagination .last {
     display: unset;
   }
-  #navbarBrand{
+  #navbarBrand {
     height: 30px;
   }
 }
-nav *{
+nav * {
   font-weight: bold !important;
 }
 #listenButton {
@@ -124,10 +126,71 @@ nav *{
   margin: auto;
 }
 
-#navbarBrand{
+#navbarBrand {
   height: 60px;
 }
-.buttonsInDetails{
+.buttonsInDetails {
   text-align: center;
   margin: auto;
+}
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+.details-btn{
+  background-color: #e44235 !important;
+}
+.details-btn:hover{
+  background-color: #e441351f !important;
+  color: #e44235 !important;
+}
+.btn-sss {
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  font-size: 50px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.landing-header {
+  opacity: 0;
+  animation: fadeIn 1s 0.4s linear forwards;
+}
+.text-faded{
+  opacity: 0;
+  animation: fadeIn 1s 1s forwards;
+}
+.enterButton{
+  opacity: 0;
+  position: relative;
+  animation: enterBtn 1.5s 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes enterBtn {
+  0% {
+    opacity: 0;
+    left: -500px;
+  }
+  100% {
+    left: 0;
+    opacity: 1;
+  }
 }

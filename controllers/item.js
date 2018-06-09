@@ -1,6 +1,6 @@
 const fs = require("fs");
 const { check, validationResult } = require("express-validator/check");
-function itemController(router, upload) {
+function itemController(router, upload, auth) {
   var validations = [
     check("name")
       .not()
@@ -30,6 +30,7 @@ function itemController(router, upload) {
   //To get all itemS
   router.get("/allitems", (req, res) => {
     Item.find()
+      .sort([["createdAt", "descending"]])
       .then(items => {
         res.json(items);
       })
@@ -39,8 +40,8 @@ function itemController(router, upload) {
   });
 
   //@to get one item
-  router.get("/item/:id", (req, res) => {
-    Item.findById(req.params.id)
+  router.get("/item/:itemid", (req, res) => {
+    Item.findById(req.params.itemid)
       .then(item => {
         res.json(item);
       })
@@ -48,7 +49,7 @@ function itemController(router, upload) {
   });
   //@to get one item
   router.get("/itembySeqId/:id", (req, res) => {
-    Item.findOne({seqId:req.params.id})
+    Item.findOne({ seqId: req.params.id })
       .then(item => {
         res.json(item);
       })
@@ -60,6 +61,7 @@ function itemController(router, upload) {
   router.post(
     "/additem",
     upload.fields([{ name: "imgUrl", maxCount: 1 }]),
+    auth,
     validations,
     (req, res) => {
       var errors = validationResult(req);
@@ -87,7 +89,8 @@ function itemController(router, upload) {
   var oldImg = "";
   router.put(
     "/edititem/:id",
-    upload.fields([{ name: "imgUrl", maxCount: 1 }]), //multer files upload
+    upload.fields([{ name: "imgUrl", maxCount: 1 }]),
+    auth, //multer files upload
     validations,
     (req, res) => {
       var errors = validationResult(req);
@@ -105,13 +108,13 @@ function itemController(router, upload) {
             oldImg = item.imgUrl; //we store path of old image to delete it later
             item.imgUrl = req.files.imgUrl[0].filename;
             if (fs.existsSync(`./uploads/${oldImg}`)) {
-              fs.unlinkSync(`./uploads/${oldImg}`)
+              fs.unlinkSync(`./uploads/${oldImg}`);
             }
           }
           item
             .save()
             .then(result => {
-              res.send(result);           
+              res.send(result);
             })
             .catch(err => res.send(err));
         })
@@ -122,11 +125,11 @@ function itemController(router, upload) {
   );
 
   //@To delete item
-  router.delete("/deleteitem/:id", (req, res) => {
+  router.delete("/deleteitem/:id", auth, (req, res) => {
     Item.findByIdAndRemove(req.params.id)
       .then(result => {
         if (fs.existsSync(`./uploads/${result.imgUrl}`)) {
-          fs.unlinkSync(`./uploads/${result.imgUrl}`)
+          fs.unlinkSync(`./uploads/${result.imgUrl}`);
         }
         res.send(result);
       })

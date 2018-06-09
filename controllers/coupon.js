@@ -1,6 +1,6 @@
 const { check, validationResult } = require("express-validator/check");
 //To get all coupons
-function couponController(router) {
+function couponController(router,auth) {
   var validation = [
     check("couponCode")
       .not()
@@ -28,7 +28,7 @@ function couponController(router) {
 
 
 //get all coupons 
-router.get("/allcoupons", (req, res) => {
+router.get("/allcoupons",auth, (req, res) => {
   Coupon.find()
   .then(coupons => {
     res.json(coupons);
@@ -49,7 +49,7 @@ router.get("/allcoupons", (req, res) => {
 
 
   //@To create coupon
-  router.post("/addcoupon", validation, (req, res) => {
+  router.post("/addcoupon",auth, validation, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(401).send({ errors: errors.mapped() });
@@ -66,7 +66,7 @@ router.get("/allcoupons", (req, res) => {
   });
 
   //@To delete coupon
-  router.delete("/deletecoupon/:id", (req, res) => {
+  router.delete("/deletecoupon/:id",auth, (req, res) => {
     Coupon
       .findByIdAndRemove(req.params.id)
       .then(result => {

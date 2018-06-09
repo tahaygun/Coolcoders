@@ -1,7 +1,7 @@
 const { check, validationResult } = require("express-validator/check");
 const fs = require("fs");
 //To get all TEAMS
-function teamController(router, upload) {
+function teamController(router, upload,auth) {
   var validations = [
     check("name")
       .not()
@@ -29,7 +29,7 @@ function teamController(router, upload) {
   //@To create TEAM
   router.post(
     "/addteam",
-    upload.fields([{ name: "imgUrl", maxCount: 1 }]), //multer files uploadvalidations,
+    upload.fields([{ name: "imgUrl", maxCount: 1 }]),auth, //multer files uploadvalidations,
     (req, res) => {
       var errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -64,7 +64,7 @@ function teamController(router, upload) {
   //@To edit TEAM
   router.put(
     "/editteam/:id",
-    upload.fields([{ name: "imgUrl", maxCount: 1 }]),
+    upload.fields([{ name: "imgUrl", maxCount: 1 }]),auth,
     validations,
     (req, res) => {
       var errors = validationResult(req);
@@ -96,7 +96,7 @@ function teamController(router, upload) {
   );
 
   //@To delete TEAM
-  router.delete("/deleteteam/:id", (req, res) => {
+  router.delete("/deleteteam/:id",auth, (req, res) => {
     Team.findByIdAndRemove(req.params.id)
       .then(result => {
         if (fs.existsSync(`./uploads/${result.imgUrl}`)) {

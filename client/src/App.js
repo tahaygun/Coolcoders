@@ -57,6 +57,11 @@ const DefaultRoutes = () => (
           path="/item/details/:id"
           component={OneItem}
         />
+        <ProtectedRouteForUser
+          exact
+          path="/item/details/:id/:name"
+          component={OneItem}
+        />
         <ProtectedRouteForUser exact path="/wallets" component={UserWallet} />
         <ProtectedRouteForUser component={Page404} />
       </Switch>

@@ -1,6 +1,6 @@
 const { check, validationResult } = require("express-validator/check");
 //To get all WALLETS
-function walletController(router) {
+function walletController(router,auth) {
   var validations = [
     check("name")
       .not()
@@ -24,7 +24,7 @@ function walletController(router) {
         res.status(404).json(err);
       });
   });
-  router.get("/walletHistory", (req, res) => {
+  router.get("/walletHistory",auth, (req, res) => {
     History.find()
       .sort([["createdAt", "descending"]])
       .then(history => {
@@ -36,7 +36,7 @@ function walletController(router) {
   });
 
   //@To create WALLET
-  router.post("/addwallet", validations, (req, res) => {
+  router.post("/addwallet",auth, validations, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(500).send({ errors: errors.mapped() });
@@ -64,12 +64,12 @@ function walletController(router) {
     });
   });
   //@To add money to WALLET
-  router.post("/wallet/addOneCoin/:id", (req, res) => {
+  router.post("/wallet/addOneCoin/:id",auth, (req, res) => {
     Wallet.findByIdAndUpdate(req.params.id).then(wallet => {
       wallet.coins = Number(wallet.coins) + Number(req.body.amount);
       var message = `${
         req.body.amount
-      } OneCoin added at ${new Date().toLocaleString()} because ${
+      } OneCoin added at ${new Date().toLocaleString()}. Reason: ${
         req.body.reason
       }`;
       wallet.history.push(message);
@@ -96,12 +96,12 @@ function walletController(router) {
     });
   });
   //@To take money to WALLET
-  router.post("/wallet/takeOneCoin/:id", (req, res) => {
+  router.post("/wallet/takeOneCoin/:id",auth, (req, res) => {
     Wallet.findByIdAndUpdate(req.params.id).then(wallet => {
       wallet.coins = Number(wallet.coins) - Number(req.body.amount);
       var message = `${
         req.body.amount
-      } OneCoin subtracted at ${new Date().toLocaleString()} because ${
+      } OneCoin subtracted at ${new Date().toLocaleString()}. Reason: ${
         req.body.reason
       }`;
       wallet.history.push(message);
@@ -159,7 +159,7 @@ function walletController(router) {
   });
 
   //@To edit WALLET
-  router.put("/editwallet/:id", (req, res) => {
+  router.put("/editwallet/:id",auth, (req, res) => {
     var errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(500).send({ errors: errors.mapped() });
@@ -182,7 +182,7 @@ function walletController(router) {
   });
 
   //@To delete WALLET
-  router.delete("/deletewallet/:id", (req, res) => {
+  router.delete("/deletewallet/:id",auth, (req, res) => {
     Wallet.findByIdAndRemove(req.params.id)
       .then(result => {
         res.send(result);

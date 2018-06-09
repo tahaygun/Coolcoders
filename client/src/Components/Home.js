@@ -18,6 +18,7 @@ export class Home extends Component {
     };
     this.changeHandler = this.changeHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
+    document.title="Restart Marketplace";    
   }
   componentWillMount() {
     axios
@@ -58,7 +59,7 @@ export class Home extends Component {
         <header className="masthead min-height text-center text-white d-flex">
           <div className="container my-auto">
             <div className="row contentOfHead">
-              <div className="col-lg-10 mx-auto">
+              <div className="col-lg-10 landing-header mx-auto">
                 <h1 className="text-uppercase">
                   <strong>
                     Welcome to <span className="restart">Restart</span>.<span className="network">
@@ -69,7 +70,7 @@ export class Home extends Component {
                 </h1>
                 <hr className="landing-hr" />
               </div>
-              <div className="col-lg-8 mx-auto">
+              <div className="col-lg-8 landing-content mx-auto">
                 <p className="text-faded mb-5">
                   Restart Marketplace is a store for Restart ONE students which
                   they can buy Restart.Network products by Restart.Network's own
@@ -77,10 +78,10 @@ export class Home extends Component {
                 </p>
                 {!this.state.isloggedIn &&
                   this.state.wait && (
-                    <div className="loginform">
+                    <div className="loginform enterButton">
                       <form onSubmit={this.submitHandler}>
                         {this.state.errors && (
-                          <p className="text-danger">{this.state.errors}</p>
+                          <p className="text-warning">{this.state.errors}</p>
                         )}
                         <input
                           style={{ width: 300, margin: "auto" }}
@@ -105,7 +106,7 @@ export class Home extends Component {
                 {this.state.isloggedIn &&
                   this.state.wait && (
                     <Link
-                      className="btn btn-primary btn-md js-scroll-trigger"
+                      className="btn enterButton btn-enter btn-primary btn-md js-scroll-trigger"
                       to="/market"
                     >
                       Go Marketplace
